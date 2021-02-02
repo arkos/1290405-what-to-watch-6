@@ -8,6 +8,10 @@
     "test": "npm run eslint"
   },
   "devDependencies": {
+    "@babel/core": "7.12.10",
+    "@babel/preset-env": "7.12.11",
+    "@babel/preset-react": "7.12.10",
+    "babel-loader": "8.2.2",
     "eslint": "7.18.0",
     "eslint-config-htmlacademy": "2.1.0",
     "eslint-plugin-react": "7.22.0",
