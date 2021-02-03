@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import MovieCard from '../movie-card/movie-card';
+import PropTypes from 'prop-types';
 
 const MOVIE_COUNT = 20;
 
@@ -129,3 +130,8 @@ export default class WelcomeScreen extends Component {
     );
   }
 }
+
+WelcomeScreen.propTypes = {
+  genre: PropTypes.string.isRequired,
+  year: PropTypes.number.isRequired
+};
