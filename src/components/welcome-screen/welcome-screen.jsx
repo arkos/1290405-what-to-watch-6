@@ -5,6 +5,8 @@ const MOVIE_COUNT = 20;
 
 export default class WelcomeScreen extends Component {
   render() {
+    const {genre, year} = this.props;
+
     return (
       <React.Fragment>
         <section className="movie-card">
@@ -39,8 +41,8 @@ export default class WelcomeScreen extends Component {
               <div className="movie-card__desc">
                 <h2 className="movie-card__title">The Grand Budapest Hotel</h2>
                 <p className="movie-card__meta">
-                  <span className="movie-card__genre">Drama</span>
-                  <span className="movie-card__year">2014</span>
+                  <span className="movie-card__genre">{genre}</span>
+                  <span className="movie-card__year">{year}</span>
                 </p>
 
                 <div className="movie-card__buttons">
