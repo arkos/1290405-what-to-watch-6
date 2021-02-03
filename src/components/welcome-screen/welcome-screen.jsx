@@ -100,7 +100,7 @@ export default class WelcomeScreen extends Component {
             </ul>
 
             <div className="catalog__movies-list">
-              {new Array(MOVIE_COUNT).fill(null).map((index) => <MovieCard key={index} />)}
+              {new Array(MOVIE_COUNT).fill(null).map((_, index) => <MovieCard key={index} />)}
             </div>
 
             <div className="catalog__more">
