@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const MOVIE_COUNT = 20;
 
-export default class WelcomeScreen extends Component {
+export default class Main extends Component {
   render() {
     const {genre, year} = this.props;
 
@@ -131,7 +131,7 @@ export default class WelcomeScreen extends Component {
   }
 }
 
-WelcomeScreen.propTypes = {
+Main.propTypes = {
   genre: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired
 };
