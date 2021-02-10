@@ -10,7 +10,7 @@ import NotFound from '../not-found/not-found';
 import PropTypes from 'prop-types';
 
 const App = (props) => {
-  const {genre, year} = props;
+  const {genre, year, films, reviews} = props;
 
   return (
     <BrowserRouter>
@@ -43,7 +43,9 @@ const App = (props) => {
 
 App.propTypes = {
   genre: PropTypes.string.isRequired,
-  year: PropTypes.number.isRequired
+  year: PropTypes.number.isRequired,
+  films: PropTypes.array.isRequired,
+  reviews: PropTypes.array.isRequired
 };
 
 export default App;
