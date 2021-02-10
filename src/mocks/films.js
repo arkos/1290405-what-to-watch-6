@@ -1,6 +1,6 @@
-const POSTER_IMAGE_URL = `https://picsum.photos/218/327`;
-const PREVIEW_IMAGE_URL = `https://picsum.photos/280/175`;
-const BACKGROUND_IMAGE_URL = `https://picsum.photos/1300/552`;
+const POSTER_IMAGE_URL = `https://picsum.photos/seed/###/218/327`;
+const PREVIEW_IMAGE_URL = `https://picsum.photos/seed/###/280/175`;
+const BACKGROUND_IMAGE_URL = `https://picsum.photos/seed/###/1300/552`;
 const VIDEO_URL = `https://www.youtube.com/watch`;
 const PREVIEW_VIDEO_URL = `https://www.youtube.com/watch`;
 
@@ -13,14 +13,26 @@ const getRandomColor = () => {
   return color;
 };
 
+const getRandomPosterImagePath = () => {
+  return POSTER_IMAGE_URL.replace(`###`, Math.random());
+};
+
+const getRandomPreviewImagePath = () => {
+  return PREVIEW_IMAGE_URL.replace(`###`, Math.random());
+};
+
+const getBackgroundImagePath = () => {
+  return BACKGROUND_IMAGE_URL.replace(`###`, Math.random());
+};
+
 
 export default [
   {
     id: 1,
     name: `The Grand Budapest Hotel`,
-    posterImagePath: POSTER_IMAGE_URL,
-    previewImagePath: PREVIEW_IMAGE_URL,
-    backgroundImagePath: BACKGROUND_IMAGE_URL,
+    posterImagePath: getRandomPosterImagePath(),
+    previewImagePath: getRandomPreviewImagePath(),
+    backgroundImagePath: getBackgroundImagePath(),
     backgroundColor: getRandomColor(),
     videoUrl: `${VIDEO_URL}?v=zru-1DbbcsA`,
     previewVideoUrl: `${PREVIEW_VIDEO_URL}?v=zru-1DbbcsA`,
@@ -37,9 +49,9 @@ export default [
   {
     id: 2,
     name: `Ad Astra`,
-    posterImagePath: POSTER_IMAGE_URL,
-    previewImagePath: PREVIEW_IMAGE_URL,
-    backgroundImagePath: BACKGROUND_IMAGE_URL,
+    posterImagePath: getRandomPosterImagePath(),
+    previewImagePath: getRandomPreviewImagePath(),
+    backgroundImagePath: getBackgroundImagePath(),
     backgroundColor: getRandomColor(),
     videoUrl: `${VIDEO_URL}?v=ykC_wu6ffOU`,
     previewVideoUrl: `${PREVIEW_VIDEO_URL}?v=ykC_wu6ffOU`,
@@ -56,9 +68,9 @@ export default [
   {
     id: 3,
     name: `Guardians of the Galaxy Vol. 2`,
-    posterImagePath: POSTER_IMAGE_URL,
-    previewImagePath: PREVIEW_IMAGE_URL,
-    backgroundImagePath: BACKGROUND_IMAGE_URL,
+    posterImagePath: getRandomPosterImagePath(),
+    previewImagePath: getRandomPreviewImagePath(),
+    backgroundImagePath: getBackgroundImagePath(),
     backgroundColor: getRandomColor(),
     videoUrl: `${VIDEO_URL}?v=d96cjJhvlMA`,
     previewVideoUrl: `${PREVIEW_VIDEO_URL}?v=d96cjJhvlMA`,
@@ -75,9 +87,9 @@ export default [
   {
     id: 4,
     name: `Secret`,
-    posterImagePath: POSTER_IMAGE_URL,
-    previewImagePath: PREVIEW_IMAGE_URL,
-    backgroundImagePath: BACKGROUND_IMAGE_URL,
+    posterImagePath: getRandomPosterImagePath(),
+    previewImagePath: getRandomPreviewImagePath(),
+    backgroundImagePath: getBackgroundImagePath(),
     backgroundColor: getRandomColor(),
     videoUrl: `${VIDEO_URL}?v=Kt8oYqu4S_c`,
     previewVideoUrl: `${PREVIEW_VIDEO_URL}?v=Kt8oYqu4S_c`,
@@ -94,9 +106,9 @@ export default [
   {
     id: 5,
     name: `Key`,
-    posterImagePath: POSTER_IMAGE_URL,
-    previewImagePath: PREVIEW_IMAGE_URL,
-    backgroundImagePath: BACKGROUND_IMAGE_URL,
+    posterImagePath: getRandomPosterImagePath(),
+    previewImagePath: getRandomPreviewImagePath(),
+    backgroundImagePath: getBackgroundImagePath(),
     backgroundColor: getRandomColor(),
     videoUrl: `${VIDEO_URL}?v=_EonRi0yQOE`,
     previewVideoUrl: `${PREVIEW_VIDEO_URL}?v=_EonRi0yQOE`,
@@ -113,9 +125,9 @@ export default [
   {
     id: 6,
     name: `Avatar`,
-    posterImagePath: POSTER_IMAGE_URL,
-    previewImagePath: PREVIEW_IMAGE_URL,
-    backgroundImagePath: BACKGROUND_IMAGE_URL,
+    posterImagePath: getRandomPosterImagePath(),
+    previewImagePath: getRandomPreviewImagePath(),
+    backgroundImagePath: getBackgroundImagePath(),
     backgroundColor: getRandomColor(),
     videoUrl: `${VIDEO_URL}?v=5PSNL1qE6VY`,
     previewVideoUrl: `${PREVIEW_VIDEO_URL}?v=5PSNL1qE6VY`,
@@ -132,9 +144,9 @@ export default [
   {
     id: 7,
     name: `Pulp Fiction`,
-    posterImagePath: POSTER_IMAGE_URL,
-    previewImagePath: PREVIEW_IMAGE_URL,
-    backgroundImagePath: BACKGROUND_IMAGE_URL,
+    posterImagePath: getRandomPosterImagePath(),
+    previewImagePath: getRandomPreviewImagePath(),
+    backgroundImagePath: getBackgroundImagePath(),
     backgroundColor: getRandomColor(),
     videoUrl: `${VIDEO_URL}?v=s7EdQ4FqbhY`,
     previewVideoUrl: `${PREVIEW_VIDEO_URL}?v=s7EdQ4FqbhY`,
@@ -151,9 +163,9 @@ export default [
   {
     id: 8,
     name: `Revenant`,
-    posterImagePath: POSTER_IMAGE_URL,
-    previewImagePath: PREVIEW_IMAGE_URL,
-    backgroundImagePath: BACKGROUND_IMAGE_URL,
+    posterImagePath: getRandomPosterImagePath(),
+    previewImagePath: getRandomPreviewImagePath(),
+    backgroundImagePath: getBackgroundImagePath(),
     backgroundColor: getRandomColor(),
     videoUrl: `${VIDEO_URL}?v=LoebZZ8K5N0`,
     previewVideoUrl: `${PREVIEW_VIDEO_URL}?v=LoebZZ8K5N0`,
