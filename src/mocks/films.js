@@ -1,5 +1,5 @@
 const POSTER_IMAGE_URL = `https://picsum.photos/218/327`;
-const PREVIEW_IMAGE_URL = `https://picsum.photos/218/327`;
+const PREVIEW_IMAGE_URL = `https://picsum.photos/280/175`;
 const BACKGROUND_IMAGE_URL = `https://picsum.photos/1300/552`;
 const VIDEO_URL = `https://www.youtube.com/watch`;
 const PREVIEW_VIDEO_URL = `https://www.youtube.com/watch`;
