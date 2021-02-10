@@ -6,7 +6,7 @@ const MovieList = ({movies}) => {
   const [activeMovieId] = useState(0);
   return (
     <div className="catalog__movies-list">
-      {movies.map((movie) => <MovieCard key={movie.id} />)}
+      {movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
     </div>
   );
 };
