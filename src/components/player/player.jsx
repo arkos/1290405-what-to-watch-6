@@ -1,11 +1,17 @@
 import React from 'react';
-import {useParams} from 'react-router-dom';
+import {Redirect, useParams} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const Player = ({movies}) => {
   const {id} = useParams();
 
-  const {videoUrl, backgroundImagePath, name} = movies[id];
+  const movie = movies.find((item) => item.id === Number(id));
+
+  if (!movie) {
+    return <Redirect to="/" />;
+  }
+
+  const {videoUrl, backgroundImagePath, name} = movie;
 
   return (
     <div className="player">

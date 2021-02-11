@@ -1,13 +1,18 @@
 import React from 'react';
-import {useParams} from 'react-router-dom';
-import {Link} from 'react-router-dom';
+import {Link, Redirect, useParams} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {AVATAR_URL} from '../../const';
 
 const AddReview = ({movies}) => {
   const {id} = useParams();
 
-  const {backgroundImagePath, name, posterImagePath} = movies[id];
+  const movie = movies.find((item) => item.id === Number(id));
+
+  if (!movie) {
+    return <Redirect to="/" />;
+  }
+
+  const {backgroundImagePath, name, posterImagePath} = movie;
 
   return (
     <section className="movie-card movie-card--full">

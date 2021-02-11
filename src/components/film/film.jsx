@@ -1,10 +1,16 @@
 import React from 'react';
-import {Link, useParams} from 'react-router-dom';
+import {Link, Redirect, useParams} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {AVATAR_URL} from '../../const';
 
 const Film = ({movies}) => {
   const {id} = useParams();
+
+  const movie = movies.find((item) => item.id === Number(id));
+
+  if (!movie) {
+    return <Redirect to="/" />;
+  }
 
   const {
     name,
@@ -17,7 +23,7 @@ const Film = ({movies}) => {
     description,
     director,
     starring
-  } = movies[id];
+  } = movie;
 
   return (
     <section className="movie-card movie-card--full">
