@@ -2,6 +2,7 @@ import React from 'react';
 import {useParams} from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import {AVATAR_URL} from '../../const';
 
 const AddReview = ({movies}) => {
   const {id} = useParams();
@@ -39,7 +40,7 @@ const AddReview = ({movies}) => {
 
           <div className="user-block">
             <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+              <img src={AVATAR_URL} alt="User avatar" width="63" height="63" />
             </div>
           </div>
         </header>

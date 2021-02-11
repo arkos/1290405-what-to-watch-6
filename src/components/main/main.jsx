@@ -1,6 +1,7 @@
 import React from 'react';
 import MovieList from '../movie-list/movie-list';
 import PropTypes from 'prop-types';
+import {AVATAR_URL} from '../../const';
 
 const Main = (props) => {
   const {genre, year, movies} = props;
@@ -25,7 +26,7 @@ const Main = (props) => {
 
           <div className="user-block">
             <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+              <img src={AVATAR_URL} alt="User avatar" width="63" height="63" />
             </div>
           </div>
         </header>

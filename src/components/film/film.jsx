@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {AVATAR_URL} from '../../const';
 
 const Film = () => {
   return (
@@ -22,7 +23,7 @@ const Film = () => {
 
           <div className="user-block">
             <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+              <img src={AVATAR_URL} alt="User avatar" width="63" height="63" />
             </div>
           </div>
         </header>

@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import MovieList from '../movie-list/movie-list';
 import PropTypes from 'prop-types';
+import {AVATAR_URL} from '../../const';
 
 const MyList = ({movies}) => {
   return (
@@ -19,7 +20,7 @@ const MyList = ({movies}) => {
 
         <div className="user-block">
           <div className="user-block__avatar">
-            <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+            <img src={AVATAR_URL} alt="User avatar" width="63" height="63" />
           </div>
         </div>
       </header>
