@@ -1,5 +1,5 @@
 import React from 'react';
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {Switch, Route, BrowserRouter, useParams} from 'react-router-dom';
 import Main from '../main/main';
 import SignIn from '../sign-in/sign-in';
 import MyList from '../my-list/my-list';
@@ -30,8 +30,8 @@ const App = (props) => {
         <Route exact path="/films/:id/review">
           <AddReview />
         </Route>
-        <Route exact path="/player/:id">
-          <Player />
+        <Route exact path="/player/:id" >
+          <Player movies={films} />
         </Route>
         <Route>
           <NotFound />
