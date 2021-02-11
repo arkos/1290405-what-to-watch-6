@@ -1,7 +1,8 @@
 import React from 'react';
-import {Link, Redirect, useParams} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {AVATAR_URL} from '../../const';
+import NotFound from '../not-found/not-found';
 
 const AddReview = ({movies}) => {
   const {id} = useParams();
@@ -9,7 +10,7 @@ const AddReview = ({movies}) => {
   const movie = movies.find((item) => item.id === Number(id));
 
   if (!movie) {
-    return <Redirect to="/" />;
+    return <NotFound />;
   }
 
   const {backgroundImagePath, name, posterImagePath} = movie;

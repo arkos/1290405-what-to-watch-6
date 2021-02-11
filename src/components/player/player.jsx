@@ -1,6 +1,7 @@
 import React from 'react';
-import {Redirect, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import NotFound from '../not-found/not-found';
 
 const Player = ({movies}) => {
   const {id} = useParams();
@@ -8,7 +9,7 @@ const Player = ({movies}) => {
   const movie = movies.find((item) => item.id === Number(id));
 
   if (!movie) {
-    return <Redirect to="/" />;
+    return <NotFound />;
   }
 
   const {videoUrl, backgroundImagePath, name} = movie;
