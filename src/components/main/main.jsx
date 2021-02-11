@@ -1,12 +1,15 @@
 import React from 'react';
-import MovieList from '../movie-list/movie-list';
+import {useHistory} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import MovieList from '../movie-list/movie-list';
 import {AVATAR_URL} from '../../const';
 
 const Main = (props) => {
   const {genre, year, movies, promo} = props;
 
-  const {name, backgroundImagePath, posterImagePath} = promo;
+  const {id, name, backgroundImagePath, posterImagePath} = promo;
+
+  const history = useHistory();
 
   return (
     <React.Fragment>
@@ -47,13 +50,13 @@ const Main = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button className="btn btn--play movie-card__button" type="button" onClick={() => history.push(`/player/${id}`)}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button">
+                <button className="btn btn--list movie-card__button" type="button" onClick={() => history.push(`/mylist`)}>
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
                   </svg>
@@ -133,6 +136,7 @@ Main.propTypes = {
   year: PropTypes.number.isRequired,
   movies: PropTypes.array.isRequired,
   promo: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     backgroundImagePath: PropTypes.string.isRequired,
     posterImagePath: PropTypes.string.isRequired
