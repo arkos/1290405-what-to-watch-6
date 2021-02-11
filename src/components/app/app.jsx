@@ -12,11 +12,13 @@ import PropTypes from 'prop-types';
 const App = (props) => {
   const {genre, year, films, reviews} = props;
 
+  const [, , promo] = films;
+
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <Main genre={genre} year={year} movies={films} />
+          <Main genre={genre} year={year} movies={films} promo={promo} />
         </Route>
         <Route exact path="/login">
           <SignIn />

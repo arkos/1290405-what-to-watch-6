@@ -4,13 +4,15 @@ import PropTypes from 'prop-types';
 import {AVATAR_URL} from '../../const';
 
 const Main = (props) => {
-  const {genre, year, movies} = props;
+  const {genre, year, movies, promo} = props;
+
+  const {name, backgroundImagePath, posterImagePath} = promo;
 
   return (
     <React.Fragment>
       <section className="movie-card">
         <div className="movie-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={backgroundImagePath} alt={name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -34,11 +36,11 @@ const Main = (props) => {
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={posterImagePath} alt={`${name} poster`} width="218" height="327" />
             </div>
 
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">The Grand Budapest Hotel</h2>
+              <h2 className="movie-card__title">{name}</h2>
               <p className="movie-card__meta">
                 <span className="movie-card__genre">{genre}</span>
                 <span className="movie-card__year">{year}</span>
@@ -129,7 +131,12 @@ const Main = (props) => {
 Main.propTypes = {
   genre: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,
-  movies: PropTypes.array.isRequired
+  movies: PropTypes.array.isRequired,
+  promo: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    backgroundImagePath: PropTypes.string.isRequired,
+    posterImagePath: PropTypes.string.isRequired
+  }).isRequired
 };
 
 export default Main;
