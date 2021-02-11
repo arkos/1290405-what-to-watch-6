@@ -1,13 +1,18 @@
 import React from 'react';
+import {useParams} from 'react-router-dom';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const AddReview = () => {
+const AddReview = ({movies}) => {
+  const {id} = useParams();
+
+  const {backgroundImagePath, name, posterImagePath} = movies[id];
 
   return (
     <section className="movie-card movie-card--full">
       <div className="movie-card__header">
         <div className="movie-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={backgroundImagePath} alt={name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -24,10 +29,10 @@ const AddReview = () => {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href="movie-page.html" className="breadcrumbs__link">The Grand Budapest Hotel</a>
+                <Link className="breadcrumbs__link" to={`/films/${id}`}>{name}</Link>
               </li>
               <li className="breadcrumbs__item">
-                <a className="breadcrumbs__link">Add review</a>
+                <Link className="breadcrumbs__link" to={`/films/${id}/review`}>Add review</Link>
               </li>
             </ul>
           </nav>
@@ -40,7 +45,7 @@ const AddReview = () => {
         </header>
 
         <div className="movie-card__poster movie-card__poster--small">
-          <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+          <img src={posterImagePath} alt={name} width="218" height="327" />
         </div>
       </div>
 
@@ -91,6 +96,14 @@ const AddReview = () => {
       </div>
     </section>
   );
+};
+
+AddReview.propTypes = {
+  movies: PropTypes.arrayOf(PropTypes.shape({
+    backgroundImagePath: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    posterImagePath: PropTypes.string.isRequired
+  })).isRequired
 };
 
 export default AddReview;
