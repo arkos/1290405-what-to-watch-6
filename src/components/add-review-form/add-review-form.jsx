@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 
+const STARS_COUNT = 10;
+
 const AddReviewForm = () => {
   const [reviewForm, setReviewForm] = useState({
-    rating: ``,
+    rating: `8`,
     reviewText: ``
   });
 
@@ -10,49 +12,40 @@ const AddReviewForm = () => {
     evt.preventDefault();
   };
 
-  const handleFieldChange = (evt) => {
+  const handleRatingChange = (evt) => {
     const {name, value} = evt.target;
     setReviewForm({...reviewForm, [name]: value});
   };
+
+  const handleReviewTextChange = (evt) => {
+    setReviewForm({...reviewForm, reviewText: evt.target.value});
+  };
+
+  const createRadioButtonStars = (count = STARS_COUNT) => {
+    const radioButtonStars = new Array(count).fill(null);
+
+    return radioButtonStars.map((_, index) => {
+      const serialId = (index + 1).toString();
+      return <React.Fragment key={serialId}>
+        <input className="rating__input" id={`star-${serialId}`} type="radio" name="rating" value={serialId} checked={rating === serialId} onChange={handleRatingChange} />
+        <label className="rating__label" htmlFor={`star-${serialId}`}>Rating {serialId}</label>
+      </React.Fragment>;
+    }
+    );
+  };
+
+  const {rating, reviewText} = reviewForm;
 
   return (
     <form action="#" className="add-review__form" onSubmit={handleSubmit}>
       <div className="rating">
         <div className="rating__stars">
-          <input className="rating__input" id="star-1" type="radio" name="rating" value="1" />
-          <label className="rating__label" htmlFor="star-1">Rating 1</label>
-
-          <input className="rating__input" id="star-2" type="radio" name="rating" value="2" />
-          <label className="rating__label" htmlFor="star-2">Rating 2</label>
-
-          <input className="rating__input" id="star-3" type="radio" name="rating" value="3" checked onChange={() => { }} />
-          <label className="rating__label" htmlFor="star-3">Rating 3</label>
-
-          <input className="rating__input" id="star-4" type="radio" name="rating" value="4" />
-          <label className="rating__label" htmlFor="star-4">Rating 4</label>
-
-          <input className="rating__input" id="star-5" type="radio" name="rating" value="5" />
-          <label className="rating__label" htmlFor="star-5">Rating 5</label>
-
-          <input className="rating__input" id="star-6" type="radio" name="rating" value="6" />
-          <label className="rating__label" htmlFor="star-6">Rating 6</label>
-
-          <input className="rating__input" id="star-7" type="radio" name="rating" value="7" />
-          <label className="rating__label" htmlFor="star-7">Rating 7</label>
-
-          <input className="rating__input" id="star-8" type="radio" name="rating" value="8" checked onChange={() => { }} />
-          <label className="rating__label" htmlFor="star-8">Rating 8</label>
-
-          <input className="rating__input" id="star-9" type="radio" name="rating" value="9" />
-          <label className="rating__label" htmlFor="star-9">Rating 9</label>
-
-          <input className="rating__input" id="star-10" type="radio" name="rating" value="10" />
-          <label className="rating__label" htmlFor="star-10">Rating 10</label>
+          {createRadioButtonStars()}
         </div>
       </div>
 
       <div className="add-review__text">
-        <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" onChange={handleFieldChange}></textarea>
+        <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" onChange={handleReviewTextChange} value={reviewText}></textarea>
         <div className="add-review__submit">
           <button className="add-review__btn" type="submit">Post</button>
         </div>
