@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link, useParams} from 'react-router-dom';
-import PropTypes from 'prop-types';
 import {AVATAR_URL} from '../../const';
+import Validator from '../../validate';
 import NotFound from '../not-found/not-found';
 import AddReviewForm from '../add-review-form/add-review-form';
 
@@ -65,11 +65,7 @@ const AddReview = ({movies}) => {
 };
 
 AddReview.propTypes = {
-  movies: PropTypes.arrayOf(PropTypes.shape({
-    backgroundImagePath: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    posterImagePath: PropTypes.string.isRequired
-  })).isRequired
+  movies: Validator.MOVIES
 };
 
 export default AddReview;

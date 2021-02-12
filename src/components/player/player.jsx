@@ -1,7 +1,7 @@
 import React from 'react';
 import {useParams} from 'react-router-dom';
-import PropTypes from 'prop-types';
 import NotFound from '../not-found/not-found';
+import Validator from '../../validate';
 
 const Player = ({movies}) => {
   const {id} = useParams();
@@ -51,11 +51,7 @@ const Player = ({movies}) => {
 };
 
 Player.propTypes = {
-  movies: PropTypes.arrayOf(PropTypes.shape({
-    videoUrl: PropTypes.string.isRequired,
-    backgroundImagePath: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired
-  })).isRequired
+  movies: Validator.MOVIES
 };
 
 export default Player;

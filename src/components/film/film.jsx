@@ -1,8 +1,8 @@
 import React from 'react';
 import {Link, useParams, useHistory} from 'react-router-dom';
-import PropTypes from 'prop-types';
 import {AVATAR_URL} from '../../const';
 import NotFound from '../not-found/not-found';
+import Validator from '../../validate';
 
 const Film = ({movies}) => {
   const {id} = useParams();
@@ -124,18 +124,7 @@ const Film = ({movies}) => {
 };
 
 Film.propTypes = {
-  movies: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    backgroundImagePath: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    released: PropTypes.number,
-    posterImagePath: PropTypes.string.isRequired,
-    rating: PropTypes.number,
-    score: PropTypes.number,
-    description: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.arrayOf(PropTypes.string).isRequired
-  })).isRequired
+  movies: Validator.MOVIES
 };
 
 export default Film;

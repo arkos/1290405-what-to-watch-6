@@ -1,8 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import MovieList from '../movie-list/movie-list';
-import PropTypes from 'prop-types';
 import {AVATAR_URL} from '../../const';
+import Validator from '../../validate';
 
 const MyList = ({movies}) => {
   return (
@@ -51,7 +51,7 @@ const MyList = ({movies}) => {
 };
 
 MyList.propTypes = {
-  movies: PropTypes.array.isRequired
+  movies: Validator.MOVIES
 };
 
 export default MyList;

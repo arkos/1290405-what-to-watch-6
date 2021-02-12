@@ -1,5 +1,5 @@
 import React from 'react';
-import {Switch, Route, BrowserRouter, useParams} from 'react-router-dom';
+import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import Main from '../main/main';
 import SignIn from '../sign-in/sign-in';
 import MyList from '../my-list/my-list';
@@ -7,7 +7,7 @@ import Film from '../film/film';
 import AddReview from '../add-review/add-review';
 import Player from '../player/player';
 import NotFound from '../not-found/not-found';
-import PropTypes from 'prop-types';
+import Validator from '../../validate';
 
 const App = (props) => {
   const {genre, year, films, reviews} = props;
@@ -27,7 +27,7 @@ const App = (props) => {
           <MyList movies={films} />
         </Route>
         <Route exact path="/films/:id">
-          <Film movies={films} />
+          <Film movies={films} reviews={reviews} />
         </Route>
         <Route exact path="/films/:id/review">
           <AddReview movies={films} />
@@ -43,11 +43,6 @@ const App = (props) => {
   );
 };
 
-App.propTypes = {
-  genre: PropTypes.string.isRequired,
-  year: PropTypes.number.isRequired,
-  films: PropTypes.array.isRequired,
-  reviews: PropTypes.array.isRequired
-};
+App.propTypes = Validator.APP;
 
 export default App;

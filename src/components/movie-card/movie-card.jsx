@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import PropTypes from 'prop-types';
+import Validator from '../../validate';
 
 const MovieCard = ({movie}) => {
   const {previewImagePath, name, id} = movie;
@@ -17,11 +17,7 @@ const MovieCard = ({movie}) => {
 };
 
 MovieCard.propTypes = {
-  movie: PropTypes.shape({
-    previewImagePath: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired
-  }).isRequired
+  movie: Validator.MOVIE
 };
 
 export default MovieCard;

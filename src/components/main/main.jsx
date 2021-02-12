@@ -3,6 +3,7 @@ import {useHistory} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import MovieList from '../movie-list/movie-list';
 import {AVATAR_URL} from '../../const';
+import Validator from '../../validate';
 
 const Main = (props) => {
   const {genre, year, movies, promo} = props;
@@ -134,13 +135,8 @@ const Main = (props) => {
 Main.propTypes = {
   genre: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,
-  movies: PropTypes.array.isRequired,
-  promo: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    backgroundImagePath: PropTypes.string.isRequired,
-    posterImagePath: PropTypes.string.isRequired
-  }).isRequired
+  movies: Validator.MOVIES,
+  promo: Validator.MOVIE
 };
 
 export default Main;

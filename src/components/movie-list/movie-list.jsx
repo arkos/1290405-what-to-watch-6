@@ -1,19 +1,19 @@
 import React, {useState} from 'react';
 import MovieCard from '../movie-card/movie-card';
-import PropTypes from 'prop-types';
+import Validator from '../../validate';
 
 const MovieList = ({movies}) => {
-  const [activeMovie, setActiveMovie] = useState(0);
+  const [activeMovie] = useState(0);
 
   return (
     <div className="catalog__movies-list">
-      {movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
+      {movies.map((movie) => <MovieCard key={movie.id} movie={movie} activeMovie={activeMovie}/>)}
     </div>
   );
 };
 
 MovieList.propTypes = {
-  movies: PropTypes.array.isRequired
+  movies: Validator.MOVIES
 };
 
 export default MovieList;
