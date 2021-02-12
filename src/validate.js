@@ -1,13 +1,5 @@
 import PropTypes from 'prop-types';
 
-const Validator = {
-  MOVIE: movieValidator,
-  MOVIES: movieCollectionValidator,
-  APP: appValidator,
-  REVIEW: reviewValidator,
-  REVIEWS: reviewCollectionValidator
-};
-
 const movieValidator = PropTypes.shape({
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
@@ -36,10 +28,10 @@ const movieValidator = PropTypes.shape({
 const movieCollectionValidator = PropTypes.arrayOf(movieValidator);
 
 const reviewValidator = PropTypes.shape({
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   user: PropTypes.shape(
       {
-        id: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired
       }
   ),
@@ -50,11 +42,19 @@ const reviewValidator = PropTypes.shape({
 
 const reviewCollectionValidator = PropTypes.arrayOf(reviewValidator);
 
-const appValidator = PropTypes.shape({
+const appValidator = {
   genre: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,
   films: movieCollectionValidator,
   reviews: reviewCollectionValidator
-});
+};
+
+const Validator = {
+  MOVIE: movieValidator,
+  MOVIES: movieCollectionValidator,
+  APP: appValidator,
+  REVIEW: reviewValidator,
+  REVIEWS: reviewCollectionValidator
+};
 
 export default Validator;
