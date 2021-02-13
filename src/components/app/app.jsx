@@ -7,31 +7,33 @@ import Film from '../film/film';
 import AddReview from '../add-review/add-review';
 import Player from '../player/player';
 import NotFound from '../not-found/not-found';
-import PropTypes from 'prop-types';
+import Validator from '../../validate';
 
 const App = (props) => {
-  const {genre, year} = props;
+  const {genre, year, films, reviews} = props;
+
+  const [, , promo] = films;
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <Main genre={genre} year={year} />
+          <Main genre={genre} year={year} movies={films} promo={promo} />
         </Route>
         <Route exact path="/login">
           <SignIn />
         </Route>
         <Route exact path="/mylist">
-          <MyList />
+          <MyList movies={films} />
         </Route>
         <Route exact path="/films/:id">
-          <Film />
+          <Film movies={films} reviews={reviews} />
         </Route>
         <Route exact path="/films/:id/review">
-          <AddReview />
+          <AddReview movies={films} />
         </Route>
-        <Route exact path="/player/:id">
-          <Player />
+        <Route exact path="/player/:id" >
+          <Player movies={films} />
         </Route>
         <Route>
           <NotFound />
@@ -41,9 +43,6 @@ const App = (props) => {
   );
 };
 
-App.propTypes = {
-  genre: PropTypes.string.isRequired,
-  year: PropTypes.number.isRequired
-};
+App.propTypes = Validator.APP;
 
 export default App;

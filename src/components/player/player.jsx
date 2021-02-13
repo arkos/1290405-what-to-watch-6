@@ -1,9 +1,22 @@
 import React from 'react';
+import {useParams} from 'react-router-dom';
+import NotFound from '../not-found/not-found';
+import Validator from '../../validate';
 
-const Player = () => {
+const Player = ({movies}) => {
+  const {id} = useParams();
+
+  const movie = movies.find((item) => item.id === Number(id));
+
+  if (!movie) {
+    return <NotFound />;
+  }
+
+  const {videoUrl, backgroundImagePath, name} = movie;
+
   return (
     <div className="player">
-      <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
+      <video src={videoUrl} className="player__video" poster={backgroundImagePath}></video>
 
       <button type="button" className="player__exit">Exit</button>
 
@@ -23,7 +36,7 @@ const Player = () => {
             </svg>
             <span>Play</span>
           </button>
-          <div className="player__name">Transpotting</div>
+          <div className="player__name">{name}</div>
 
           <button type="button" className="player__full-screen">
             <svg viewBox="0 0 27 27" width="27" height="27">
@@ -35,6 +48,10 @@ const Player = () => {
       </div >
     </div >
   );
+};
+
+Player.propTypes = {
+  movies: Validator.MOVIES
 };
 
 export default Player;

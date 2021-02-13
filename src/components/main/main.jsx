@@ -1,17 +1,22 @@
 import React from 'react';
-import MovieCard from '../movie-card/movie-card';
+import {useHistory} from 'react-router-dom';
 import PropTypes from 'prop-types';
-
-const MOVIE_COUNT = 20;
+import MovieList from '../movie-list/movie-list';
+import {AVATAR_URL} from '../../const';
+import Validator from '../../validate';
 
 const Main = (props) => {
-  const {genre, year} = props;
+  const {genre, year, movies, promo} = props;
+
+  const {id, name, backgroundImagePath, posterImagePath} = promo;
+
+  const history = useHistory();
 
   return (
     <React.Fragment>
       <section className="movie-card">
         <div className="movie-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={backgroundImagePath} alt={name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -27,7 +32,7 @@ const Main = (props) => {
 
           <div className="user-block">
             <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+              <img src={AVATAR_URL} alt="User avatar" width="63" height="63" />
             </div>
           </div>
         </header>
@@ -35,24 +40,24 @@ const Main = (props) => {
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={posterImagePath} alt={`${name} poster`} width="218" height="327" />
             </div>
 
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">The Grand Budapest Hotel</h2>
+              <h2 className="movie-card__title">{name}</h2>
               <p className="movie-card__meta">
                 <span className="movie-card__genre">{genre}</span>
                 <span className="movie-card__year">{year}</span>
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button className="btn btn--play movie-card__button" type="button" onClick={() => history.push(`/player/${id}`)}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button">
+                <button className="btn btn--list movie-card__button" type="button" onClick={() => history.push(`/mylist`)}>
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
                   </svg>
@@ -101,9 +106,7 @@ const Main = (props) => {
             </li>
           </ul>
 
-          <div className="catalog__movies-list">
-            {new Array(MOVIE_COUNT).fill(null).map((_, index) => <MovieCard key={index} />)}
-          </div>
+          <MovieList movies={movies} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
@@ -131,7 +134,9 @@ const Main = (props) => {
 
 Main.propTypes = {
   genre: PropTypes.string.isRequired,
-  year: PropTypes.number.isRequired
+  year: PropTypes.number.isRequired,
+  movies: Validator.MOVIES,
+  promo: Validator.MOVIE
 };
 
 export default Main;
