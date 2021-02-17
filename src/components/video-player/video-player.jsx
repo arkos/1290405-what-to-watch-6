@@ -1,7 +1,7 @@
 import React, {useState, useRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
 
-const VideoPlayer = ({defaultIsPlaying, src}) => {
+const VideoPlayer = ({defaultIsPlaying, src, ...restProps}) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isPlaying, setIsPlaying] = useState(defaultIsPlaying);
 
@@ -13,7 +13,6 @@ const VideoPlayer = ({defaultIsPlaying, src}) => {
     videoRef.current.onpause = () => setIsPlaying(false);
 
     return () => {
-      videoRef.current.pause();
       videoRef.current.oncanplaythrough = null;
       videoRef.current.onplay = null;
       videoRef.current.onpause = null;
@@ -31,7 +30,7 @@ const VideoPlayer = ({defaultIsPlaying, src}) => {
   // TODO: Remove disabled attribute
 
   return (
-    <video disabled={isLoading}>
+    <video disabled={isLoading} ref={videoRef} {...restProps}>
       <source src={src}/>
       Your browser doesn&apos;t support HTML5 video.
     </video>
@@ -42,3 +41,5 @@ VideoPlayer.propTypes = {
   defaultIsPlaying: PropTypes.bool.isRequired,
   src: PropTypes.string.isRequired
 };
+
+export default VideoPlayer;
