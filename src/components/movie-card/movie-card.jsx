@@ -10,7 +10,7 @@ const MovieCard = ({movie}) => {
     <article className="small-movie-card catalog__movies-card">
       <VideoPlayer
         src={`https://cdn.videvo.net/videvo_files/video/free/2017-08/small_watermarked/170724_15_Setangibeach_preview.webm`}
-        defaultIsPlaying={false}
+        isPlaying={isPlaying}
         width="280"
         height="175"
       />
