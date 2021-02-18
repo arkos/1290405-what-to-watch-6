@@ -8,7 +8,7 @@ const IS_VIDEO_MUTED = true;
 
 const MovieCard = ({movie}) => {
   const [shouldPlay, setShouldPlay] = useState(false);
-  const {previewImagePath, previewVideoUrl, name, id} = movie;
+  const {previewImagePath, name, id} = movie;
 
   const cardRef = useRef();
   let timer = null;
