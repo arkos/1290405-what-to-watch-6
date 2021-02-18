@@ -1,25 +1,25 @@
 import React, {useRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
 
-const VideoPlayer = ({isPlaying, src, ...restProps}) => {
+const VideoPlayer = ({shouldPlay, src, ...restProps}) => {
   const videoRef = useRef();
 
   useEffect(() => {
+    videoRef.current.onpause = () => videoRef.current.load();
 
     return () => {
-      videoRef.current.oncanplaythrough = null;
-      videoRef.current.onplay = null;
+      videoRef.current.pause();
       videoRef.current.onpause = null;
     };
-  }, [src]);
+  });
 
   useEffect(() => {
-    if (isPlaying) {
+    if (shouldPlay) {
       videoRef.current.play();
       return;
     }
     videoRef.current.pause();
-  }, [isPlaying]);
+  }, [shouldPlay]);
 
   // TODO: Use isLoading to prevent video from playing if it's not yet loaded, use videoRef.current.oncanplaythrough
 
@@ -32,7 +32,7 @@ const VideoPlayer = ({isPlaying, src, ...restProps}) => {
 };
 
 VideoPlayer.propTypes = {
-  isPlaying: PropTypes.bool.isRequired,
+  shouldPlay: PropTypes.bool.isRequired,
   src: PropTypes.string.isRequired
 };
 
