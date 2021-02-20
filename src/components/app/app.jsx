@@ -10,7 +10,7 @@ import NotFound from '../not-found/not-found';
 import Validator from '../../validate';
 
 const App = (props) => {
-  const {genre, year, films, reviews} = props;
+  const {films, reviews} = props;
 
   const [, , promo] = films;
 
@@ -18,7 +18,7 @@ const App = (props) => {
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <Main genre={genre} year={year} movies={films} promo={promo} />
+          <Main movies={films} promo={promo} />
         </Route>
         <Route exact path="/login">
           <SignIn />

@@ -6,9 +6,9 @@ import {AVATAR_URL} from '../../const';
 import Validator from '../../validate';
 
 const Main = (props) => {
-  const {genre, year, movies, promo} = props;
+  const {movies, promo} = props;
 
-  const {id, name, backgroundImagePath, posterImagePath} = promo;
+  const {id, name, backgroundImagePath, posterImagePath, genre, released} = promo;
 
   const history = useHistory();
 
@@ -47,7 +47,7 @@ const Main = (props) => {
               <h2 className="movie-card__title">{name}</h2>
               <p className="movie-card__meta">
                 <span className="movie-card__genre">{genre}</span>
-                <span className="movie-card__year">{year}</span>
+                <span className="movie-card__year">{released}</span>
               </p>
 
               <div className="movie-card__buttons">
@@ -133,8 +133,6 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  genre: PropTypes.string.isRequired,
-  year: PropTypes.number.isRequired,
   movies: Validator.MOVIES,
   promo: Validator.MOVIE
 };

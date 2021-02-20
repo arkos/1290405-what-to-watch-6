@@ -8,9 +8,6 @@ import films from './mocks/films';
 import reviews from './mocks/reviews';
 import {reducer} from './store/reducer';
 
-const MOVIE_GENRE = `Comedy`;
-const MOVIE_YEAR = 2019;
-
 const store = createStore(
     reducer,
     composeWithDevTools()
@@ -19,8 +16,6 @@ const store = createStore(
 ReactDOM.render(
     <Provider store={store}>
       <App
-        genre={MOVIE_GENRE}
-        year={MOVIE_YEAR}
         films={films}
         reviews={reviews}
       />
