@@ -17,11 +17,9 @@ const MovieCard = ({movie}) => {
     clearTimeout(timer);
     setShouldPlay(false);
     timer = null;
-    cardRef.current.removeEventListener(`mouseleave`, handleMouseLeave);
   };
 
   const handleMouseEnter = () => {
-    cardRef.current.addEventListener(`mouseleave`, handleMouseLeave);
     if (!timer) {
       timer = setTimeout(() => {
         setShouldPlay(true);
@@ -30,10 +28,7 @@ const MovieCard = ({movie}) => {
   };
 
   useEffect(() => {
-    cardRef.current.addEventListener(`mouseenter`, handleMouseEnter);
-
     return () => {
-      cardRef.current.removeEventListener(`mouseenter`, handleMouseEnter);
       if (timer) {
         clearTimeout(timer);
       }
@@ -41,7 +36,7 @@ const MovieCard = ({movie}) => {
   }, []);
 
   return (
-    <article className="small-movie-card catalog__movies-card" ref={cardRef}>
+    <article className="small-movie-card catalog__movies-card" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <VideoPlayer
         src={`https://cdn.videvo.net/videvo_files/video/free/2012-07/small_watermarked/Countdown%20Timer_preview.webm`}
         shouldPlay={shouldPlay}
