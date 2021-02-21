@@ -1,8 +1,9 @@
 import {ActionType} from '../store/action';
+import movies from '../mocks/films';
 
 const initialState = {
   genre: `all`,
-  movies: []
+  movies
 };
 
 const reducer = (state = initialState, action) => {
