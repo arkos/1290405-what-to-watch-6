@@ -38,7 +38,7 @@ const MovieCard = ({movie}) => {
         clearTimeout(timer);
       }
     };
-  });
+  }, []);
 
   return (
     <article className="small-movie-card catalog__movies-card" ref={cardRef}>
