@@ -1,9 +1,10 @@
 import {ActionType} from '../store/action';
+import {FILTER_ALL_GENRES} from '../const';
 import movies from '../mocks/films';
 import reviews from '../mocks/reviews';
 
 const initialState = {
-  selectedGenre: `all`,
+  selectedGenre: FILTER_ALL_GENRES,
   movies,
   reviews
 };
