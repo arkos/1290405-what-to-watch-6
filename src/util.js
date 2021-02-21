@@ -17,3 +17,14 @@ export const getUniqueGenres = (movies) => {
   const genres = movies.map((movie) => movie.genre);
   return [...new Set([FILTER_ALL_GENRES, ...genres])];
 };
+
+const genreToPluralMap = {
+  [`Comedy`]: `Comedies`,
+  [`Drama`]: `Dramas`,
+  [`Thriller`]: `Thrillers`
+};
+
+export const getGenreName = (genre) => {
+  const genreName = genreToPluralMap[genre];
+  return genreName ? genreName : genre;
+};

@@ -7,9 +7,7 @@ import MovieList from '../movie-list/movie-list';
 import GenreList from '../genre-list/genre-list';
 
 const Main = (props) => {
-  const {movies} = props;
-
-  const [, promo] = movies;
+  const {movies, promo} = props;
 
   const {id, name, backgroundImagePath, posterImagePath, genre, released} = promo;
 
@@ -110,7 +108,8 @@ Main.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  movies: state.movies
+  movies: state.movies,
+  promo: state.promo
 });
 
 export {Main};
