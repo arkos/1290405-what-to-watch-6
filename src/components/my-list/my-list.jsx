@@ -1,8 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import MovieList from '../movie-list/movie-list';
-import {AVATAR_URL} from '../../const';
+import {connect} from 'react-redux';
 import Validator from '../../validate';
+import {AVATAR_URL} from '../../const';
+import MovieList from '../movie-list/movie-list';
 
 const MyList = ({movies}) => {
   return (
@@ -54,4 +55,9 @@ MyList.propTypes = {
   movies: Validator.MOVIES
 };
 
-export default MyList;
+const mapStateToProps = (state) => ({
+  movies: state.movies
+});
+
+export {MyList};
+export default connect(mapStateToProps, null)(MyList);

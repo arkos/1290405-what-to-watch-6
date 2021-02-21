@@ -1,7 +1,8 @@
 import React from 'react';
 import {Link, useParams} from 'react-router-dom';
-import {AVATAR_URL} from '../../const';
+import {connect} from 'react-redux';
 import Validator from '../../validate';
+import {AVATAR_URL} from '../../const';
 import NotFound from '../not-found/not-found';
 import AddReviewForm from '../add-review-form/add-review-form';
 
@@ -68,4 +69,9 @@ AddReview.propTypes = {
   movies: Validator.MOVIES
 };
 
-export default AddReview;
+const mapStateToProps = (state) => ({
+  movies: state.movies
+});
+
+export {AddReview};
+export default connect(mapStateToProps, null)(AddReview);

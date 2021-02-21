@@ -1,12 +1,14 @@
 import React from 'react';
 import {useHistory} from 'react-router-dom';
-import PropTypes from 'prop-types';
-import MovieList from '../movie-list/movie-list';
+import {connect} from 'react-redux';
 import {AVATAR_URL} from '../../const';
 import Validator from '../../validate';
+import MovieList from '../movie-list/movie-list';
 
 const Main = (props) => {
-  const {movies, promo} = props;
+  const {movies} = props;
+
+  const [, promo] = movies;
 
   const {id, name, backgroundImagePath, posterImagePath, genre, released} = promo;
 
@@ -137,4 +139,9 @@ Main.propTypes = {
   promo: Validator.MOVIE
 };
 
-export default Main;
+const mapStateToProps = (state) => ({
+  movies: state.movies
+});
+
+export {Main};
+export default connect(mapStateToProps, null)(Main);

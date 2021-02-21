@@ -9,31 +9,27 @@ import Player from '../player/player';
 import NotFound from '../not-found/not-found';
 import Validator from '../../validate';
 
-const App = (props) => {
-  const {films, reviews} = props;
-
-  const [, , promo] = films;
-
+const App = () => {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <Main movies={films} promo={promo} />
+          <Main />
         </Route>
         <Route exact path="/login">
           <SignIn />
         </Route>
         <Route exact path="/mylist">
-          <MyList movies={films} />
+          <MyList />
         </Route>
         <Route exact path="/films/:id">
-          <Film movies={films} reviews={reviews} />
+          <Film />
         </Route>
         <Route exact path="/films/:id/review">
-          <AddReview movies={films} />
+          <AddReview />
         </Route>
         <Route exact path="/player/:id" >
-          <Player movies={films} />
+          <Player />
         </Route>
         <Route>
           <NotFound />
