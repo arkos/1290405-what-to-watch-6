@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import VideoPlayer from '../video-player/video-player';
 import Validator from '../../validate';
@@ -10,7 +10,6 @@ const MovieCard = ({movie}) => {
   const [shouldPlay, setShouldPlay] = useState(false);
   const {previewImagePath, name, id} = movie;
 
-  const cardRef = useRef();
   let timer = null;
 
   const handleMouseLeave = () => {
