@@ -5,7 +5,8 @@ import {filterByGenre} from '../util';
 const initialState = {
   selectedGenre: FILTER_ALL_GENRES,
   movies: [],
-  authorizationStatus: AuthorizationStatus.NO_AUTH
+  authorizationStatus: AuthorizationStatus.NO_AUTH,
+  isDataLoaded: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -25,7 +26,8 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_MOVIES:
       return {
         ...state,
-        movies: action.payload
+        movies: action.payload,
+        isDataLoaded: true
       };
     case ActionType.REQUIRE_AUTHORIZATION:
       return {
