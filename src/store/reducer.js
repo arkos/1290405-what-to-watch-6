@@ -28,6 +28,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         movies: processedMovies
       };
+    case ActionType.LOAD_MOVIES:
+      return {
+        ...state,
+        movies: action.payload
+      };
     default: return state;
   }
 };

@@ -1,6 +1,7 @@
 export const ActionType = {
   CHANGE_GENRE: `movies/changeGenre`,
-  GET_MOVIES: `movies/getMovies`
+  GET_MOVIES: `movies/getMovies`,
+  LOAD_MOVIES: `data/loadMovies`
 };
 
 export const ActionCreator = {
@@ -10,5 +11,9 @@ export const ActionCreator = {
   }),
   getMovies: () => ({
     type: ActionType.GET_MOVIES
+  }),
+  loadMovies: (movies) => ({
+    type: ActionType.LOAD_MOVIES,
+    payload: movies
   })
 };
