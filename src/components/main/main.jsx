@@ -1,17 +1,30 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 import {AVATAR_URL} from '../../const';
 import Validator from '../../validate';
 import MovieList from '../movie-list/movie-list';
 import GenreList from '../genre-list/genre-list';
+import Loading from '../loading/loading';
+import {fetchMovies} from '../../store/api-actions';
 
 const Main = (props) => {
-  const {movies, promo} = props;
+  const {movies, promo, isDataLoaded, onLoadData} = props;
 
   const {id, name, backgroundImagePath, posterImagePath, genre, released} = promo;
 
   const history = useHistory();
+
+  useEffect(() => {
+    if (!isDataLoaded) {
+      onLoadData();
+    }
+  }, [isDataLoaded]);
+
+  if (!isDataLoaded) {
+    return <Loading />;
+  }
 
   return (
     <React.Fragment>
@@ -104,13 +117,22 @@ const Main = (props) => {
 
 Main.propTypes = {
   movies: Validator.MOVIES,
-  promo: Validator.MOVIE
+  promo: Validator.MOVIE,
+  isDataLoaded: PropTypes.string.isRequired,
+  onLoadData: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
   movies: state.movies,
-  promo: state.promo
+  promo: state.promo,
+  isDataLoaded: state.isDataLoaded
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onLoadData() {
+    dispatch(fetchMovies());
+  }
 });
 
 export {Main};
-export default connect(mapStateToProps, null)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
