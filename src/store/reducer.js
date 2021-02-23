@@ -1,5 +1,5 @@
 import {ActionType} from '../store/action';
-import {FILTER_ALL_GENRES} from '../const';
+import {AuthorizationStatus, FILTER_ALL_GENRES} from '../const';
 import {filterByGenre} from '../util';
 import movies from '../mocks/films';
 import reviews from '../mocks/reviews';
@@ -11,7 +11,8 @@ const initialState = {
   movies,
   promo,
   initialMovies: movies,
-  reviews
+  reviews,
+  authorizationStatus: AuthorizationStatus.NO_AUTH
 };
 
 const reducer = (state = initialState, action) => {
@@ -32,6 +33,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         movies: action.payload
+      };
+    case ActionType.REQUIRE_AUTHORIZATION:
+      return {
+        ...state,
+        autorizationStatus: action.payload
       };
     default: return state;
   }
