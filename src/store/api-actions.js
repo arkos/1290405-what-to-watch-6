@@ -1,9 +1,10 @@
 import {ActionCreator} from '../store/action';
 import {AuthorizationStatus} from '../const';
+import {adaptToClient} from '../util';
 
 export const fetchMovies = () => (dispatch, _getState, api) => {
   api.get(`/films`)
-    .then(({data}) => dispatch(ActionCreator.loadMovies(data)));
+    .then(({data}) => dispatch(ActionCreator.loadMovies(data.map(adaptToClient))));
 };
 
 export const checkAuth = () => (dispatch, _getState, api) => {
