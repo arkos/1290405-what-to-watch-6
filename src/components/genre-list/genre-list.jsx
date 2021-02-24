@@ -30,7 +30,7 @@ GenreList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  genres: getUniqueGenres(state.initialMovies),
+  genres: getUniqueGenres(state.movies),
   selectedGenre: state.selectedGenre
 });
 
