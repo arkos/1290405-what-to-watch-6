@@ -10,7 +10,9 @@ import Loading from '../loading/loading';
 import {fetchMovies} from '../../store/api-actions';
 
 const Main = (props) => {
-  const {movies, promo, isDataLoaded, onLoadData} = props;
+  const {movies, isDataLoaded, onLoadData} = props;
+
+  const [promo = {}] = movies;
 
   const {id, name, backgroundImagePath, posterImagePath, genre, released} = promo;
 
@@ -117,14 +119,12 @@ const Main = (props) => {
 
 Main.propTypes = {
   movies: Validator.MOVIES,
-  promo: Validator.MOVIE,
-  isDataLoaded: PropTypes.string.isRequired,
+  isDataLoaded: PropTypes.bool.isRequired,
   onLoadData: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
   movies: state.movies,
-  promo: state.promo,
   isDataLoaded: state.isDataLoaded
 });
 
