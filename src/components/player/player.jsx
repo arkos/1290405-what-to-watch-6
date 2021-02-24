@@ -1,7 +1,8 @@
 import React from 'react';
 import {useParams} from 'react-router-dom';
-import NotFound from '../not-found/not-found';
+import {connect} from 'react-redux';
 import Validator from '../../validate';
+import NotFound from '../not-found/not-found';
 
 const Player = ({movies}) => {
   const {id} = useParams();
@@ -54,4 +55,9 @@ Player.propTypes = {
   movies: Validator.MOVIES
 };
 
-export default Player;
+const mapStateToProps = (state) => ({
+  movies: state.movies
+});
+
+export {Player};
+export default connect(mapStateToProps, null)(Player);

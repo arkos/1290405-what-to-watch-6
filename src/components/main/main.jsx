@@ -1,14 +1,15 @@
 import React from 'react';
 import {useHistory} from 'react-router-dom';
-import PropTypes from 'prop-types';
-import MovieList from '../movie-list/movie-list';
+import {connect} from 'react-redux';
 import {AVATAR_URL} from '../../const';
 import Validator from '../../validate';
+import MovieList from '../movie-list/movie-list';
+import GenreList from '../genre-list/genre-list';
 
 const Main = (props) => {
-  const {genre, year, movies, promo} = props;
+  const {movies, promo} = props;
 
-  const {id, name, backgroundImagePath, posterImagePath} = promo;
+  const {id, name, backgroundImagePath, posterImagePath, genre, released} = promo;
 
   const history = useHistory();
 
@@ -47,7 +48,7 @@ const Main = (props) => {
               <h2 className="movie-card__title">{name}</h2>
               <p className="movie-card__meta">
                 <span className="movie-card__genre">{genre}</span>
-                <span className="movie-card__year">{year}</span>
+                <span className="movie-card__year">{released}</span>
               </p>
 
               <div className="movie-card__buttons">
@@ -73,38 +74,7 @@ const Main = (props) => {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="#" className="catalog__genres-link">All genres</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Comedies</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Crime</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Documentary</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Dramas</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Horror</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Kids & Family</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Romance</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Sci-Fi</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Thrillers</a>
-            </li>
-          </ul>
+          <GenreList />
 
           <MovieList movies={movies} />
 
@@ -133,10 +103,14 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  genre: PropTypes.string.isRequired,
-  year: PropTypes.number.isRequired,
   movies: Validator.MOVIES,
   promo: Validator.MOVIE
 };
 
-export default Main;
+const mapStateToProps = (state) => ({
+  movies: state.movies,
+  promo: state.promo
+});
+
+export {Main};
+export default connect(mapStateToProps, null)(Main);

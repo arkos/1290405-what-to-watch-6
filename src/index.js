@@ -1,13 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+import {composeWithDevTools} from 'redux-devtools-extension';
+import {reducer} from './store/reducer';
 import App from './components/app/app';
-import films from './mocks/films';
-import reviews from './mocks/reviews';
 
-const MOVIE_GENRE = `Comedy`;
-const MOVIE_YEAR = 2019;
+const store = createStore(
+    reducer,
+    composeWithDevTools()
+);
 
 ReactDOM.render(
-    <App genre={MOVIE_GENRE} year={MOVIE_YEAR} films={films} reviews={reviews}/>,
+    <Provider store={store}>
+      <App />
+    </Provider>,
     document.querySelector(`#root`)
 );

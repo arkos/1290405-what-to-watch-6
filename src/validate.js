@@ -43,8 +43,6 @@ const reviewValidator = PropTypes.shape({
 const reviewCollectionValidator = PropTypes.arrayOf(reviewValidator);
 
 const appValidator = {
-  genre: PropTypes.string.isRequired,
-  year: PropTypes.number.isRequired,
   films: movieCollectionValidator,
   reviews: reviewCollectionValidator
 };
