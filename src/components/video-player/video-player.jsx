@@ -11,11 +11,11 @@ const VideoPlayer = ({shouldPlay, src, ...restProps}) => {
       videoRef.current.pause();
       videoRef.current.onpause = null;
     };
-  });
+  }, []);
 
   useEffect(() => {
     if (shouldPlay) {
-      videoRef.current.play();
+      videoRef.current.play().catch(() => {});
       return;
     }
     videoRef.current.pause();
