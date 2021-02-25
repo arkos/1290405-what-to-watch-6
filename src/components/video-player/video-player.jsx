@@ -9,6 +9,7 @@ const VideoPlayer = ({shouldPlay, src, ...restProps}) => {
 
     return () => {
       videoRef.current.pause();
+      videoRef.current.currentTime = 0;
       videoRef.current.onpause = null;
     };
   }, []);
@@ -18,10 +19,11 @@ const VideoPlayer = ({shouldPlay, src, ...restProps}) => {
       videoRef.current.play().catch(() => {});
       return;
     }
-    videoRef.current.pause();
-  }, [shouldPlay]);
 
-  // TODO: Use isLoading to prevent video from playing if it's not yet loaded, use videoRef.current.oncanplaythrough
+    videoRef.current.pause();
+    videoRef.current.currentTime = 0;
+
+  }, [shouldPlay]);
 
   return (
     <video ref={videoRef} {...restProps}>

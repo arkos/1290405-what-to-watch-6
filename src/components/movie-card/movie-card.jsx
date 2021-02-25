@@ -5,6 +5,7 @@ import Validator from '../../validate';
 
 const CARD_HOVER_DELAY = 1000;
 const IS_VIDEO_MUTED = true;
+const VIDEO_PRELOAD = `none`;
 
 const MovieCard = ({movie}) => {
   const [shouldPlay, setShouldPlay] = useState(false);
@@ -41,6 +42,7 @@ const MovieCard = ({movie}) => {
         shouldPlay={shouldPlay}
         muted={IS_VIDEO_MUTED}
         poster={previewImagePath}
+        preload={VIDEO_PRELOAD}
         width="280"
         height="175"
       />
