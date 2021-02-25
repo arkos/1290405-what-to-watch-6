@@ -1,5 +1,6 @@
 import React from 'react';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import PrivateRoute from '../private-route/private-route';
 import Main from '../main/main';
 import SignIn from '../sign-in/sign-in';
 import MyList from '../my-list/my-list';
@@ -19,15 +20,15 @@ const App = () => {
         <Route exact path="/login">
           <SignIn />
         </Route>
-        <Route exact path="/mylist">
+        <PrivateRoute exact path="/mylist">
           <MyList />
-        </Route>
+        </PrivateRoute>
         <Route exact path="/films/:id">
           <Film />
         </Route>
-        <Route exact path="/films/:id/review">
+        <PrivateRoute exact path="/films/:id/review">
           <AddReview />
-        </Route>
+        </PrivateRoute>
         <Route exact path="/player/:id" >
           <Player />
         </Route>
