@@ -50,6 +50,9 @@ const Main = (props) => {
             <div className="user-block__avatar">
               <img src={AVATAR_URL} alt="User avatar" width="63" height="63" />
             </div>
+            <div className="user-block">
+              <a href="sign-in.html" className="user-block__link">donald@yahoo.com</a>
+            </div>
           </div>
         </header>
 
