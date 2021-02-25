@@ -32,7 +32,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.REQUIRE_AUTHORIZATION:
       return {
         ...state,
-        autorizationStatus: action.payload
+        authorizationStatus: action.payload
       };
     default: return state;
   }
