@@ -20,14 +20,12 @@ const App = () => {
         <Route exact path="/login">
           <SignIn />
         </Route>
-        <PrivateRoute exact path="/mylist">
-          <MyList />
+        <PrivateRoute exact path="/mylist" render={() => <MyList /> }>
         </PrivateRoute>
         <Route exact path="/films/:id">
           <Film />
         </Route>
-        <PrivateRoute exact path="/films/:id/review">
-          <AddReview />
+        <PrivateRoute exact path="/films/:id/review" render={() => <AddReview />}>
         </PrivateRoute>
         <Route exact path="/player/:id" >
           <Player />
