@@ -17,7 +17,7 @@ const reducer = (state = initialState, action) => {
         selectedGenre: action.payload
       };
     case ActionType.GET_MOVIES:
-      const processedMovies = filterByGenre([...state.initialMovies], state.selectedGenre);
+      const processedMovies = filterByGenre([...state.movies], state.selectedGenre);
 
       return {
         ...state,
