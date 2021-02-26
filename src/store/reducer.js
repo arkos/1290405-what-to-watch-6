@@ -1,6 +1,5 @@
 import {ActionType} from '../store/action';
 import {AuthorizationStatus, FILTER_ALL_GENRES} from '../const';
-import {filterByGenre} from '../util';
 
 const initialState = {
   selectedGenre: FILTER_ALL_GENRES,
@@ -15,13 +14,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         selectedGenre: action.payload
-      };
-    case ActionType.GET_MOVIES:
-      const processedMovies = filterByGenre([...state.movies], state.selectedGenre);
-
-      return {
-        ...state,
-        movies: processedMovies
       };
     case ActionType.LOAD_MOVIES:
       return {
