@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
-import {useHistory} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {getFilteredMovies} from '../../store/selectors/selectors';
-import {AVATAR_URL} from '../../const';
+import {AuthorizationStatus, AVATAR_URL} from '../../const';
 import Validator from '../../validate';
 import MovieList from '../movie-list/movie-list';
 import GenreList from '../genre-list/genre-list';
@@ -11,7 +11,7 @@ import Loading from '../loading/loading';
 import {fetchMovies} from '../../store/api-actions';
 
 const Main = (props) => {
-  const {movies, isDataLoaded, onLoadData} = props;
+  const {movies, authorizationStatus, isDataLoaded, onLoadData} = props;
 
   const [promo = {}] = movies;
 
@@ -48,9 +48,16 @@ const Main = (props) => {
           </div>
 
           <div className="user-block">
+            {
+              authorizationStatus === AuthorizationStatus.AUTH &&
             <div className="user-block__avatar">
               <img src={AVATAR_URL} alt="User avatar" width="63" height="63" />
             </div>
+            }
+            {
+              authorizationStatus === AuthorizationStatus.NO_AUTH &&
+              <Link to="/login" className="user-block__link">Sign in</Link>
+            }
           </div>
         </header>
 
@@ -120,12 +127,14 @@ const Main = (props) => {
 
 Main.propTypes = {
   movies: Validator.MOVIES,
+  authorizationStatus: PropTypes.string.isRequired,
   isDataLoaded: PropTypes.bool.isRequired,
   onLoadData: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
   movies: getFilteredMovies(state),
+  authorizationStatus: state.authorizationStatus,
   isDataLoaded: state.isDataLoaded
 });
 
