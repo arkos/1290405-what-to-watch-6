@@ -1,6 +1,6 @@
 import React from 'react';
 import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
-import {browserHistory} from '../../browser-history';
+import browserHistory from '../../browser-history';
 import PrivateRoute from '../private-route/private-route';
 import Main from '../main/main';
 import SignIn from '../sign-in/sign-in';
