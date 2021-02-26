@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
-import {connect} from 'react-redux';
 import MovieCard from '../movie-card/movie-card';
 import Validator from '../../validate';
-import {getFilteredMovies} from '../../store/selectors/selectors';
 
 const MovieList = ({movies}) => {
   const [activeMovie] = useState(0);
@@ -18,10 +16,5 @@ MovieList.propTypes = {
   movies: Validator.MOVIES
 };
 
-const mapStateToProps = (state) => ({
-  movies: getFilteredMovies(state)
-});
-
-export {MovieList};
-export default connect(mapStateToProps)(MovieList);
+export default MovieList;
 

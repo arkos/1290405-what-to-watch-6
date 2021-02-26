@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import {getFilteredMovies} from '../../store/selectors/selectors';
 import {AVATAR_URL} from '../../const';
 import Validator from '../../validate';
 import MovieList from '../movie-list/movie-list';
@@ -124,7 +125,7 @@ Main.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  movies: state.movies,
+  movies: getFilteredMovies(state),
   isDataLoaded: state.isDataLoaded
 });
 
