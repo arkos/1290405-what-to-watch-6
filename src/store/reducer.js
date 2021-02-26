@@ -4,6 +4,7 @@ import {AuthorizationStatus, FILTER_ALL_GENRES} from '../const';
 const initialState = {
   selectedGenre: FILTER_ALL_GENRES,
   movies: [],
+  userMovies: [],
   authorizationStatus: AuthorizationStatus.NO_AUTH,
   isDataLoaded: false
 };

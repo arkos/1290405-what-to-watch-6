@@ -5,7 +5,7 @@ import Validator from '../../validate';
 import {AVATAR_URL} from '../../const';
 import MovieList from '../movie-list/movie-list';
 
-const MyList = ({movies}) => {
+const MyList = ({userMovies}) => {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -30,7 +30,7 @@ const MyList = ({movies}) => {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__movies-list">
-          <MovieList movies={movies} />
+          <MovieList movies={userMovies} />
         </div>
       </section>
 
@@ -52,11 +52,11 @@ const MyList = ({movies}) => {
 };
 
 MyList.propTypes = {
-  movies: Validator.MOVIES
+  userMovies: Validator.MOVIES
 };
 
 const mapStateToProps = (state) => ({
-  movies: state.movies
+  userMovies: state.userMovies
 });
 
 export {MyList};
