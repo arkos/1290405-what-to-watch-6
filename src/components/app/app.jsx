@@ -2,6 +2,7 @@ import React from 'react';
 import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
 import browserHistory from '../../browser-history';
 import PrivateRoute from '../private-route/private-route';
+import {AppRoute, getReviewUrl, getPlayerUrl, getMovieUrl} from '../../routes';
 import Main from '../main/main';
 import SignIn from '../sign-in/sign-in';
 import MyList from '../my-list/my-list';
@@ -15,20 +16,20 @@ const App = () => {
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
-        <Route exact path="/">
+        <Route exact path={AppRoute.ROOT}>
           <Main />
         </Route>
-        <Route exact path="/login">
+        <Route exact path={AppRoute.LOGIN}>
           <SignIn />
         </Route>
-        <PrivateRoute exact path="/mylist" render={() => <MyList /> }>
+        <PrivateRoute exact path={AppRoute.MYLIST} render={() => <MyList /> }>
         </PrivateRoute>
-        <Route exact path="/films/:id">
+        <Route exact path={getMovieUrl()}>
           <Film />
         </Route>
-        <PrivateRoute exact path="/films/:id/review" render={() => <AddReview />}>
+        <PrivateRoute exact path={getReviewUrl()} render={() => <AddReview />}>
         </PrivateRoute>
-        <Route exact path="/player/:id" >
+        <Route exact path={getPlayerUrl()} >
           <Player />
         </Route>
         <Route>

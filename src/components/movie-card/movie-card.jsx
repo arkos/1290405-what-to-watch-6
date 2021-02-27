@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
+import {getMovieUrl} from '../../routes';
 import VideoPlayer from '../video-player/video-player';
 import Validator from '../../validate';
 
@@ -47,7 +48,7 @@ const MovieCard = ({movie}) => {
         height="175"
       />
       <h3 className="small-movie-card__title">
-        <Link className="small-movie-card__link" to={`/films/${id}`}>{name}</Link>
+        <Link className="small-movie-card__link" to={getMovieUrl(id)}>{name}</Link>
       </h3>
     </article>
   );

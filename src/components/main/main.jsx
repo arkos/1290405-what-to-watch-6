@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {getFilteredMovies} from '../../store/selectors/selectors';
 import {AuthorizationStatus, AVATAR_URL} from '../../const';
+import {AppRoute, getPlayerUrl} from '../../routes';
 import Validator from '../../validate';
 import MovieList from '../movie-list/movie-list';
 import GenreList from '../genre-list/genre-list';
@@ -56,7 +57,7 @@ const Main = (props) => {
             }
             {
               authorizationStatus === AuthorizationStatus.NO_AUTH &&
-              <Link to="/login" className="user-block__link">Sign in</Link>
+              <Link to={AppRoute.LOGIN} className="user-block__link">Sign in</Link>
             }
           </div>
         </header>
@@ -75,13 +76,13 @@ const Main = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button" onClick={() => history.push(`/player/${id}`)}>
+                <button className="btn btn--play movie-card__button" type="button" onClick={() => history.push(getPlayerUrl(id))}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button" onClick={() => history.push(`/mylist`)}>
+                <button className="btn btn--list movie-card__button" type="button" onClick={() => history.push(AppRoute.MYLIST)}>
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
                   </svg>
