@@ -1,7 +1,8 @@
 import React from 'react';
+import Validator from '../../validate';
 import OverviewTab from '../overview-tab/overview-tab';
 
-const Tabs = () => {
+const Tabs = ({movie}) => {
   return (
     <div className="movie-card__info">
       <div className="movie-card__poster movie-card__poster--big">
@@ -22,10 +23,14 @@ const Tabs = () => {
             </li>
           </ul>
         </nav>
-        <OverviewTab />
+        <OverviewTab movie={movie}/>
       </div>
     </div>
   );
+};
+
+Tabs.propTypes = {
+  movie: Validator.MOVIE
 };
 
 export default Tabs;
