@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import Validator from '../../validate';
 import {AVATAR_URL} from '../../const';
 import {AppRoute, getReviewUrl} from '../../routes';
+import Tabs from '../tabs/tabs';
 import NotFound from '../not-found/not-found';
 
 const Film = ({movies}) => {
@@ -21,13 +22,7 @@ const Film = ({movies}) => {
     name,
     backgroundImagePath,
     genre,
-    released,
-    posterImagePath,
-    rating,
-    score,
-    description,
-    director,
-    starring
+    released
   } = movie;
 
   return (
@@ -83,43 +78,7 @@ const Film = ({movies}) => {
       </div >
 
       <div className="movie-card__wrap movie-card__translate-top">
-        <div className="movie-card__info">
-          <div className="movie-card__poster movie-card__poster--big">
-            <img src={posterImagePath} alt={`${name} poster`} width="218" height="327" />
-          </div>
-
-          <div className="movie-card__desc">
-            <nav className="movie-nav movie-card__nav">
-              <ul className="movie-nav__list">
-                <li className="movie-nav__item movie-nav__item--active">
-                  <a href="#" className="movie-nav__link">Overview</a>
-                </li>
-                <li className="movie-nav__item">
-                  <a href="#" className="movie-nav__link">Details</a>
-                </li>
-                <li className="movie-nav__item">
-                  <a href="#" className="movie-nav__link">Reviews</a>
-                </li>
-              </ul>
-            </nav>
-
-            <div className="movie-rating">
-              <div className="movie-rating__score">{rating}</div>
-              <p className="movie-rating__meta">
-                <span className="movie-rating__level">Very good</span>
-                <span className="movie-rating__count">{`${score} ratings`}</span>
-              </p>
-            </div>
-
-            <div className="movie-card__text">
-              <p>{description}</p>
-
-              <p className="movie-card__director"><strong>{`Director: ${director}`}</strong></p>
-
-              <p className="movie-card__starring"><strong>{`Starring: ${starring.join(`, `)} and other`}</strong></p>
-            </div>
-          </div>
-        </div>
+        <Tabs movie={movie}/>
       </div>
     </section >
   );
