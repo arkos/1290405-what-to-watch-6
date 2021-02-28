@@ -8,7 +8,7 @@ const IS_VIDEO_MUTED = true;
 
 const MovieCard = ({movie}) => {
   const [shouldPlay, setShouldPlay] = useState(false);
-  const {previewImagePath, name, id} = movie;
+  const {previewImagePath, previewVideoUrl, name, id} = movie;
 
   let timer = null;
 
@@ -37,7 +37,7 @@ const MovieCard = ({movie}) => {
   return (
     <article className="small-movie-card catalog__movies-card" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <VideoPlayer
-        src={`https://cdn.videvo.net/videvo_files/video/free/2012-07/small_watermarked/Countdown%20Timer_preview.webm`}
+        src={previewVideoUrl}
         shouldPlay={shouldPlay}
         muted={IS_VIDEO_MUTED}
         poster={previewImagePath}

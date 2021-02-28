@@ -1,6 +1,8 @@
 export const ActionType = {
   CHANGE_GENRE: `movies/changeGenre`,
-  GET_MOVIES: `movies/getMovies`
+  GET_MOVIES: `movies/getMovies`,
+  LOAD_MOVIES: `data/loadMovies`,
+  REQUIRE_AUTHORIZATION: `user/requiredAuthorization`
 };
 
 export const ActionCreator = {
@@ -10,5 +12,13 @@ export const ActionCreator = {
   }),
   getMovies: () => ({
     type: ActionType.GET_MOVIES
+  }),
+  loadMovies: (movies) => ({
+    type: ActionType.LOAD_MOVIES,
+    payload: movies
+  }),
+  requireAuthorization: (status) => ({
+    type: ActionType.REQUIRE_AUTHORIZATION,
+    payload: status
   })
 };
