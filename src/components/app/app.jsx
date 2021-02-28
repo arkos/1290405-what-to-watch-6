@@ -1,5 +1,8 @@
 import React from 'react';
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
+import browserHistory from '../../browser-history';
+import PrivateRoute from '../private-route/private-route';
+import {AppRoute, getReviewUrl, getPlayerUrl, getMovieUrl} from '../../routes';
 import Main from '../main/main';
 import SignIn from '../sign-in/sign-in';
 import MyList from '../my-list/my-list';
@@ -11,24 +14,22 @@ import Validator from '../../validate';
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
-        <Route exact path="/">
+        <Route exact path={AppRoute.ROOT}>
           <Main />
         </Route>
-        <Route exact path="/login">
+        <Route exact path={AppRoute.LOGIN}>
           <SignIn />
         </Route>
-        <Route exact path="/mylist">
-          <MyList />
-        </Route>
-        <Route exact path="/films/:id">
+        <PrivateRoute exact path={AppRoute.MYLIST} render={() => <MyList /> }>
+        </PrivateRoute>
+        <Route exact path={getMovieUrl()}>
           <Film />
         </Route>
-        <Route exact path="/films/:id/review">
-          <AddReview />
-        </Route>
-        <Route exact path="/player/:id" >
+        <PrivateRoute exact path={getReviewUrl()} render={() => <AddReview />}>
+        </PrivateRoute>
+        <Route exact path={getPlayerUrl()} >
           <Player />
         </Route>
         <Route>

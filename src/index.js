@@ -9,6 +9,7 @@ import {AuthorizationStatus} from './const';
 import {ActionCreator} from './store/action';
 import {createAPI} from './services/api';
 import {checkAuth} from './store/api-actions';
+import {redirect} from './store/middlewares/redirect';
 import App from './components/app/app';
 
 const api = createAPI(
@@ -18,7 +19,8 @@ const api = createAPI(
 const store = createStore(
     reducer,
     composeWithDevTools(
-        applyMiddleware(thunk.withExtraArgument(api))
+        applyMiddleware(thunk.withExtraArgument(api)),
+        applyMiddleware(redirect)
     )
 );
 

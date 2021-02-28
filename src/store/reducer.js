@@ -1,10 +1,10 @@
 import {ActionType} from '../store/action';
 import {AuthorizationStatus, FILTER_ALL_GENRES} from '../const';
-import {filterByGenre} from '../util';
 
 const initialState = {
   selectedGenre: FILTER_ALL_GENRES,
   movies: [],
+  userMovies: [],
   authorizationStatus: AuthorizationStatus.NO_AUTH,
   isDataLoaded: false
 };
@@ -16,13 +16,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         selectedGenre: action.payload
       };
-    case ActionType.GET_MOVIES:
-      const processedMovies = filterByGenre([...state.movies], state.selectedGenre);
-
-      return {
-        ...state,
-        movies: processedMovies
-      };
     case ActionType.LOAD_MOVIES:
       return {
         ...state,
@@ -32,7 +25,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.REQUIRE_AUTHORIZATION:
       return {
         ...state,
-        autorizationStatus: action.payload
+        authorizationStatus: action.payload
       };
     default: return state;
   }

@@ -2,7 +2,8 @@ export const ActionType = {
   CHANGE_GENRE: `movies/changeGenre`,
   GET_MOVIES: `movies/getMovies`,
   LOAD_MOVIES: `data/loadMovies`,
-  REQUIRE_AUTHORIZATION: `user/requiredAuthorization`
+  REQUIRE_AUTHORIZATION: `user/requiredAuthorization`,
+  REDIRECT_TO_ROUTE: `user/redirectToRoute`
 };
 
 export const ActionCreator = {
@@ -20,5 +21,9 @@ export const ActionCreator = {
   requireAuthorization: (status) => ({
     type: ActionType.REQUIRE_AUTHORIZATION,
     payload: status
+  }),
+  redirectToRoute: (url) => ({
+    type: ActionType.REDIRECT_TO_ROUTE,
+    payload: url
   })
 };

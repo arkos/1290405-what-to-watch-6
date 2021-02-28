@@ -17,3 +17,4 @@ MovieList.propTypes = {
 };
 
 export default MovieList;
+

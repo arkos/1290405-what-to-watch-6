@@ -1,8 +1,10 @@
 import React, {useEffect} from 'react';
-import {useHistory} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {AVATAR_URL} from '../../const';
+import {getFilteredMovies} from '../../store/selectors/selectors';
+import {AuthorizationStatus, AVATAR_URL} from '../../const';
+import {AppRoute, getPlayerUrl} from '../../routes';
 import Validator from '../../validate';
 import MovieList from '../movie-list/movie-list';
 import GenreList from '../genre-list/genre-list';
@@ -10,7 +12,7 @@ import Loading from '../loading/loading';
 import {fetchMovies} from '../../store/api-actions';
 
 const Main = (props) => {
-  const {movies, isDataLoaded, onLoadData} = props;
+  const {movies, authorizationStatus, isDataLoaded, onLoadData} = props;
 
   const [promo = {}] = movies;
 
@@ -47,9 +49,16 @@ const Main = (props) => {
           </div>
 
           <div className="user-block">
+            {
+              authorizationStatus === AuthorizationStatus.AUTH &&
             <div className="user-block__avatar">
               <img src={AVATAR_URL} alt="User avatar" width="63" height="63" />
             </div>
+            }
+            {
+              authorizationStatus === AuthorizationStatus.NO_AUTH &&
+              <Link to={AppRoute.LOGIN} className="user-block__link">Sign in</Link>
+            }
           </div>
         </header>
 
@@ -67,13 +76,13 @@ const Main = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button" onClick={() => history.push(`/player/${id}`)}>
+                <button className="btn btn--play movie-card__button" type="button" onClick={() => history.push(getPlayerUrl(id))}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button" onClick={() => history.push(`/mylist`)}>
+                <button className="btn btn--list movie-card__button" type="button" onClick={() => history.push(AppRoute.MYLIST)}>
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
                   </svg>
@@ -119,12 +128,14 @@ const Main = (props) => {
 
 Main.propTypes = {
   movies: Validator.MOVIES,
+  authorizationStatus: PropTypes.string.isRequired,
   isDataLoaded: PropTypes.bool.isRequired,
   onLoadData: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  movies: state.movies,
+  movies: getFilteredMovies(state),
+  authorizationStatus: state.authorizationStatus,
   isDataLoaded: state.isDataLoaded
 });
 

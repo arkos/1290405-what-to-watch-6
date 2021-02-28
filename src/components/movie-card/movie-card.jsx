@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
+import {getMovieUrl} from '../../routes';
 import VideoPlayer from '../video-player/video-player';
 import Validator from '../../validate';
 
 const CARD_HOVER_DELAY = 1000;
 const IS_VIDEO_MUTED = true;
+const VIDEO_PRELOAD = `none`;
 
 const MovieCard = ({movie}) => {
   const [shouldPlay, setShouldPlay] = useState(false);
@@ -41,11 +43,12 @@ const MovieCard = ({movie}) => {
         shouldPlay={shouldPlay}
         muted={IS_VIDEO_MUTED}
         poster={previewImagePath}
+        preload={VIDEO_PRELOAD}
         width="280"
         height="175"
       />
       <h3 className="small-movie-card__title">
-        <Link className="small-movie-card__link" to={`/films/${id}`}>{name}</Link>
+        <Link className="small-movie-card__link" to={getMovieUrl(id)}>{name}</Link>
       </h3>
     </article>
   );

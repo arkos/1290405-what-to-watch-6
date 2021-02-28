@@ -3,6 +3,7 @@ import {Link, useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Validator from '../../validate';
 import {AVATAR_URL} from '../../const';
+import {AppRoute, getMovieUrl} from '../../routes';
 import NotFound from '../not-found/not-found';
 import AddReviewForm from '../add-review-form/add-review-form';
 
@@ -28,7 +29,7 @@ const AddReview = ({movies}) => {
 
         <header className="page-header">
           <div className="logo">
-            <Link to="/" className="logo__link">
+            <Link to={AppRoute.ROOT} className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
@@ -38,7 +39,7 @@ const AddReview = ({movies}) => {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link className="breadcrumbs__link" to={`/films/${id}`}>{name}</Link>
+                <Link className="breadcrumbs__link" to={getMovieUrl(id)}>{name}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>

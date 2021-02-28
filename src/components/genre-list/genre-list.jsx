@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import {getUniqueGenres} from '../../util';
 import {ActionCreator} from '../../store/action';
 import {getGenreName} from '../../util';
+import {getAllMovies} from '../../store/selectors/selectors';
 
 const GenreList = ({genres, selectedGenre, onSelectGenre}) => {
 
@@ -30,14 +31,13 @@ GenreList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  genres: getUniqueGenres(state.movies),
+  genres: getUniqueGenres(getAllMovies(state)),
   selectedGenre: state.selectedGenre
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onSelectGenre(genre) {
     dispatch(ActionCreator.changeGenre(genre));
-    dispatch(ActionCreator.getMovies());
   }
 });
 

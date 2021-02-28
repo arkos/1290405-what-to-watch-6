@@ -3,14 +3,15 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Validator from '../../validate';
 import {AVATAR_URL} from '../../const';
+import {AppRoute} from '../../routes';
 import MovieList from '../movie-list/movie-list';
 
-const MyList = ({movies}) => {
+const MyList = ({userMovies}) => {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
         <div className="logo">
-          <Link to="/" className="logo__link">
+          <Link to={AppRoute.ROOT} className="logo__link">
             <span className="logo__letter logo__letter--1">W</span>
             <span className="logo__letter logo__letter--2">T</span>
             <span className="logo__letter logo__letter--3">W</span>
@@ -30,13 +31,13 @@ const MyList = ({movies}) => {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__movies-list">
-          <MovieList movies={movies} />
+          <MovieList movies={userMovies} />
         </div>
       </section>
 
       <footer className="page-footer">
         <div className="logo">
-          <Link to="/" className="logo__link logo__link--light">
+          <Link to={AppRoute.ROOT} className="logo__link logo__link--light">
             <span className="logo__letter logo__letter--1">W</span>
             <span className="logo__letter logo__letter--2">T</span>
             <span className="logo__letter logo__letter--3">W</span>
@@ -52,11 +53,11 @@ const MyList = ({movies}) => {
 };
 
 MyList.propTypes = {
-  movies: Validator.MOVIES
+  userMovies: Validator.MOVIES
 };
 
 const mapStateToProps = (state) => ({
-  movies: state.movies
+  userMovies: state.userMovies
 });
 
 export {MyList};
