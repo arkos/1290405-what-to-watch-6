@@ -2,7 +2,6 @@ import React from 'react';
 import {Link, useParams, useHistory} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {getAllMovies} from '../../store/selectors/selectors';
-import Validator from '../../validate';
 import {AVATAR_URL} from '../../const';
 import {AppRoute, getReviewUrl} from '../../routes';
 import NotFound from '../not-found/not-found';
