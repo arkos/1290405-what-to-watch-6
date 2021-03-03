@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {getUniqueGenres} from '../../util';
-import {ActionCreator} from '../../store/action';
+import {changeGenre} from '../../store/action';
 import {getGenreName} from '../../util';
 import {getAllMovies} from '../../store/selectors/selectors';
 
@@ -37,7 +37,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onSelectGenre(genre) {
-    dispatch(ActionCreator.changeGenre(genre));
+    dispatch(changeGenre(genre));
   }
 });
 
