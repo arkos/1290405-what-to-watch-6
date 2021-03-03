@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {configureStore} from '@reduxjs/toolkit';
 import {Provider} from 'react-redux';
-import {reducer} from './store/reducer';
+import rootReducer from './store/root-reducer';
 import {AuthorizationStatus} from './const';
 import {requireAuthorization} from './store/action';
 import {createAPI} from './services/api';
@@ -15,7 +15,7 @@ const api = createAPI(
 );
 
 const store = configureStore({
-  reducer,
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       thunk: {
