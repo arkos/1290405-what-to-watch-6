@@ -1,18 +1,19 @@
 import React, {useEffect} from 'react';
 import {Link, useHistory} from 'react-router-dom';
-import {connect, useDispatch} from 'react-redux';
-import PropTypes from 'prop-types';
+import {useDispatch, useSelector} from 'react-redux';
 import {getFilteredMovies} from '../../store/selectors/selectors';
 import {AuthorizationStatus, AVATAR_URL} from '../../const';
 import {AppRoute, getPlayerUrl} from '../../routes';
-import Validator from '../../validate';
 import MovieList from '../movie-list/movie-list';
 import GenreList from '../genre-list/genre-list';
 import Loading from '../loading/loading';
 import {fetchMovies} from '../../store/api-actions';
 
-const Main = (props) => {
-  const {movies, authorizationStatus, isDataLoaded} = props;
+const Main = () => {
+
+  const movies = useSelector((state) => getFilteredMovies(state));
+  const {authorizationStatus} = useSelector((state) => state.USER);
+  const {isDataLoaded} = useSelector((state) => state.DATA);
 
   const [promo = {}] = movies;
 
@@ -128,17 +129,4 @@ const Main = (props) => {
   );
 };
 
-Main.propTypes = {
-  movies: Validator.MOVIES,
-  authorizationStatus: PropTypes.string.isRequired,
-  isDataLoaded: PropTypes.bool.isRequired
-};
-
-const mapStateToProps = (state) => ({
-  movies: getFilteredMovies(state),
-  authorizationStatus: state.USER.authorizationStatus,
-  isDataLoaded: state.DATA.isDataLoaded
-});
-
-export {Main};
-export default connect(mapStateToProps)(Main);
+export default Main;
