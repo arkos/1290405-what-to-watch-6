@@ -1,4 +1,5 @@
-import {ActionType} from '../store/action';
+import {createReducer} from '@reduxjs/toolkit';
+import {loadMovies, changeGenre, requireAuthorization} from '../store/action';
 import {AuthorizationStatus, FILTER_ALL_GENRES} from '../const';
 
 const initialState = {
@@ -9,26 +10,17 @@ const initialState = {
   isDataLoaded: false
 };
 
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case ActionType.CHANGE_GENRE:
-      return {
-        ...state,
-        selectedGenre: action.payload
-      };
-    case ActionType.LOAD_MOVIES:
-      return {
-        ...state,
-        movies: action.payload,
-        isDataLoaded: true
-      };
-    case ActionType.REQUIRE_AUTHORIZATION:
-      return {
-        ...state,
-        authorizationStatus: action.payload
-      };
-    default: return state;
-  }
-};
+const reducer = createReducer(initialState, (builder) => {
+  builder.addCase(loadMovies, (state, action) => {
+    state.movies = action.payload;
+    state.isDataLoaded = true;
+  });
+  builder.addCase(changeGenre, (state, action) => {
+    state.selectedGenre = action.payload;
+  });
+  builder.addCase(requireAuthorization, (state, action) => {
+    state.authorizationStatus = action.payload;
+  });
+});
 
 export {reducer};
