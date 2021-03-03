@@ -56,8 +56,8 @@ MyList.propTypes = {
   userMovies: Validator.MOVIES
 };
 
-const mapStateToProps = (state) => ({
-  userMovies: state.userMovies
+const mapStateToProps = ({DATA}) => ({
+  userMovies: DATA.userMovies
 });
 
 export {MyList};

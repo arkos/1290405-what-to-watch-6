@@ -1,8 +1,8 @@
 import {createSelector} from 'reselect';
 import {filterByGenre} from '../../util';
 
-const moviesSelector = (state) => state.movies;
-const genreSelector = (state) => state.selectedGenre;
+const moviesSelector = ({DATA}) => DATA.movies;
+const genreSelector = ({MOVIE}) => MOVIE.selectedGenre;
 
 export const getFilteredMovies = createSelector(
     [moviesSelector, genreSelector],

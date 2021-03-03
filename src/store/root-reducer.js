@@ -1,7 +1,6 @@
-import {combineReducers} from "@reduxjs/toolkit";
-import {movieData} from "./store/movie-data/movie-data";
-import {movieProcess} from './store/movie-process/movie-process';
-import {user} from "./store/user/user";
+import {movieData} from "./movie-data/movie-data";
+import {movieProcess} from './movie-process/movie-process';
+import {user} from "./user/user";
 
 export const NameSpace = {
   DATA: `DATA`,
@@ -9,8 +8,8 @@ export const NameSpace = {
   USER: `USER`
 };
 
-export default combineReducers({
+export default {
   [NameSpace.DATA]: movieData,
   [NameSpace.MOVIE]: movieProcess,
   [NameSpace.USER]: user
-});
+};

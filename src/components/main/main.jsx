@@ -135,8 +135,8 @@ Main.propTypes = {
 
 const mapStateToProps = (state) => ({
   movies: getFilteredMovies(state),
-  authorizationStatus: state.authorizationStatus,
-  isDataLoaded: state.isDataLoaded
+  authorizationStatus: state.USER.authorizationStatus,
+  isDataLoaded: state.DATA.isDataLoaded
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -129,8 +129,8 @@ Film.propTypes = {
   movies: Validator.MOVIES
 };
 
-const mapStateToProps = (state) => ({
-  movies: state.movies
+const mapStateToProps = ({DATA}) => ({
+  movies: DATA.movies
 });
 
 export {Film};
