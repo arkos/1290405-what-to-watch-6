@@ -1,13 +1,15 @@
 import React from 'react';
-import {connect, useDispatch} from 'react-redux';
-import PropTypes from 'prop-types';
+import {useDispatch, useSelector} from 'react-redux';
 import {getUniqueGenres} from '../../util';
 import {changeGenre} from '../../store/action';
 import {getGenreName} from '../../util';
 import {getAllMovies} from '../../store/selectors/selectors';
 
-const GenreList = ({genres, selectedGenre}) => {
+const GenreList = () => {
   const dispatch = useDispatch();
+
+  const genres = useSelector((state) => getUniqueGenres(getAllMovies(state)));
+  const {selectedGenre} = useSelector((state) => state.MOVIE);
 
   const handleSelectGenre = (evt) => {
     evt.preventDefault();
@@ -25,15 +27,4 @@ const GenreList = ({genres, selectedGenre}) => {
   );
 };
 
-GenreList.propTypes = {
-  genres: PropTypes.arrayOf(PropTypes.string).isRequired,
-  selectedGenre: PropTypes.string.isRequired
-};
-
-const mapStateToProps = (state) => ({
-  genres: getUniqueGenres(getAllMovies(state)),
-  selectedGenre: state.MOVIE.selectedGenre
-});
-
-export {GenreList};
-export default connect(mapStateToProps)(GenreList);
+export default GenreList;
