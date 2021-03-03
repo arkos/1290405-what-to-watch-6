@@ -1,14 +1,17 @@
 import React from 'react';
 import {Link, useParams} from 'react-router-dom';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 import Validator from '../../validate';
 import {AVATAR_URL} from '../../const';
 import {AppRoute, getMovieUrl} from '../../routes';
 import NotFound from '../not-found/not-found';
 import AddReviewForm from '../add-review-form/add-review-form';
+import {getAllMovies} from '../../store/selectors/selectors';
 
-const AddReview = ({movies}) => {
+const AddReview = () => {
   const {id} = useParams();
+
+  const movies = useSelector((state) => getAllMovies(state));
 
   const movie = movies.find((item) => item.id === Number(id));
 
@@ -17,6 +20,7 @@ const AddReview = ({movies}) => {
   }
 
   const {backgroundImagePath, name, posterImagePath} = movie;
+
 
   return (
     <section className="movie-card movie-card--full">
@@ -70,9 +74,4 @@ AddReview.propTypes = {
   movies: Validator.MOVIES
 };
 
-const mapStateToProps = ({DATA}) => ({
-  movies: DATA.movies
-});
-
-export {AddReview};
-export default connect(mapStateToProps, null)(AddReview);
+export default AddReview;
