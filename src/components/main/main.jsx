@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {Link, useHistory} from 'react-router-dom';
-import {connect} from 'react-redux';
+import {connect, useDispatch} from 'react-redux';
 import PropTypes from 'prop-types';
 import {getFilteredMovies} from '../../store/selectors/selectors';
 import {AuthorizationStatus, AVATAR_URL} from '../../const';
@@ -12,17 +12,19 @@ import Loading from '../loading/loading';
 import {fetchMovies} from '../../store/api-actions';
 
 const Main = (props) => {
-  const {movies, authorizationStatus, isDataLoaded, onLoadData} = props;
+  const {movies, authorizationStatus, isDataLoaded} = props;
 
   const [promo = {}] = movies;
 
   const {id, name, backgroundImagePath, posterImagePath, genre, released} = promo;
 
+  const dispatch = useDispatch();
+
   const history = useHistory();
 
   useEffect(() => {
     if (!isDataLoaded) {
-      onLoadData();
+      dispatch(fetchMovies());
     }
   }, [isDataLoaded]);
 
@@ -129,8 +131,7 @@ const Main = (props) => {
 Main.propTypes = {
   movies: Validator.MOVIES,
   authorizationStatus: PropTypes.string.isRequired,
-  isDataLoaded: PropTypes.bool.isRequired,
-  onLoadData: PropTypes.func.isRequired
+  isDataLoaded: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -139,11 +140,5 @@ const mapStateToProps = (state) => ({
   isDataLoaded: state.DATA.isDataLoaded
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onLoadData() {
-    dispatch(fetchMovies());
-  }
-});
-
 export {Main};
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(mapStateToProps)(Main);
