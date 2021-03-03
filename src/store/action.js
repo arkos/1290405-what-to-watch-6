@@ -1,3 +1,6 @@
+import {createAction} from '@reduxjs/toolkit';
+
+
 export const ActionType = {
   CHANGE_GENRE: `movies/changeGenre`,
   GET_MOVIES: `movies/getMovies`,
@@ -5,6 +8,12 @@ export const ActionType = {
   REQUIRE_AUTHORIZATION: `user/requiredAuthorization`,
   REDIRECT_TO_ROUTE: `user/redirectToRoute`
 };
+
+export const changeGenre = createAction(ActionType.CHANGE_GENRE, (genre) => {
+  return {
+    payload: genre
+  };
+});
 
 export const ActionCreator = {
   changeGenre: (genre) => ({
