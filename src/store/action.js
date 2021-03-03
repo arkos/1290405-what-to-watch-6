@@ -15,24 +15,22 @@ export const changeGenre = createAction(ActionType.CHANGE_GENRE, (genre) => {
   };
 });
 
-export const ActionCreator = {
-  changeGenre: (genre) => ({
-    type: ActionType.CHANGE_GENRE,
-    payload: genre
-  }),
-  getMovies: () => ({
-    type: ActionType.GET_MOVIES
-  }),
-  loadMovies: (movies) => ({
-    type: ActionType.LOAD_MOVIES,
+export const getMovies = createAction(ActionType.GET_MOVIES);
+
+export const loadMovies = createAction(ActionType.LOAD_MOVIES, (movies) => {
+  return {
     payload: movies
-  }),
-  requireAuthorization: (status) => ({
-    type: ActionType.REQUIRE_AUTHORIZATION,
+  };
+});
+
+export const requireAuthorization = createAction(ActionType.REQUIRE_AUTHORIZATION, (status) => {
+  return {
     payload: status
-  }),
-  redirectToRoute: (url) => ({
-    type: ActionType.REDIRECT_TO_ROUTE,
+  };
+});
+
+export const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) => {
+  return {
     payload: url
-  })
-};
+  };
+});
