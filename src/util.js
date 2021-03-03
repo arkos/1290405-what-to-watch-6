@@ -26,7 +26,7 @@ const genreToPluralMap = {
 
 export const getGenreName = (genre) => {
   const genreName = genreToPluralMap[genre];
-  return genreName ? genreName : genre;
+  return genreName || genre;
 };
 
 export const adaptToClient = (movie) => {
