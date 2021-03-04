@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import MovieCard from '../movie-card/movie-card';
-import Validator from '../../validate';
+import Validator from '../../util/validate';
 
 const MovieList = ({movies}) => {
   const [activeMovie] = useState(0);

@@ -1,15 +1,4 @@
-export const AppRoute = {
-  ROOT: `/`,
-  LOGIN: `/login`,
-  MYLIST: `/mylist`,
-  MOVIES: `/films`,
-};
-
-export const APIRoute = {
-  ROOT: `/`,
-  LOGIN: `/login`,
-  MOVIES: `/films`
-};
+import {AppRoute} from './const';
 
 export const getMovieUrl = (id = `:id`) => `${AppRoute.MOVIES}/${id}`;
 

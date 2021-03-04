@@ -1,3 +1,6 @@
+import {createAction} from '@reduxjs/toolkit';
+
+
 export const ActionType = {
   CHANGE_GENRE: `movies/changeGenre`,
   GET_MOVIES: `movies/getMovies`,
@@ -6,24 +9,28 @@ export const ActionType = {
   REDIRECT_TO_ROUTE: `user/redirectToRoute`
 };
 
-export const ActionCreator = {
-  changeGenre: (genre) => ({
-    type: ActionType.CHANGE_GENRE,
+export const changeGenre = createAction(ActionType.CHANGE_GENRE, (genre) => {
+  return {
     payload: genre
-  }),
-  getMovies: () => ({
-    type: ActionType.GET_MOVIES
-  }),
-  loadMovies: (movies) => ({
-    type: ActionType.LOAD_MOVIES,
+  };
+});
+
+export const getMovies = createAction(ActionType.GET_MOVIES);
+
+export const loadMovies = createAction(ActionType.LOAD_MOVIES, (movies) => {
+  return {
     payload: movies
-  }),
-  requireAuthorization: (status) => ({
-    type: ActionType.REQUIRE_AUTHORIZATION,
+  };
+});
+
+export const requireAuthorization = createAction(ActionType.REQUIRE_AUTHORIZATION, (status) => {
+  return {
     payload: status
-  }),
-  redirectToRoute: (url) => ({
-    type: ActionType.REDIRECT_TO_ROUTE,
+  };
+});
+
+export const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) => {
+  return {
     payload: url
-  })
-};
+  };
+});

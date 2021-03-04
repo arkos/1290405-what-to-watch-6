@@ -1,12 +1,12 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {connect} from 'react-redux';
-import Validator from '../../validate';
-import {AVATAR_URL} from '../../const';
-import {AppRoute} from '../../routes';
+import {useSelector} from 'react-redux';
+import {AVATAR_URL, AppRoute} from '../../util/const';
 import MovieList from '../movie-list/movie-list';
 
-const MyList = ({userMovies}) => {
+const MyList = () => {
+  const {userMovies} = useSelector((state) => state.DATA);
+
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -52,13 +52,4 @@ const MyList = ({userMovies}) => {
   );
 };
 
-MyList.propTypes = {
-  userMovies: Validator.MOVIES
-};
-
-const mapStateToProps = (state) => ({
-  userMovies: state.userMovies
-});
-
-export {MyList};
-export default connect(mapStateToProps, null)(MyList);
+export default MyList;

@@ -1,13 +1,15 @@
 import React from 'react';
 import {Link, useParams, useHistory} from 'react-router-dom';
-import {connect} from 'react-redux';
-import Validator from '../../validate';
-import {AVATAR_URL} from '../../const';
-import {AppRoute, getReviewUrl} from '../../routes';
+import {useSelector} from 'react-redux';
+import {getAllMovies} from '../../store/selectors/selectors';
+import {AVATAR_URL, AppRoute} from '../../util/const';
+import {getReviewUrl} from '../../util/route';
 import NotFound from '../not-found/not-found';
 
-const Film = ({movies}) => {
+const Film = () => {
   const {id} = useParams();
+
+  const movies = useSelector((state) => getAllMovies(state));
 
   const movie = movies.find((item) => item.id === Number(id));
 
@@ -125,13 +127,4 @@ const Film = ({movies}) => {
   );
 };
 
-Film.propTypes = {
-  movies: Validator.MOVIES
-};
-
-const mapStateToProps = (state) => ({
-  movies: state.movies
-});
-
-export {Film};
-export default connect(mapStateToProps, null)(Film);
+export default Film;

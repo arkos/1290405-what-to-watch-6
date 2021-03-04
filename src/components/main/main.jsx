@@ -1,28 +1,31 @@
 import React, {useEffect} from 'react';
 import {Link, useHistory} from 'react-router-dom';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import {useDispatch, useSelector} from 'react-redux';
 import {getFilteredMovies} from '../../store/selectors/selectors';
-import {AuthorizationStatus, AVATAR_URL} from '../../const';
-import {AppRoute, getPlayerUrl} from '../../routes';
-import Validator from '../../validate';
+import {AuthorizationStatus, AVATAR_URL, AppRoute} from '../../util/const';
+import {getPlayerUrl} from '../../util/route';
 import MovieList from '../movie-list/movie-list';
 import GenreList from '../genre-list/genre-list';
 import Loading from '../loading/loading';
 import {fetchMovies} from '../../store/api-actions';
 
-const Main = (props) => {
-  const {movies, authorizationStatus, isDataLoaded, onLoadData} = props;
+const Main = () => {
+
+  const movies = useSelector((state) => getFilteredMovies(state));
+  const {authorizationStatus} = useSelector((state) => state.USER);
+  const {isDataLoaded} = useSelector((state) => state.DATA);
 
   const [promo = {}] = movies;
 
   const {id, name, backgroundImagePath, posterImagePath, genre, released} = promo;
 
+  const dispatch = useDispatch();
+
   const history = useHistory();
 
   useEffect(() => {
     if (!isDataLoaded) {
-      onLoadData();
+      dispatch(fetchMovies());
     }
   }, [isDataLoaded]);
 
@@ -126,24 +129,4 @@ const Main = (props) => {
   );
 };
 
-Main.propTypes = {
-  movies: Validator.MOVIES,
-  authorizationStatus: PropTypes.string.isRequired,
-  isDataLoaded: PropTypes.bool.isRequired,
-  onLoadData: PropTypes.func.isRequired
-};
-
-const mapStateToProps = (state) => ({
-  movies: getFilteredMovies(state),
-  authorizationStatus: state.authorizationStatus,
-  isDataLoaded: state.isDataLoaded
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoadData() {
-    dispatch(fetchMovies());
-  }
-});
-
-export {Main};
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default Main;

@@ -1,8 +1,9 @@
 import React from 'react';
 import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
-import browserHistory from '../../browser-history';
+import browserHistory from '../../util/browser-history';
 import PrivateRoute from '../private-route/private-route';
-import {AppRoute, getReviewUrl, getPlayerUrl, getMovieUrl} from '../../routes';
+import {getReviewUrl, getPlayerUrl, getMovieUrl} from '../../util/route';
+import {AppRoute} from '../../util/const';
 import Main from '../main/main';
 import SignIn from '../sign-in/sign-in';
 import MyList from '../my-list/my-list';
@@ -10,7 +11,7 @@ import Film from '../film/film';
 import AddReview from '../add-review/add-review';
 import Player from '../player/player';
 import NotFound from '../not-found/not-found';
-import Validator from '../../validate';
+import Validator from '../../util/validate';
 
 const App = () => {
   return (
