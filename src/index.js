@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {configureStore} from '@reduxjs/toolkit';
 import {Provider} from 'react-redux';
 import rootReducer from './store/root-reducer';
-import {AuthorizationStatus} from './const';
+import {AuthorizationStatus} from './util/const';
 import {requireAuthorization} from './store/action';
 import {createAPI} from './services/api';
 import {checkAuth} from './store/api-actions';

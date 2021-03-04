@@ -1,8 +1,8 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {getUniqueGenres} from '../../util';
+import {getUniqueGenres} from '../../util/genre';
 import {changeGenre} from '../../store/action';
-import {getGenreName} from '../../util';
+import {getGenreName} from '../../util/genre';
 import {getAllMovies} from '../../store/selectors/selectors';
 
 const GenreList = () => {

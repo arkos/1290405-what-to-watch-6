@@ -1,7 +1,7 @@
 import React, {useRef} from 'react';
 import {useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../routes';
+import {AppRoute} from '../../util/const';
 import {login} from '../../store/api-actions';
 
 const SignIn = () => {

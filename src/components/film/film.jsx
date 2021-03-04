@@ -2,8 +2,8 @@ import React from 'react';
 import {Link, useParams, useHistory} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {getAllMovies} from '../../store/selectors/selectors';
-import {AVATAR_URL} from '../../const';
-import {AppRoute, getReviewUrl} from '../../routes';
+import {AVATAR_URL, AppRoute} from '../../util/const';
+import {getReviewUrl} from '../../util/route';
 import NotFound from '../not-found/not-found';
 
 const Film = () => {

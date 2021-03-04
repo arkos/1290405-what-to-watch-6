@@ -1,5 +1,5 @@
 import {createSelector} from 'reselect';
-import {filterByGenre} from '../../util';
+import {filterByGenre} from "../../util/genre";
 
 const moviesSelector = ({DATA}) => DATA.movies;
 const genreSelector = ({MOVIE}) => MOVIE.selectedGenre;

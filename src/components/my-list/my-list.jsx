@@ -1,8 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {useSelector} from 'react-redux';
-import {AVATAR_URL} from '../../const';
-import {AppRoute} from '../../routes';
+import {AVATAR_URL, AppRoute} from '../../util/const';
 import MovieList from '../movie-list/movie-list';
 
 const MyList = () => {

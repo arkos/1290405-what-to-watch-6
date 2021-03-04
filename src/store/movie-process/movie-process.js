@@ -1,5 +1,5 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {FILTER_ALL_GENRES} from "../../const";
+import {FILTER_ALL_GENRES} from "../../util/const";
 import {changeGenre} from "../action";
 
 const initialState = {

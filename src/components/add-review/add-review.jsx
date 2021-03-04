@@ -1,9 +1,9 @@
 import React from 'react';
 import {Link, useParams} from 'react-router-dom';
 import {useSelector} from 'react-redux';
-import Validator from '../../validate';
-import {AVATAR_URL} from '../../const';
-import {AppRoute, getMovieUrl} from '../../routes';
+import Validator from '../../util/validate';
+import {AVATAR_URL, AppRoute} from '../../util/const';
+import {getMovieUrl} from '../../util/route';
 import NotFound from '../not-found/not-found';
 import AddReviewForm from '../add-review-form/add-review-form';
 import {getAllMovies} from '../../store/selectors/selectors';
