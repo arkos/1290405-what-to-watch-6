@@ -1,5 +1,5 @@
 import {movieProcess} from './movie-process';
-import {ActionType, changeGenre} from '../action';
+import {changeGenre} from '../action';
 import {FILTER_ALL_GENRES} from '../../util/const';
 
 describe(`Reducers work correctly`, () => {
