@@ -40,7 +40,7 @@
   },
   "jest": {
     "moduleNameMapper": {
-      "\\.(css|less)$": "<rootDir/src/style-mock.js"
+      "\\.(css|less)$": "<rootDir>/src/style-mock.js"
     }
   }
 }
