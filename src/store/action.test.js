@@ -1,4 +1,5 @@
-import {changeGenre, loadMovies, ActionType} from '../store/action';
+import {changeGenre, loadMovies, ActionType, requireAuthorization} from '../store/action';
+import {AuthorizationStatus} from '../util/const';
 
 describe(`Action creators work correctly`, () => {
   it(`Action creator for changing genre returns correct action`, () => {
@@ -112,5 +113,14 @@ describe(`Action creators work correctly`, () => {
     };
 
     expect(loadMovies(movies)).toEqual(expectedAction);
+  });
+
+  it(`Action creator for requiring authorization returns correct action`, () => {
+    const expectedAction = {
+      type: ActionType.REQUIRE_AUTHORIZATION,
+      payload: AuthorizationStatus.AUTH
+    };
+
+    expect(requireAuthorization(AuthorizationStatus.AUTH)).toEqual(expectedAction);
   });
 });
