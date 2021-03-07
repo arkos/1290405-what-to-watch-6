@@ -110,7 +110,7 @@ describe(`Reducer 'movieData should work correctly'`, () => {
   });
 
   it(`Reducer should update movies by loadMovies`, () => {
-    const state = {movies: [], userMovies: [], isDataLoaded: false};
+    const state = {movies, userMovies: [], isDataLoaded: false};
     expect(movieData(state, loadMovies(movies)))
     .toEqual({movies, userMovies: [], isDataLoaded: true});
   });
