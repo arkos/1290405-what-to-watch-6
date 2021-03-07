@@ -1,4 +1,4 @@
-import {changeGenre, loadMovies, ActionType, requireAuthorization} from '../store/action';
+import {changeGenre, loadMovies, ActionType, requireAuthorization, redirectToRoute} from '../store/action';
 import {AuthorizationStatus} from '../util/const';
 
 describe(`Action creators work correctly`, () => {
@@ -122,5 +122,16 @@ describe(`Action creators work correctly`, () => {
     };
 
     expect(requireAuthorization(AuthorizationStatus.AUTH)).toEqual(expectedAction);
+  });
+
+  it(`Action creator for redirecting to route returns correct action`, () => {
+    const url = `https://htmlacademy.ru`;
+
+    const expectedAction = {
+      type: ActionType.REDIRECT_TO_ROUTE,
+      payload: url
+    };
+
+    expect(redirectToRoute(url)).toEqual(expectedAction);
   });
 });
