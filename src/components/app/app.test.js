@@ -6,7 +6,7 @@ import {createMemoryHistory} from 'history';
 import {render, screen} from '@testing-library/react';
 import App from '../app/app';
 import {AppRoute, AuthorizationStatus} from '../../util/const';
-import {getReviewUrl} from '../../util/route';
+import {getPlayerUrl, getReviewUrl} from '../../util/route';
 import {adaptToClient} from '../../util/movie';
 
 const mockStore = configureStore({});
@@ -109,6 +109,46 @@ const movies = [
 describe(`Test routing`, () => {
   jest.spyOn(redux, `useSelector`);
   jest.spyOn(redux, `useDispatch`);
+
+  it(`Render Player when authorized user navigates to /player/:id`, () => {
+    const testMovie = adaptToClient(movies[0]);
+
+    const history = createMemoryHistory();
+    history.push(getPlayerUrl(testMovie.id));
+
+    render(
+        <redux.Provider store={mockStore({
+          DATA: {movies, userMovies: [], isDataLoaded: true},
+          USER: {authorizationStatus: AuthorizationStatus.NO_AUTH}
+        })}>
+          <Router history={history}>
+            <App />
+          </Router>
+        </redux.Provider>
+    );
+
+    expect(screen.getByText(/Play/i)).toBeInTheDocument();
+    expect(screen.getByText(/Full screen/i)).toBeInTheDocument();
+  });
+
+  it(`Render Player when user navigates to /player/non-existent-id`, () => {
+    const history = createMemoryHistory();
+    history.push(getPlayerUrl(`non-existent-id`));
+
+    render(
+        <redux.Provider store={mockStore({
+          DATA: {movies, userMovies: [], isDataLoaded: true},
+          USER: {authorizationStatus: AuthorizationStatus.NO_AUTH}
+        })}>
+          <Router history={history}>
+            <App />
+          </Router>
+        </redux.Provider>
+    );
+
+    expect(screen.getByText(/404. Page not found/i)).toBeInTheDocument();
+    expect(screen.getByText(/Back to home/i)).toBeInTheDocument();
+  });
 
   it(`Render AddReview when an authorized user navigates to /films/:id/review`, () => {
     const testMovie = adaptToClient(movies[0]);
