@@ -6,6 +6,8 @@ import {createMemoryHistory} from 'history';
 import {render, screen} from '@testing-library/react';
 import App from '../app/app';
 import {AppRoute, AuthorizationStatus} from '../../util/const';
+import {getReviewUrl} from '../../util/route';
+import {adaptToClient} from '../../util/movie';
 
 const mockStore = configureStore({});
 
@@ -107,6 +109,50 @@ const movies = [
 describe(`Test routing`, () => {
   jest.spyOn(redux, `useSelector`);
   jest.spyOn(redux, `useDispatch`);
+
+  it(`Render AddReview when an authorized user navigates to /films/:id/review`, () => {
+    const testMovie = adaptToClient(movies[0]);
+
+    const history = createMemoryHistory();
+    history.push(getReviewUrl(testMovie.id));
+
+    render(
+        <redux.Provider store={mockStore({
+          DATA: {movies, userMovies: [], isDataLoaded: true},
+          USER: {authorizationStatus: AuthorizationStatus.AUTH}
+        })}>
+          <Router history={history}>
+            <App />
+          </Router>
+        </redux.Provider>
+    );
+
+    expect(screen.getByText(new RegExp(testMovie.name, `i`))).toBeInTheDocument();
+    expect(screen.getByText(/Add review/i)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/Review text/i)).toBeInTheDocument();
+  });
+
+  it(`Render AddReview when an unauthorized user navigates to /films/:id/review`, () => {
+    const testMovie = adaptToClient(movies[0]);
+
+    const history = createMemoryHistory();
+    history.push(getReviewUrl(testMovie.id));
+
+    render(
+        <redux.Provider store={mockStore({
+          DATA: {movies, userMovies: [], isDataLoaded: true},
+          USER: {authorizationStatus: AuthorizationStatus.NO_AUTH}
+        })}>
+          <Router history={history}>
+            <App />
+          </Router>
+        </redux.Provider>
+    );
+
+    expect(screen.getAllByText(/Sign in/i)).toHaveLength(2);
+    expect(screen.getByPlaceholderText(/Email address/i)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/Password/i)).toBeInTheDocument();
+  });
 
   it(`Render MyList when an authorized user navigates to /mylist`, () => {
     const history = createMemoryHistory();
