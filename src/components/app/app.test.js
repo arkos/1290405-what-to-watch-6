@@ -132,6 +132,25 @@ describe(`Test routing`, () => {
     expect(screen.getByPlaceholderText(/Review text/i)).toBeInTheDocument();
   });
 
+  it(`Render AddReview when user navigates to non-existent movie review`, () => {
+    const history = createMemoryHistory();
+    history.push(getReviewUrl(`non-existent-id`));
+
+    render(
+        <redux.Provider store={mockStore({
+          DATA: {movies, userMovies: [], isDataLoaded: true},
+          USER: {authorizationStatus: AuthorizationStatus.AUTH}
+        })}>
+          <Router history={history}>
+            <App />
+          </Router>
+        </redux.Provider>
+    );
+
+    expect(screen.getByText(/404. Page not found/i)).toBeInTheDocument();
+    expect(screen.getByText(/Back to home/i)).toBeInTheDocument();
+  });
+
   it(`Render AddReview when an unauthorized user navigates to /films/:id/review`, () => {
     const testMovie = adaptToClient(movies[0]);
 
