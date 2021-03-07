@@ -13,7 +13,7 @@ describe(`Reducer 'user' should work correctly`, () => {
     .toEqual({authorizationStatus: AuthorizationStatus.NO_AUTH});
   });
 
-  it(`Reducer should update authorization status to ${AuthorizationStatus.AUTH}`, () => {
+  it(`Reducer should update authorization status to 'auth'`, () => {
     const state = {authorizationStatus: AuthorizationStatus.NO_AUTH};
     expect(user(state, requireAuthorization(AuthorizationStatus.AUTH)))
     .toEqual({authorizationStatus: AuthorizationStatus.AUTH});
