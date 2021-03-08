@@ -10,7 +10,7 @@ const SignInIndicator = () => {
     <div className="user-block">
       {
         authorizationStatus === AuthorizationStatus.AUTH &&
-    <div className="user-block__avatar">
+    <div className="user-block__avatar" data-testid="user-avatar-icon">
       <Link to={AppRoute.MYLIST}>
         <img src={AVATAR_URL} alt="User avatar" width="63" height="63" />
       </Link>
