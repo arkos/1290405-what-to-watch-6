@@ -1,18 +1,18 @@
 import React, {useEffect} from 'react';
-import {Link, useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {getFilteredMovies} from '../../store/selectors/selectors';
-import {AuthorizationStatus, AVATAR_URL, AppRoute} from '../../util/const';
+import {AppRoute} from '../../util/const';
 import {getPlayerUrl} from '../../util/route';
 import MovieList from '../movie-list/movie-list';
 import GenreList from '../genre-list/genre-list';
 import Loading from '../loading/loading';
+import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
 import {fetchMovies} from '../../store/api-actions';
 
 const Main = () => {
 
   const movies = useSelector((state) => getFilteredMovies(state));
-  const {authorizationStatus} = useSelector((state) => state.USER);
   const {isDataLoaded} = useSelector((state) => state.DATA);
 
   const [promo = {}] = movies;
@@ -51,18 +51,7 @@ const Main = () => {
             </a>
           </div>
 
-          <div className="user-block">
-            {
-              authorizationStatus === AuthorizationStatus.AUTH &&
-            <div className="user-block__avatar">
-              <img src={AVATAR_URL} alt="User avatar" width="63" height="63" />
-            </div>
-            }
-            {
-              authorizationStatus === AuthorizationStatus.NO_AUTH &&
-              <Link to={AppRoute.LOGIN} className="user-block__link">Sign in</Link>
-            }
-          </div>
+          <SignInIndicator />
         </header>
 
         <div className="movie-card__wrap">

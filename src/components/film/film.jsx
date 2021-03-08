@@ -2,9 +2,10 @@ import React from 'react';
 import {Link, useParams, useHistory} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {getAllMovies} from '../../store/selectors/selectors';
-import {AVATAR_URL, AppRoute} from '../../util/const';
+import {AppRoute} from '../../util/const';
 import {getReviewUrl} from '../../util/route';
 import NotFound from '../not-found/not-found';
+import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
 
 const Film = () => {
   const {id} = useParams();
@@ -50,11 +51,7 @@ const Film = () => {
             </Link>
           </div>
 
-          <div className="user-block">
-            <div className="user-block__avatar">
-              <img src={AVATAR_URL} alt="User avatar" width="63" height="63" />
-            </div>
-          </div>
+          <SignInIndicator />
         </header>
 
         <div className="movie-card__wrap">
