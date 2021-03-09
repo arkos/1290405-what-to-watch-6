@@ -19,3 +19,11 @@ export const AppRoute = {
   MYLIST: `/mylist`,
   MOVIES: `/films`,
 };
+
+export const Rating = {
+  BAD: 3,
+  NORMAL: 5,
+  GOOD: 8,
+  VERYGOOD: 10,
+  AWESOME: Infinity
+};
