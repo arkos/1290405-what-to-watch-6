@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react';
 import Validator from '../../validate';
+import {getRatingName} from '../../util/movie';
 
 const OverviewTab = ({movie}) => {
   const {rating, score, director, starring, description} = movie;
@@ -9,7 +10,7 @@ const OverviewTab = ({movie}) => {
       <div className="movie-rating">
         <div className="movie-rating__score">{rating}</div>
         <p className="movie-rating__meta">
-          <span className="movie-rating__level">Very good</span>
+          <span className="movie-rating__level">{getRatingName(rating)}</span>
           <span className="movie-rating__count">{`${score} ratings`}</span>
         </p>
       </div>

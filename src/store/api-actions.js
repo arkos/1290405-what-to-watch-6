@@ -1,21 +1,21 @@
-import {ActionCreator} from '../store/action';
-import {AuthorizationStatus} from '../const';
-import {adaptToClient} from '../util';
-import {APIRoute} from '../routes';
+import {loadMovies, requireAuthorization, redirectToRoute} from '../store/action';
+import {AuthorizationStatus} from '../util/const';
+import {adaptToClient} from '../util/movie';
+import {APIRoute} from '../util/const';
 
-export const fetchMovies = () => (dispatch, _getState, api) => {
+export const fetchMovies = () => (dispatch, _getState, api) => (
   api.get(APIRoute.MOVIES)
-    .then(({data}) => dispatch(ActionCreator.loadMovies(data.map(adaptToClient))));
-};
+    .then(({data}) => dispatch(loadMovies(data.map(adaptToClient))))
+);
 
-export const checkAuth = () => (dispatch, _getState, api) => {
+export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
-    .catch(() => {});
-};
+    .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
+    .catch(() => {})
+);
 
-export const login = ({login: email, password}) => (dispatch, _getState, api) => {
+export const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(APIRoute.LOGIN, {email, password})
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
-    .then(() => dispatch(ActionCreator.redirectToRoute(APIRoute.ROOT)));
-};
+    .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
+    .then(() => dispatch(redirectToRoute(APIRoute.ROOT)))
+);

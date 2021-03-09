@@ -1,11 +1,13 @@
 import React from 'react';
 import {useParams} from 'react-router-dom';
-import {connect} from 'react-redux';
-import Validator from '../../validate';
+import {useSelector} from 'react-redux';
+import {getAllMovies} from '../../store/selectors/selectors';
 import NotFound from '../not-found/not-found';
 
-const Player = ({movies}) => {
+const Player = () => {
   const {id} = useParams();
+
+  const movies = useSelector((state) => getAllMovies(state));
 
   const movie = movies.find((item) => item.id === Number(id));
 
@@ -51,13 +53,4 @@ const Player = ({movies}) => {
   );
 };
 
-Player.propTypes = {
-  movies: Validator.MOVIES
-};
-
-const mapStateToProps = (state) => ({
-  movies: state.movies
-});
-
-export {Player};
-export default connect(mapStateToProps, null)(Player);
+export default Player;

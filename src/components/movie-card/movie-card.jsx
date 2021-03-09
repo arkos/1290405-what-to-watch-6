@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
-import {getMovieUrl} from '../../routes';
+import {getMovieUrl} from '../../util/route';
 import VideoPlayer from '../video-player/video-player';
-import Validator from '../../validate';
+import Validator from '../../util/validate';
 
 const CARD_HOVER_DELAY = 1000;
 const IS_VIDEO_MUTED = true;

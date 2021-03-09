@@ -1,21 +1,22 @@
 import React, {useRef} from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../routes';
+import {AppRoute} from '../../util/const';
 import {login} from '../../store/api-actions';
 
-const SignIn = ({onSubmit}) => {
-
+const SignIn = () => {
   const loginRef = useRef();
   const passwordRef = useRef();
 
+  const dispatch = useDispatch();
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    onSubmit({
+
+    dispatch(login({
       login: loginRef.current.value,
       password: passwordRef.current.value
-    });
+    }));
   };
 
   return (
@@ -36,11 +37,11 @@ const SignIn = ({onSubmit}) => {
         <form action="#" className="sign-in__form" onSubmit={handleSubmit}>
           <div className="sign-in__fields">
             <div className="sign-in__field">
-              <input className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" ref={loginRef} />
+              <input ref={loginRef} className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" data-testid="user-email" />
               <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
             </div>
             <div className="sign-in__field">
-              <input className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" ref={passwordRef} />
+              <input ref={passwordRef} className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" data-testid="user-password"/>
               <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
             </div>
           </div>
@@ -67,15 +68,4 @@ const SignIn = ({onSubmit}) => {
   );
 };
 
-SignIn.propTypes = {
-  onSubmit: PropTypes.func.isRequired
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit(authData) {
-    dispatch(login(authData));
-  }
-});
-
-export {SignIn};
-export default connect(null, mapDispatchToProps)(SignIn);
+export default SignIn;

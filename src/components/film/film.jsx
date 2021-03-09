@@ -1,14 +1,17 @@
 import React from 'react';
 import {Link, useParams, useHistory} from 'react-router-dom';
-import {connect} from 'react-redux';
-import Validator from '../../validate';
-import {AVATAR_URL} from '../../const';
-import {AppRoute, getReviewUrl} from '../../routes';
-import Tabs from '../tabs/tabs';
+import {useSelector} from 'react-redux';
+import {getAllMovies} from '../../store/selectors/selectors';
+import {AppRoute} from '../../util/const';
+import {getReviewUrl} from '../../util/route';
 import NotFound from '../not-found/not-found';
+import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
+import Tabs from '../tabs/tabs';
 
-const Film = ({movies}) => {
+const Film = () => {
   const {id} = useParams();
+
+  const movies = useSelector((state) => getAllMovies(state));
 
   const movie = movies.find((item) => item.id === Number(id));
 
@@ -43,11 +46,7 @@ const Film = ({movies}) => {
             </Link>
           </div>
 
-          <div className="user-block">
-            <div className="user-block__avatar">
-              <img src={AVATAR_URL} alt="User avatar" width="63" height="63" />
-            </div>
-          </div>
+          <SignInIndicator />
         </header>
 
         <div className="movie-card__wrap">
@@ -84,13 +83,4 @@ const Film = ({movies}) => {
   );
 };
 
-Film.propTypes = {
-  movies: Validator.MOVIES
-};
-
-const mapStateToProps = (state) => ({
-  movies: state.movies
-});
-
-export {Film};
-export default connect(mapStateToProps, null)(Film);
+export default Film;

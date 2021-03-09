@@ -1,14 +1,18 @@
 import React from 'react';
 import {Link, useParams} from 'react-router-dom';
-import {connect} from 'react-redux';
-import Validator from '../../validate';
-import {AVATAR_URL} from '../../const';
-import {AppRoute, getMovieUrl} from '../../routes';
+import {useSelector} from 'react-redux';
+import Validator from '../../util/validate';
+import {AppRoute} from '../../util/const';
+import {getMovieUrl} from '../../util/route';
 import NotFound from '../not-found/not-found';
 import AddReviewForm from '../add-review-form/add-review-form';
+import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
+import {getAllMovies} from '../../store/selectors/selectors';
 
-const AddReview = ({movies}) => {
+const AddReview = () => {
   const {id} = useParams();
+
+  const movies = useSelector((state) => getAllMovies(state));
 
   const movie = movies.find((item) => item.id === Number(id));
 
@@ -17,6 +21,7 @@ const AddReview = ({movies}) => {
   }
 
   const {backgroundImagePath, name, posterImagePath} = movie;
+
 
   return (
     <section className="movie-card movie-card--full">
@@ -47,11 +52,7 @@ const AddReview = ({movies}) => {
             </ul>
           </nav>
 
-          <div className="user-block">
-            <div className="user-block__avatar">
-              <img src={AVATAR_URL} alt="User avatar" width="63" height="63" />
-            </div>
-          </div>
+          <SignInIndicator />
         </header>
 
         <div className="movie-card__poster movie-card__poster--small">
@@ -70,9 +71,4 @@ AddReview.propTypes = {
   movies: Validator.MOVIES
 };
 
-const mapStateToProps = (state) => ({
-  movies: state.movies
-});
-
-export {AddReview};
-export default connect(mapStateToProps, null)(AddReview);
+export default AddReview;

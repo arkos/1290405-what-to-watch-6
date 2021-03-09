@@ -1,28 +1,31 @@
 import React, {useEffect} from 'react';
-import {Link, useHistory} from 'react-router-dom';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import {useHistory} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
 import {getFilteredMovies} from '../../store/selectors/selectors';
-import {AuthorizationStatus, AVATAR_URL} from '../../const';
-import {AppRoute, getPlayerUrl} from '../../routes';
-import Validator from '../../validate';
+import {AppRoute} from '../../util/const';
+import {getPlayerUrl} from '../../util/route';
 import MovieList from '../movie-list/movie-list';
 import GenreList from '../genre-list/genre-list';
 import Loading from '../loading/loading';
+import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
 import {fetchMovies} from '../../store/api-actions';
 
-const Main = (props) => {
-  const {movies, authorizationStatus, isDataLoaded, onLoadData} = props;
+const Main = () => {
+
+  const movies = useSelector((state) => getFilteredMovies(state));
+  const {isDataLoaded} = useSelector((state) => state.DATA);
 
   const [promo = {}] = movies;
 
   const {id, name, backgroundImagePath, posterImagePath, genre, released} = promo;
 
+  const dispatch = useDispatch();
+
   const history = useHistory();
 
   useEffect(() => {
     if (!isDataLoaded) {
-      onLoadData();
+      dispatch(fetchMovies());
     }
   }, [isDataLoaded]);
 
@@ -48,18 +51,7 @@ const Main = (props) => {
             </a>
           </div>
 
-          <div className="user-block">
-            {
-              authorizationStatus === AuthorizationStatus.AUTH &&
-            <div className="user-block__avatar">
-              <img src={AVATAR_URL} alt="User avatar" width="63" height="63" />
-            </div>
-            }
-            {
-              authorizationStatus === AuthorizationStatus.NO_AUTH &&
-              <Link to={AppRoute.LOGIN} className="user-block__link">Sign in</Link>
-            }
-          </div>
+          <SignInIndicator />
         </header>
 
         <div className="movie-card__wrap">
@@ -126,24 +118,4 @@ const Main = (props) => {
   );
 };
 
-Main.propTypes = {
-  movies: Validator.MOVIES,
-  authorizationStatus: PropTypes.string.isRequired,
-  isDataLoaded: PropTypes.bool.isRequired,
-  onLoadData: PropTypes.func.isRequired
-};
-
-const mapStateToProps = (state) => ({
-  movies: getFilteredMovies(state),
-  authorizationStatus: state.authorizationStatus,
-  isDataLoaded: state.isDataLoaded
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoadData() {
-    dispatch(fetchMovies());
-  }
-});
-
-export {Main};
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default Main;
