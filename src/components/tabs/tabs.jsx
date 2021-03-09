@@ -6,7 +6,7 @@ const Tabs = ({movie}) => {
   return (
     <div className="movie-card__info">
       <div className="movie-card__poster movie-card__poster--big">
-        <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+        <img src={movie.posterImagePath} alt={`${movie.name} poster`} width="218" height="327" />
       </div>
 
       <div className="movie-card__desc">
