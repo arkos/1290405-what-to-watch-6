@@ -6,6 +6,7 @@ import {AppRoute} from '../../util/const';
 import {getReviewUrl} from '../../util/route';
 import NotFound from '../not-found/not-found';
 import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
+import {getRatingName} from '../../util/movie';
 
 const Film = () => {
   const {id} = useParams();
@@ -105,7 +106,7 @@ const Film = () => {
             <div className="movie-rating">
               <div className="movie-rating__score">{rating}</div>
               <p className="movie-rating__meta">
-                <span className="movie-rating__level">Very good</span>
+                <span className="movie-rating__level">{getRatingName(rating)}</span>
                 <span className="movie-rating__count">{`${score} ratings`}</span>
               </p>
             </div>
