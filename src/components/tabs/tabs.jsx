@@ -1,5 +1,5 @@
 import React from 'react';
-import Validator from '../../validate';
+import Validator from '../../util/validate';
 import OverviewTab from '../overview-tab/overview-tab';
 
 const Tabs = ({movie}) => {

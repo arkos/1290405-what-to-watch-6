@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import Validator from '../../validate';
+import Validator from '../../util/validate';
 import {getRatingName} from '../../util/movie';
 
 const OverviewTab = ({movie}) => {
