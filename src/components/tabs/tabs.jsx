@@ -2,6 +2,7 @@ import React from 'react';
 import Validator from '../../util/validate';
 import DetailsTab from '../details-tab/details-tab';
 import OverviewTab from '../overview-tab/overview-tab';
+import ReviewsTab from '../reviews-tab/reviews-tab'
 
 const Tabs = ({movie}) => {
   return (
@@ -25,7 +26,8 @@ const Tabs = ({movie}) => {
           </ul>
         </nav>
         {/* <OverviewTab movie={movie}/> */}
-        <DetailsTab movie={movie}/>
+        {/* <DetailsTab movie={movie}/> */}
+        <ReviewsTab movie={movie}/>
       </div>
     </div>
   );
