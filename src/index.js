@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Router as BrowserRouter} from 'react-router-dom';
+import browserHistory from './util/browser-history';
 import {configureStore} from '@reduxjs/toolkit';
 import {Provider} from 'react-redux';
 import rootReducer from './store/root-reducer';
@@ -29,7 +31,9 @@ store.dispatch(checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>
-      <App />
+      <BrowserRouter history={browserHistory}>
+        <App />
+      </BrowserRouter>
     </Provider>,
     document.querySelector(`#root`)
 );
