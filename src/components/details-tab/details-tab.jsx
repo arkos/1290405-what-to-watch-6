@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react';
 import Validator from '../../util/validate';
+import {formatRunTime} from '../../util/movie';
 
 
 const DetailsTab = ({movie}) => {
@@ -33,7 +34,7 @@ const DetailsTab = ({movie}) => {
         <div className="movie-card__text-col">
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Run Time</strong>
-            <span className="movie-card__details-value">{runTime}</span>
+            <span className="movie-card__details-value">{formatRunTime(runTime, `H[h] mm[m]`)}</span>
           </p>
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Genre</strong>
