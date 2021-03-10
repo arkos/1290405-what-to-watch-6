@@ -1,5 +1,6 @@
 import React from 'react';
 import Validator from '../../util/validate';
+import DetailsTab from '../details-tab/details-tab';
 import OverviewTab from '../overview-tab/overview-tab';
 
 const Tabs = ({movie}) => {
@@ -23,7 +24,8 @@ const Tabs = ({movie}) => {
             </li>
           </ul>
         </nav>
-        <OverviewTab movie={movie}/>
+        {/* <OverviewTab movie={movie}/> */}
+        <DetailsTab movie={movie}/>
       </div>
     </div>
   );
