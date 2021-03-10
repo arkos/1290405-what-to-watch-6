@@ -1,4 +1,8 @@
 import {Rating} from "./const";
+import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
+
+dayjs.extend(duration);
 
 export const adaptToClient = (movie) => {
   const adaptedMovie = Object.assign({}, movie, {
@@ -41,4 +45,8 @@ export const getRatingName = (rating) => {
     }
   }
   return null;
+};
+
+export const formatRunTime = (runTime, template) => {
+  return dayjs.duration(runTime, `minutes`).format(template);
 };
