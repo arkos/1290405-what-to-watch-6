@@ -10,7 +10,8 @@ export const AuthorizationStatus = {
 export const APIRoute = {
   ROOT: `/`,
   LOGIN: `/login`,
-  MOVIES: `/films`
+  MOVIES: `/films`,
+  REVIEWS: `/comments`
 };
 
 export const AppRoute = {
