@@ -4,6 +4,7 @@ import {createAction} from '@reduxjs/toolkit';
 export const ActionType = {
   CHANGE_GENRE: `movies/changeGenre`,
   LOAD_MOVIES: `data/loadMovies`,
+  RELOAD_MOVIE: `data/reloadMovie`,
   LOAD_REVIEWS: `data/loadReviews`,
   REQUIRE_AUTHORIZATION: `user/requiredAuthorization`,
   REDIRECT_TO_ROUTE: `user/redirectToRoute`
@@ -18,6 +19,12 @@ export const changeGenre = createAction(ActionType.CHANGE_GENRE, (genre) => {
 export const loadMovies = createAction(ActionType.LOAD_MOVIES, (movies) => {
   return {
     payload: movies
+  };
+});
+
+export const reloadMovie = createAction(ActionType.RELOAD_MOVIE, (movie) => {
+  return {
+    payload: movie
   };
 });
 
