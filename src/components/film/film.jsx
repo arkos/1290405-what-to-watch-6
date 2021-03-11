@@ -4,10 +4,10 @@ import {useSelector, useDispatch} from 'react-redux';
 import {getAllMovies} from '../../store/selectors/selectors';
 import {AppRoute} from '../../util/const';
 import {getReviewUrl} from '../../util/route';
-import NotFound from '../not-found/not-found';
 import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
 import Tabs from '../tabs/tabs';
 import {fetchMovie} from '../../store/api-actions';
+import Loading from '../loading/loading';
 
 const Film = () => {
   const {id} = useParams();
@@ -22,16 +22,16 @@ const Film = () => {
 
   const isMovieLoaded = movie !== undefined;
 
+
   useEffect(() => {
     if (!isMovieLoaded) {
       dispatch(fetchMovie(id));
     }
   }, [isMovieLoaded]);
 
-  if (!movie) {
-    return <NotFound />;
+  if (!isMovieLoaded) {
+    return <Loading />;
   }
-
 
   const {
     name,

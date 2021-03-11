@@ -29,4 +29,5 @@ export const fetchReviews = ({id: movieId}) => (dispatch, _getState, api) => (
 export const fetchMovie = (id) => (dispatch, _getState, api) => (
   api.get(getApiMovieUrl(id))
     .then(({data}) => dispatch(reloadMovie(adaptToClient(data))))
+    .catch(() => dispatch(redirectToRoute(`/not-found`)))
 );
