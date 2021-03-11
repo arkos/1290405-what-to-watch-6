@@ -47,6 +47,12 @@ export const getRatingName = (rating) => {
   return null;
 };
 
+export const formatRating = (rating) => {
+  let formattedRating = rating.toFixed(1).toString();
+  formattedRating = formattedRating.replace(/\./g, `,`);
+  return formattedRating;
+};
+
 export const formatRunTime = (runTime, template) => {
   return dayjs.duration(runTime, `minutes`).format(template);
 };

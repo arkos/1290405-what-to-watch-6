@@ -1,5 +1,6 @@
 import React from 'react';
 import {formatDate} from '../../util/common';
+import {formatRating} from '../../util/movie';
 import Validator from '../../util/validate';
 
 const ReviewItem = ({review}) => {
@@ -16,7 +17,7 @@ const ReviewItem = ({review}) => {
         </footer>
       </blockquote>
 
-      <div className="review__rating">{rating}</div>
+      <div className="review__rating">{formatRating(rating)}</div>
     </div>
   );
 };
