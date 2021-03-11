@@ -1,10 +1,14 @@
 import React from 'react';
+import {useSelector} from 'react-redux';
+import {TabName} from '../../util/const';
 import Validator from '../../util/validate';
 import DetailsTab from '../details-tab/details-tab';
 import OverviewTab from '../overview-tab/overview-tab';
-import ReviewsTab from '../reviews-tab/reviews-tab'
+import ReviewsTab from '../reviews-tab/reviews-tab';
 
 const Tabs = ({movie}) => {
+  const {activeTab} = useSelector((state) => state.MOVIE);
+
   return (
     <div className="movie-card__info">
       <div className="movie-card__poster movie-card__poster--big">
@@ -25,9 +29,9 @@ const Tabs = ({movie}) => {
             </li>
           </ul>
         </nav>
-        {/* <OverviewTab movie={movie}/> */}
-        {/* <DetailsTab movie={movie}/> */}
-        <ReviewsTab movie={movie}/>
+        {activeTab === TabName.OVERVIEW && <OverviewTab movie={movie}/>}
+        {activeTab === TabName.DETAILS && <DetailsTab movie={movie}/>}
+        {activeTab === TabName.REVIEWS && <ReviewsTab movie={movie}/>}
       </div>
     </div>
   );
