@@ -38,15 +38,17 @@ const MovieCard = ({movie}) => {
 
   return (
     <article className="small-movie-card catalog__movies-card" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <VideoPlayer
-        src={previewVideoUrl}
-        shouldPlay={shouldPlay}
-        muted={IS_VIDEO_MUTED}
-        poster={previewImagePath}
-        preload={VIDEO_PRELOAD}
-        width="280"
-        height="175"
-      />
+      <Link to={getMovieUrl(id)}>
+        <VideoPlayer
+          src={previewVideoUrl}
+          shouldPlay={shouldPlay}
+          muted={IS_VIDEO_MUTED}
+          poster={previewImagePath}
+          preload={VIDEO_PRELOAD}
+          width="280"
+          height="175"
+        />
+      </Link>
       <h3 className="small-movie-card__title">
         <Link className="small-movie-card__link" to={getMovieUrl(id)}>{name}</Link>
       </h3>
