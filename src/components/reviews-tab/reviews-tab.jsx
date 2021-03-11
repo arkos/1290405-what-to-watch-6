@@ -17,7 +17,7 @@ const ReviewsTab = ({movie}) => {
 
   if (!isReviewLoaded) {
     return (
-      <h1>Loading reviews...</h1>
+      <div className="review">Loading reviews...</div>
     );
   }
 
