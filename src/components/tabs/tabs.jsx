@@ -1,5 +1,6 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import {changeActiveTab} from '../../store/action';
 import {TabName} from '../../util/const';
 import Validator from '../../util/validate';
 import DetailsTab from '../details-tab/details-tab';
@@ -8,6 +9,11 @@ import ReviewsTab from '../reviews-tab/reviews-tab';
 
 const Tabs = ({movie}) => {
   const {activeTab} = useSelector((state) => state.MOVIE);
+  const dispatch = useDispatch();
+
+  const onClickTab = (tab) => {
+    dispatch(changeActiveTab(tab));
+  };
 
   return (
     <div className="movie-card__info">
@@ -18,14 +24,29 @@ const Tabs = ({movie}) => {
       <div className="movie-card__desc">
         <nav className="movie-nav movie-card__nav">
           <ul className="movie-nav__list">
-            <li className="movie-nav__item movie-nav__item--active">
-              <a href="#" className="movie-nav__link">Overview</a>
+            <li className={`movie-nav__item ${activeTab === TabName.OVERVIEW ? `movie-nav__item--active` : ``}`}>
+              <a href="#" className="movie-nav__link" onClick={
+                (evt) => {
+                  evt.preventDefault();
+                  onClickTab(TabName.OVERVIEW);
+                }
+              }>Overview</a>
             </li>
-            <li className="movie-nav__item">
-              <a href="#" className="movie-nav__link">Details</a>
+            <li className={`movie-nav__item ${activeTab === TabName.DETAILS ? `movie-nav__item--active` : ``}`}>
+              <a href="#" className="movie-nav__link" onClick={
+                (evt) => {
+                  evt.preventDefault();
+                  onClickTab(TabName.DETAILS);
+                }
+              }>Details</a>
             </li>
-            <li className="movie-nav__item">
-              <a href="#" className="movie-nav__link">Reviews</a>
+            <li className={`movie-nav__item ${activeTab === TabName.REVIEWS ? `movie-nav__item--active` : ``}`}>
+              <a href="#" className="movie-nav__link" onClick={
+                (evt) => {
+                  evt.preventDefault();
+                  onClickTab(TabName.REVIEWS);
+                }
+              }>Reviews</a>
             </li>
           </ul>
         </nav>
