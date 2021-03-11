@@ -1,13 +1,11 @@
 import React, {useEffect} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {fetchReviews} from '../../store/api-actions';
 import Validator from '../../util/validate';
 import ReviewItem from '../review-item/review-item';
 
 const ReviewsTab = ({movie}) => {
-  const {id} = movie;
-  const {reviewsLoaded} = useSelector((state) => state.DATA);
-  const isReviewLoaded = reviewsLoaded.find((loadedMovieId) => loadedMovieId === id);
+  const isReviewLoaded = movie.reviews !== undefined;
 
   const dispatch = useDispatch();
 
