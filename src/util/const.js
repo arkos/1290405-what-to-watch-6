@@ -28,3 +28,9 @@ export const Rating = {
   VERYGOOD: 10,
   AWESOME: Infinity
 };
+
+export const TabName = {
+  OVERVIEW: `OVERVIEW`,
+  DETAILS: `DETAILS`,
+  REVIEWS: `REVIEWS`
+};
