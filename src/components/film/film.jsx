@@ -1,25 +1,37 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link, useParams, useHistory} from 'react-router-dom';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {getAllMovies} from '../../store/selectors/selectors';
 import {AppRoute} from '../../util/const';
 import {getReviewUrl} from '../../util/route';
 import NotFound from '../not-found/not-found';
 import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
 import Tabs from '../tabs/tabs';
+import {fetchMovie} from '../../store/api-actions';
 
 const Film = () => {
   const {id} = useParams();
 
   const movies = useSelector((state) => getAllMovies(state));
 
-  const movie = movies.find((item) => item.id === Number(id));
+  const dispatch = useDispatch();
 
   const history = useHistory();
+
+  const movie = movies.find((item) => item.id === Number(id));
+
+  const isMovieLoaded = movie !== undefined;
+
+  useEffect(() => {
+    if (!isMovieLoaded) {
+      dispatch(fetchMovie(id));
+    }
+  }, [isMovieLoaded]);
 
   if (!movie) {
     return <NotFound />;
   }
+
 
   const {
     name,

@@ -21,14 +21,18 @@ const movieData = createReducer(initialState, (builder) => {
   });
 
   builder.addCase(reloadMovie, (state, action) => {
-    const index = state.movies.findIndex((movie) => movie.id === action.payload.movie.id);
-
-    if (index === -1) {
-      state.movies.splice(0, action.payload.movie);
+    if (action.payload === null) {
       return;
     }
 
-    state.movies.splice(index, 1, action.payload.movie);
+    const index = state.movies.findIndex((movie) => movie.id === action.payload.id);
+
+    if (index === -1) {
+      state.movies.push(action.payload);
+      return;
+    }
+
+    state.movies.splice(index, 1, action.payload);
   });
 });
 

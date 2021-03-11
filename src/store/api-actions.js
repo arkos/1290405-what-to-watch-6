@@ -26,7 +26,7 @@ export const fetchReviews = ({id: movieId}) => (dispatch, _getState, api) => (
     .then(({data}) => dispatch(loadReviews(data, movieId)))
 );
 
-export const fetchMovie = ({id: movieId}) => (dispatch, _getState, api) => (
-  api.get(getApiMovieUrl(movieId))
-    .then(({data}) => dispatch(reloadMovie(data)))
+export const fetchMovie = (id) => (dispatch, _getState, api) => (
+  api.get(getApiMovieUrl(id))
+    .then(({data}) => dispatch(reloadMovie(adaptToClient(data))))
 );
