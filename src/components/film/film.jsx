@@ -2,12 +2,13 @@ import React, {useEffect} from 'react';
 import {Link, useParams, useHistory} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import {getAllMovies} from '../../store/selectors/selectors';
-import {AppRoute} from '../../util/const';
+import {AppRoute, TabName} from '../../util/const';
 import {getReviewUrl} from '../../util/route';
 import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
 import Tabs from '../tabs/tabs';
 import {fetchMovie} from '../../store/api-actions';
 import Loading from '../loading/loading';
+import {changeActiveTab} from '../../store/action';
 
 const Film = () => {
   const {id} = useParams();
@@ -28,6 +29,10 @@ const Film = () => {
       dispatch(fetchMovie(id));
     }
   }, [isMovieLoaded]);
+
+  useEffect(() => {
+    dispatch(changeActiveTab(TabName.OVERVIEW));
+  }, []);
 
   if (!isMovieLoaded) {
     return <Loading />;
