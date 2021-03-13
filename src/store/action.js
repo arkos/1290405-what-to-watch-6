@@ -4,6 +4,7 @@ import {createAction} from '@reduxjs/toolkit';
 export const ActionType = {
   CHANGE_GENRE: `movies/changeGenre`,
   CHANGE_ACTIVE_TAB: `movies/changeActiveTab`,
+  CHANGE_COUNT_TO_RENDER: `movies/changeCountToRender`,
   LOAD_MOVIES: `data/loadMovies`,
   RELOAD_MOVIE: `data/reloadMovie`,
   LOAD_REVIEWS: `data/loadReviews`,
@@ -20,6 +21,12 @@ export const changeGenre = createAction(ActionType.CHANGE_GENRE, (genre) => {
 export const changeActiveTab = createAction(ActionType.CHANGE_ACTIVE_TAB, (tab) => {
   return {
     payload: tab
+  };
+});
+
+export const changeCountToRender = createAction(ActionType.CHANGE_COUNT_TO_RENDER, (count) => {
+  return {
+    payload: count
   };
 });
 
