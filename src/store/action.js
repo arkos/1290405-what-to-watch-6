@@ -5,6 +5,7 @@ export const ActionType = {
   CHANGE_GENRE: `movies/changeGenre`,
   CHANGE_ACTIVE_TAB: `movies/changeActiveTab`,
   CHANGE_COUNT_TO_RENDER: `movies/changeCountToRender`,
+  RESET_MAIN: `movies/resetMain`,
   LOAD_MOVIES: `data/loadMovies`,
   RELOAD_MOVIE: `data/reloadMovie`,
   LOAD_REVIEWS: `data/loadReviews`,
@@ -29,6 +30,8 @@ export const changeCountToRender = createAction(ActionType.CHANGE_COUNT_TO_RENDE
     payload: count
   };
 });
+
+export const resetMain = createAction(ActionType.RESET_MAIN, () => ({}));
 
 export const loadMovies = createAction(ActionType.LOAD_MOVIES, (movies) => {
   return {
