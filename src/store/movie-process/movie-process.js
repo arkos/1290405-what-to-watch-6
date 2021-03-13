@@ -11,6 +11,7 @@ const initialState = {
 const movieProcess = createReducer(initialState, (builder) => {
   builder.addCase(changeGenre, (state, action) => {
     state.selectedGenre = action.payload;
+    state.renderedMoviesCount = MOVIES_PER_PAGE;
   });
 
   builder.addCase(changeActiveTab, (state, action) => {
