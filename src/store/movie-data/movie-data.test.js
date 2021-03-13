@@ -106,7 +106,12 @@ const movies = [
 describe(`Reducer 'movieData should work correctly'`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
     expect(movieData(undefined, {}))
-    .toEqual({movies: [], userMovies: [], isDataLoaded: false});
+    .toEqual({
+      movies: [],
+      userMovies: [],
+      isDataLoaded: false,
+      reviewsLoaded: []
+    });
   });
 
   it(`Reducer should update movies by loadMovies`, () => {
@@ -117,7 +122,7 @@ describe(`Reducer 'movieData should work correctly'`, () => {
 });
 
 describe(`Async operation should work correctly`, () => {
-  it(`Should make a correct API call to ${APIRoute.MOVIES}`, () => {
+  it(`Should make a correct API call to /films`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const movieLoader = fetchMovies();
