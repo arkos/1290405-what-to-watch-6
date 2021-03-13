@@ -2,26 +2,35 @@ import React, {useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {getFilteredMovies} from '../../store/selectors/selectors';
-import {AppRoute} from '../../util/const';
+import {AppRoute, MOVIES_PER_PAGE} from '../../util/const';
 import {getPlayerUrl} from '../../util/route';
 import MovieList from '../movie-list/movie-list';
 import GenreList from '../genre-list/genre-list';
 import Loading from '../loading/loading';
 import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
 import {fetchMovies} from '../../store/api-actions';
+import {changeCountToRender} from '../../store/action';
 
 const Main = () => {
-
-  const movies = useSelector((state) => getFilteredMovies(state));
+  let movies = useSelector((state) => getFilteredMovies(state));
   const {isDataLoaded} = useSelector((state) => state.DATA);
+  const {renderedMoviesCount} = useSelector((state) => state.MOVIE);
 
   const [promo = {}] = movies;
 
   const {id, name, backgroundImagePath, posterImagePath, genre, released} = promo;
 
+  const filteredMoviesCount = movies.length;
+  movies = movies.slice(0, renderedMoviesCount);
+
   const dispatch = useDispatch();
 
   const history = useHistory();
+
+  const handleShowMoreClick = (evt) => {
+    evt.preventDefault();
+    dispatch(changeCountToRender(Math.min(filteredMoviesCount, renderedMoviesCount + MOVIES_PER_PAGE)));
+  };
 
   useEffect(() => {
     if (!isDataLoaded) {
@@ -95,7 +104,7 @@ const Main = () => {
           <MovieList movies={movies} />
 
           <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
+            <button className="catalog__button" type="button" onClick={handleShowMoreClick}>Show more</button>
           </div>
         </section>
 
