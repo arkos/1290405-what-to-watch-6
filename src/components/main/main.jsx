@@ -7,6 +7,7 @@ import {getPlayerUrl} from '../../util/route';
 import MovieList from '../movie-list/movie-list';
 import GenreList from '../genre-list/genre-list';
 import Loading from '../loading/loading';
+import ShowMore from '../show-more/show-more';
 import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
 import {fetchMovies} from '../../store/api-actions';
 import {changeCountToRender} from '../../store/action';
@@ -27,8 +28,7 @@ const Main = () => {
 
   const history = useHistory();
 
-  const handleShowMoreClick = (evt) => {
-    evt.preventDefault();
+  const showMoreMovies = () => {
     dispatch(changeCountToRender(Math.min(filteredMoviesCount, renderedMoviesCount + MOVIES_PER_PAGE)));
   };
 
@@ -103,9 +103,7 @@ const Main = () => {
 
           <MovieList movies={movies} />
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button" onClick={handleShowMoreClick}>Show more</button>
-          </div>
+          <ShowMore allItemsCount={filteredMoviesCount} renderedItemsCount={renderedMoviesCount} onShowMoreClick={showMoreMovies}/>
         </section>
 
         <footer className="page-footer">
