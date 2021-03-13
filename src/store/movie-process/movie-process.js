@@ -1,6 +1,6 @@
 import {createReducer} from "@reduxjs/toolkit";
 import {FILTER_ALL_GENRES, MOVIES_PER_PAGE, TabName} from "../../util/const";
-import {changeGenre, changeActiveTab, changeCountToRender} from "../action";
+import {changeGenre, changeActiveTab, changeCountToRender, resetMain} from "../action";
 
 const initialState = {
   selectedGenre: FILTER_ALL_GENRES,
@@ -19,6 +19,11 @@ const movieProcess = createReducer(initialState, (builder) => {
 
   builder.addCase(changeCountToRender, (state, action) => {
     state.renderedMoviesCount = action.payload;
+  });
+
+  builder.addCase(resetMain, (state) => {
+    state.selectedGenre = initialState.selectedGenre;
+    state.renderedMoviesCount = initialState.renderedMoviesCount;
   });
 });
 
