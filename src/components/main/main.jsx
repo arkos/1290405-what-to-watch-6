@@ -10,7 +10,7 @@ import Loading from '../loading/loading';
 import ShowMore from '../show-more/show-more';
 import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
 import {fetchMovies} from '../../store/api-actions';
-import {changeCountToRender} from '../../store/action';
+import {changeCountToRender, resetMain} from '../../store/action';
 
 const Main = () => {
   let movies = useSelector((state) => getFilteredMovies(state));
@@ -37,6 +37,10 @@ const Main = () => {
       dispatch(fetchMovies());
     }
   }, [isDataLoaded]);
+
+  useEffect(() => {
+    dispatch(resetMain());
+  }, []);
 
   if (!isDataLoaded) {
     return <Loading />;
