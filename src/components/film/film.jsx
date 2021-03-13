@@ -10,6 +10,7 @@ import {fetchMovie} from '../../store/api-actions';
 import Loading from '../loading/loading';
 import {changeActiveTab} from '../../store/action';
 import MovieList from '../movie-list/movie-list';
+import {filterSimilarMovies} from '../../util/movie';
 
 const Film = () => {
   const {id} = useParams();
@@ -23,7 +24,6 @@ const Film = () => {
   const movie = movies.find((item) => item.id === Number(id));
 
   const isMovieLoaded = movie !== undefined;
-
 
   useEffect(() => {
     if (!isMovieLoaded) {
@@ -45,6 +45,8 @@ const Film = () => {
     genre,
     released
   } = movie;
+
+  const similarMovies = filterSimilarMovies(movies, movie);
 
   return (
     <Fragment>
@@ -97,7 +99,7 @@ const Film = () => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <MovieList movies={movies}/>
+          <MovieList movies={similarMovies}/>
         </section>
 
         <footer className="page-footer">
