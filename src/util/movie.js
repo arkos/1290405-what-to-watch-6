@@ -1,4 +1,5 @@
-import {Rating} from "./const";
+import {MAX_MOVIES_MORE_LIKE_THIS, Rating} from "./const";
+import {filterByGenre} from '../util/genre';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 
@@ -55,4 +56,14 @@ export const formatRating = (rating) => {
 
 export const formatRunTime = (runTime, template) => {
   return dayjs.duration(runTime, `minutes`).format(template);
+};
+
+export const filterSimilarMovies = (movies, movie, count = MAX_MOVIES_MORE_LIKE_THIS) => {
+  let similarMovies = filterByGenre(movies, movie.genre);
+  similarMovies = similarMovies.filter((similarMovie) => similarMovie.id !== movie.id);
+
+  const similarMoviesMaxSize = Math.min(similarMovies.length, count);
+  similarMovies = similarMovies.slice(0, similarMoviesMaxSize);
+
+  return similarMovies;
 };
