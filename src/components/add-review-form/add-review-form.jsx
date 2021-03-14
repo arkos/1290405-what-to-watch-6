@@ -1,12 +1,35 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 const STARS_COUNT = 10;
+const DEFAULT_RATING = `8`;
+const REVIEW_TEXT_LENGTH_MIN = 50;
+const REVIEW_TEXT_LENGTH_MAX = 400;
 
 const AddReviewForm = () => {
   const [reviewForm, setReviewForm] = useState({
-    rating: `8`,
+    rating: DEFAULT_RATING,
     reviewText: ``
   });
+
+  const [isValid, setIsValid] = useState(false);
+
+  const validateReviewText = () => {
+    return reviewForm.reviewText.length >= REVIEW_TEXT_LENGTH_MIN &&
+      reviewForm.reviewText.length <= REVIEW_TEXT_LENGTH_MAX;
+  };
+
+  const validateRating = () => {
+    return reviewForm.rating !== null;
+  };
+
+  const validateAll = () => {
+    return validateReviewText() && validateRating();
+  };
+
+  useEffect(() => {
+    setIsValid(validateAll());
+  }, [reviewForm]);
+
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -15,10 +38,12 @@ const AddReviewForm = () => {
   const handleRatingChange = (evt) => {
     const {name, value} = evt.target;
     setReviewForm({...reviewForm, [name]: value});
+    setIsValid(validateAll());
   };
 
   const handleReviewTextChange = (evt) => {
     setReviewForm({...reviewForm, reviewText: evt.target.value});
+    setIsValid(validateAll());
   };
 
   const createRadioButtonStars = (count = STARS_COUNT) => {
@@ -47,7 +72,7 @@ const AddReviewForm = () => {
       <div className="add-review__text">
         <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" onChange={handleReviewTextChange} value={reviewText}></textarea>
         <div className="add-review__submit">
-          <button className="add-review__btn" type="submit">Post</button>
+          <button className="add-review__btn" type="submit" disabled={`${!isValid ? `disabled` : ``}`}>Post</button>
         </div>
 
       </div>
