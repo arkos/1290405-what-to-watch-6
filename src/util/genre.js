@@ -1,12 +1,12 @@
-import {FILTER_ALL_GENRES} from './const';
+import {FILTER_ALL_GENRES, MAX_GENRES_COUNT} from './const';
 
-export const getUniqueGenres = (movies) => {
+export const getUniqueGenres = (movies, count = MAX_GENRES_COUNT) => {
   if (!movies || movies.length === 0) {
     return null;
   }
 
   const genres = movies.map((movie) => movie.genre);
-  return [...new Set([FILTER_ALL_GENRES, ...genres])];
+  return [...new Set([FILTER_ALL_GENRES, ...genres])].slice(0, count);
 };
 
 const genreToPluralMap = {

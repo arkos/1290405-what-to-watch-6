@@ -2,10 +2,11 @@ import React from 'react';
 import {Link, useParams} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import Validator from '../../util/validate';
-import {AVATAR_URL, AppRoute} from '../../util/const';
+import {AppRoute} from '../../util/const';
 import {getMovieUrl} from '../../util/route';
 import NotFound from '../not-found/not-found';
 import AddReviewForm from '../add-review-form/add-review-form';
+import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
 import {getAllMovies} from '../../store/selectors/selectors';
 
 const AddReview = () => {
@@ -51,11 +52,7 @@ const AddReview = () => {
             </ul>
           </nav>
 
-          <div className="user-block">
-            <div className="user-block__avatar">
-              <img src={AVATAR_URL} alt="User avatar" width="63" height="63" />
-            </div>
-          </div>
+          <SignInIndicator />
         </header>
 
         <div className="movie-card__poster movie-card__poster--small">

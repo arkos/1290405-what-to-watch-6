@@ -1,15 +1,22 @@
 import {movieProcess} from './movie-process';
 import {changeGenre} from '../action';
-import {FILTER_ALL_GENRES} from '../../util/const';
+import {FILTER_ALL_GENRES, MOVIES_PER_PAGE, TabName} from '../../util/const';
 
 describe(`Reducers work correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
     expect(movieProcess(undefined, {}))
-    .toEqual({selectedGenre: FILTER_ALL_GENRES});
+    .toEqual({
+      selectedGenre: FILTER_ALL_GENRES,
+      activeTab: TabName.OVERVIEW,
+      renderedMoviesCount: MOVIES_PER_PAGE
+    });
   });
-  it(`Reducer should set a given genre`, () => {
+  it(`Reducer should set a given genre and reset rendered movies`, () => {
     const state = {selectedGenre: `Drama`};
     expect(movieProcess(state, changeGenre(`Comedy`)))
-    .toEqual({selectedGenre: `Comedy`});
+    .toEqual({
+      selectedGenre: `Comedy`,
+      renderedMoviesCount: MOVIES_PER_PAGE
+    });
   });
 });

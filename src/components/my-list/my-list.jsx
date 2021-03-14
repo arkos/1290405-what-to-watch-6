@@ -1,8 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {useSelector} from 'react-redux';
-import {AVATAR_URL, AppRoute} from '../../util/const';
+import {AppRoute} from '../../util/const';
 import MovieList from '../movie-list/movie-list';
+import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
 
 const MyList = () => {
   const {userMovies} = useSelector((state) => state.DATA);
@@ -20,11 +21,7 @@ const MyList = () => {
 
         <h1 className="page-title user-page__title">My list</h1>
 
-        <div className="user-block">
-          <div className="user-block__avatar">
-            <img src={AVATAR_URL} alt="User avatar" width="63" height="63" />
-          </div>
-        </div>
+        <SignInIndicator />
       </header>
 
       <section className="catalog">

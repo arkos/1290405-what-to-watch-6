@@ -1,33 +1,46 @@
 import React, {useEffect} from 'react';
-import {Link, useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {getFilteredMovies} from '../../store/selectors/selectors';
-import {AuthorizationStatus, AVATAR_URL, AppRoute} from '../../util/const';
+import {AppRoute, MOVIES_PER_PAGE} from '../../util/const';
 import {getPlayerUrl} from '../../util/route';
 import MovieList from '../movie-list/movie-list';
 import GenreList from '../genre-list/genre-list';
 import Loading from '../loading/loading';
+import ShowMore from '../show-more/show-more';
+import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
 import {fetchMovies} from '../../store/api-actions';
+import {changeCountToRender, resetMain} from '../../store/action';
 
 const Main = () => {
-
-  const movies = useSelector((state) => getFilteredMovies(state));
-  const {authorizationStatus} = useSelector((state) => state.USER);
+  let movies = useSelector((state) => getFilteredMovies(state));
   const {isDataLoaded} = useSelector((state) => state.DATA);
+  const {renderedMoviesCount} = useSelector((state) => state.MOVIE);
 
   const [promo = {}] = movies;
 
   const {id, name, backgroundImagePath, posterImagePath, genre, released} = promo;
 
+  const filteredMoviesCount = movies.length;
+  movies = movies.slice(0, renderedMoviesCount);
+
   const dispatch = useDispatch();
 
   const history = useHistory();
+
+  const showMoreMovies = () => {
+    dispatch(changeCountToRender(Math.min(filteredMoviesCount, renderedMoviesCount + MOVIES_PER_PAGE)));
+  };
 
   useEffect(() => {
     if (!isDataLoaded) {
       dispatch(fetchMovies());
     }
   }, [isDataLoaded]);
+
+  useEffect(() => {
+    dispatch(resetMain());
+  }, []);
 
   if (!isDataLoaded) {
     return <Loading />;
@@ -51,18 +64,7 @@ const Main = () => {
             </a>
           </div>
 
-          <div className="user-block">
-            {
-              authorizationStatus === AuthorizationStatus.AUTH &&
-            <div className="user-block__avatar">
-              <img src={AVATAR_URL} alt="User avatar" width="63" height="63" />
-            </div>
-            }
-            {
-              authorizationStatus === AuthorizationStatus.NO_AUTH &&
-              <Link to={AppRoute.LOGIN} className="user-block__link">Sign in</Link>
-            }
-          </div>
+          <SignInIndicator />
         </header>
 
         <div className="movie-card__wrap">
@@ -105,9 +107,7 @@ const Main = () => {
 
           <MovieList movies={movies} />
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          <ShowMore allItemsCount={filteredMoviesCount} renderedItemsCount={renderedMoviesCount} onShowMoreClick={showMoreMovies}/>
         </section>
 
         <footer className="page-footer">
