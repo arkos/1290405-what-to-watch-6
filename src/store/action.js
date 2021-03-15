@@ -9,6 +9,7 @@ export const ActionType = {
   LOAD_MOVIES: `data/loadMovies`,
   RELOAD_MOVIE: `data/reloadMovie`,
   LOAD_REVIEWS: `data/loadReviews`,
+  POST_REVIEW: `data/postReview`,
   REQUIRE_AUTHORIZATION: `user/requiredAuthorization`,
   REDIRECT_TO_ROUTE: `user/redirectToRoute`
 };
@@ -51,6 +52,12 @@ export const loadReviews = createAction(ActionType.LOAD_REVIEWS, (reviews, movie
       reviews,
       movieId
     }
+  };
+});
+
+export const postReview = createAction(ActionType.POST_REVIEW, (review) => {
+  return {
+    payload: review
   };
 });
 
