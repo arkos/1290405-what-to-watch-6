@@ -1,4 +1,4 @@
-import {loadMovies, loadReviews, requireAuthorization, redirectToRoute, reloadMovie, changeDataProcessingState} from '../store/action';
+import {loadMovies, loadReviews, requireAuthorization, redirectToRoute, reloadMovie, changeDataProcessingState, saveReview} from '../store/action';
 import {AuthorizationStatus, State} from '../util/const';
 import {adaptToClient} from '../util/movie';
 import {APIRoute} from '../util/const';
@@ -36,6 +36,7 @@ export const postReview = ({rating, comment}, movieId) => (dispatch, _getState, 
   dispatch(changeDataProcessingState(State.SAVING));
   return api.post(getApiReviewsUrl(movieId), {rating, comment})
     .then(() => dispatch(changeDataProcessingState(State.DEFAULT)))
+    .then(({data}) => dispatch(saveReview({review: data, movieId})))
     .then(() => dispatch(redirectToRoute(getMovieUrl(movieId))))
     .catch(() => dispatch(changeDataProcessingState(State.ABORTING)));
 };
