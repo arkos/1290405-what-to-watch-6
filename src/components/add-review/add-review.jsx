@@ -61,7 +61,7 @@ const AddReview = () => {
       </div>
 
       <div className="add-review">
-        <AddReviewForm />
+        <AddReviewForm movie={movie} />
       </div>
     </section>
   );

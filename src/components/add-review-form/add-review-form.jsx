@@ -5,7 +5,7 @@ const DEFAULT_RATING = `8`;
 const REVIEW_TEXT_LENGTH_MIN = 50;
 const REVIEW_TEXT_LENGTH_MAX = 400;
 
-const AddReviewForm = () => {
+const AddReviewForm = ({movie}) => {
   const [reviewForm, setReviewForm] = useState({
     rating: DEFAULT_RATING,
     reviewText: ``
