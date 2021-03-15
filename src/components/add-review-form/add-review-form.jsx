@@ -108,8 +108,15 @@ const AddReviewForm = ({movie}) => {
         </div>
       </div>
 
-      <div className="add-review__text" disabled={`${formState.isDisabled ? `disabled` : ``}`}>
-        <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" onChange={handleReviewTextChange} value={reviewText}></textarea>
+      <div className="add-review__text">
+        <textarea className="add-review__textarea"
+          name="review-text"
+          id="review-text"
+          placeholder="Review text"
+          onChange={handleReviewTextChange}
+          value={reviewText}
+          disabled={`${formState.isDisabled ? `disabled` : ``}`}>
+        </textarea>
         <div className="add-review__submit">
           <button className="add-review__btn" type="submit" disabled={`${!formState.isValid || formState.isDisabled ? `disabled` : ``}`}>{`${formState.isSaving ? `Sending...` : `Post`}`}</button>
         </div>
