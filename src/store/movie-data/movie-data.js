@@ -5,7 +5,6 @@ const initialState = {
   movies: [],
   userMovies: [],
   isDataLoaded: false,
-  reviewsLoaded: []
 };
 
 const movieData = createReducer(initialState, (builder) => {
@@ -17,7 +16,6 @@ const movieData = createReducer(initialState, (builder) => {
   builder.addCase(loadReviews, (state, action) => {
     const movieToFind = state.movies.find((movie) => movie.id === action.payload.movieId);
     movieToFind.reviews = action.payload.reviews;
-    state.reviewsLoaded.push(action.payload.movieId);
   });
 
   builder.addCase(reloadMovie, (state, action) => {
