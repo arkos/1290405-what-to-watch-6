@@ -19,6 +19,7 @@ const AddReviewForm = ({movie}) => {
   const [formState, setFormState] = useState({
     isSaving: false,
     isDisabled: false,
+    isAborting: false,
     isValid: false
   });
 
@@ -54,7 +55,8 @@ const AddReviewForm = ({movie}) => {
     setFormState({
       ...formState,
       isSaving: dataProcessingState === State.SAVING,
-      isDisabled: dataProcessingState === State.SAVING
+      isDisabled: dataProcessingState === State.SAVING,
+      isAborting: dataProcessingState === State.ABORTING
     });
   }, [dataProcessingState]);
 
@@ -113,6 +115,7 @@ const AddReviewForm = ({movie}) => {
         </div>
 
       </div>
+      {formState.isAborting && <p>Unable to send your review right now. Please try again later</p>}
     </form>
   );
 };
