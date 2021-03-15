@@ -2,7 +2,7 @@ import {loadMovies, loadReviews, requireAuthorization, redirectToRoute, reloadMo
 import {AuthorizationStatus} from '../util/const';
 import {adaptToClient} from '../util/movie';
 import {APIRoute} from '../util/const';
-import {getApiMovieUrl, getApiReviewsUrl} from '../util/route';
+import {getApiMovieUrl, getApiReviewsUrl, getMovieUrl} from '../util/route';
 
 export const fetchMovies = () => (dispatch, _getState, api) => (
   api.get(APIRoute.MOVIES)
@@ -30,4 +30,10 @@ export const fetchMovie = (id) => (dispatch, _getState, api) => (
   api.get(getApiMovieUrl(id))
     .then(({data}) => dispatch(reloadMovie(adaptToClient(data))))
     .catch(() => dispatch(redirectToRoute(`/not-found`)))
+);
+
+export const postReview = ({rating, comment}, movieId) => (dispatch, _getState, api) => (
+  api.post(getApiReviewsUrl(movieId), {rating, comment})
+    .then(() => dispatch(redirectToRoute(getMovieUrl(movieId))))
+    .catch(() => {})
 );
