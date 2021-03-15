@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть» [![Build status][travis-image]][travis-url]
 
 * Студент: [Kostya Kaganov](https://up.htmlacademy.ru/react/6/user/1290405).
-* Наставник: [Александр Тимоновский](https://htmlacademy.ru/profile/id768125).
+* Наставник: [Анастасия Смирнова](https://htmlacademy.ru/profile/id232838).
 
 ---
 
