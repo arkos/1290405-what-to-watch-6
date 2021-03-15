@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {loadMovies, reloadMovie, loadReviews} from '../action';
+import {loadMovies, reloadMovie, loadReviews, saveReview} from '../action';
 
 const initialState = {
   movies: [],
@@ -33,6 +33,18 @@ const movieData = createReducer(initialState, (builder) => {
     }
 
     state.movies.splice(index, 1, action.payload);
+  });
+
+  builder.addCase(saveReview, (state, action) => {
+    const {movieId, review} = action.payload;
+
+    const index = state.movies.findIndex((movie) => movie.id === movieId);
+
+    if (index === -1) {
+      return;
+    }
+
+    state.movies[index].reviews.push(review);
   });
 });
 
