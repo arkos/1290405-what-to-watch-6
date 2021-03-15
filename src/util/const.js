@@ -43,5 +43,6 @@ export const TabName = {
 
 export const State = {
   SAVING: `SAVING`,
-  ABORTING: `ABORTING`
+  ABORTING: `ABORTING`,
+  DEFAULT: `DEFAULT`
 };
