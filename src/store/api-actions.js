@@ -1,5 +1,5 @@
-import {loadMovies, loadReviews, requireAuthorization, redirectToRoute, reloadMovie} from '../store/action';
-import {AuthorizationStatus} from '../util/const';
+import {loadMovies, loadReviews, requireAuthorization, redirectToRoute, reloadMovie, changeDataProcessingState} from '../store/action';
+import {AuthorizationStatus, State} from '../util/const';
 import {adaptToClient} from '../util/movie';
 import {APIRoute} from '../util/const';
 import {getApiMovieUrl, getApiReviewsUrl, getMovieUrl} from '../util/route';
@@ -32,8 +32,10 @@ export const fetchMovie = (id) => (dispatch, _getState, api) => (
     .catch(() => dispatch(redirectToRoute(`/not-found`)))
 );
 
-export const postReview = ({rating, comment}, movieId) => (dispatch, _getState, api) => (
-  api.post(getApiReviewsUrl(movieId), {rating, comment})
+export const postReview = ({rating, comment}, movieId) => (dispatch, _getState, api) => {
+  dispatch(changeDataProcessingState(State.SAVING));
+  return api.post(getApiReviewsUrl(movieId), {rating, comment})
+    .then(() => dispatch(changeDataProcessingState(State.DEFAULT)))
     .then(() => dispatch(redirectToRoute(getMovieUrl(movieId))))
-    .catch(() => {})
-);
+    .catch(() => dispatch(changeDataProcessingState(State.ABORTING)));
+};
