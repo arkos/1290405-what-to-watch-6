@@ -1,4 +1,9 @@
 import React, {useState, useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {changeDataProcessingState} from '../../store/action';
+import {postReview} from '../../store/api-actions';
+import {State} from '../../util/const';
+import Validator from '../../util/validate';
 
 const STARS_COUNT = 10;
 const DEFAULT_RATING = `8`;
@@ -13,8 +18,13 @@ const AddReviewForm = ({movie}) => {
 
   const [formState, setFormState] = useState({
     isSaving: false,
-    isDisabled: false
+    isDisabled: false,
+    isValid: false
   });
+
+  const dispatch = useDispatch();
+
+  const {dataProcessingState} = useSelector((state) => state.MOVIE);
 
   const validateReviewText = () => {
     return reviewForm.reviewText.length >= REVIEW_TEXT_LENGTH_MIN &&
@@ -30,15 +40,31 @@ const AddReviewForm = ({movie}) => {
   };
 
   useEffect(() => {
+    dispatch(changeDataProcessingState(State.DEFAULT));
+  }, []);
+
+  useEffect(() => {
     setFormState({
       ...formState,
-      isDisabled: validateAll()
+      isValid: validateAll()
     });
   }, [reviewForm]);
+
+  useEffect(() => {
+    setFormState({
+      ...formState,
+      isSaving: dataProcessingState === State.SAVING,
+      isDisabled: dataProcessingState === State.SAVING
+    });
+  }, [dataProcessingState]);
 
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    dispatch(postReview({
+      rating: parseInt(reviewForm.rating, 10),
+      comment: reviewForm.reviewText
+    }, movie.id));
   };
 
   const handleRatingChange = (evt) => {
@@ -56,7 +82,14 @@ const AddReviewForm = ({movie}) => {
     return radioButtonStars.map((_, index) => {
       const serialId = (index + 1).toString();
       return <React.Fragment key={serialId}>
-        <input className="rating__input" id={`star-${serialId}`} type="radio" name="rating" value={serialId} checked={rating === serialId} onChange={handleRatingChange} />
+        <input className="rating__input"
+          id={`star-${serialId}`}
+          type="radio"
+          name="rating"
+          value={serialId}
+          checked={rating === serialId}
+          disabled={`${formState.isDisabled ? `disabled` : ``}`}
+          onChange={handleRatingChange} />
         <label className="rating__label" htmlFor={`star-${serialId}`}>Rating {serialId}</label>
       </React.Fragment>;
     }
@@ -67,21 +100,25 @@ const AddReviewForm = ({movie}) => {
 
   return (
     <form action="#" className="add-review__form" onSubmit={handleSubmit}>
-      <div className="rating">
+      <div className="rating" disabled={`${formState.isDisabled ? `disabled` : ``}`}>
         <div className="rating__stars">
           {createRadioButtonStars()}
         </div>
       </div>
 
-      <div className="add-review__text">
+      <div className="add-review__text" disabled={`${formState.isDisabled ? `disabled` : ``}`}>
         <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" onChange={handleReviewTextChange} value={reviewText}></textarea>
         <div className="add-review__submit">
-          <button className="add-review__btn" type="submit" disabled={`${!formState.isDisabled ? `disabled` : ``}`}>{`${formState.isSaving ? `Sending...` : `Post`}`}</button>
+          <button className="add-review__btn" type="submit" disabled={`${!formState.isValid || formState.isDisabled ? `disabled` : ``}`}>{`${formState.isSaving ? `Sending...` : `Post`}`}</button>
         </div>
 
       </div>
     </form>
   );
+};
+
+AddReviewForm.propTypes = {
+  movie: Validator.MOVIE
 };
 
 export default AddReviewForm;
