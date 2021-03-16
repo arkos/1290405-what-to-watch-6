@@ -2,7 +2,7 @@ import React, {useEffect, Fragment} from 'react';
 import {Link, useParams, useHistory} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import {getAllMovies} from '../../store/selectors/selectors';
-import {AppRoute, TabName} from '../../util/const';
+import {AppRoute, AuthorizationStatus, TabName} from '../../util/const';
 import {getReviewUrl} from '../../util/route';
 import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
 import Tabs from '../tabs/tabs';
@@ -16,6 +16,8 @@ const Film = () => {
   const {id} = useParams();
 
   const movies = useSelector((state) => getAllMovies(state));
+
+  const {authorizationStatus} = useSelector((state) => state.USER);
 
   const dispatch = useDispatch();
 
@@ -86,7 +88,7 @@ const Film = () => {
                   </svg>
                   <span>My list</span>
                 </button>
-                <Link className="btn movie-card__button" to={getReviewUrl(id)}>Add review</Link>
+                {authorizationStatus === AuthorizationStatus.AUTH && <Link className="btn movie-card__button" to={getReviewUrl(id)}>Add review</Link>}
               </div>
             </div>
           </div>

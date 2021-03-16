@@ -1,11 +1,10 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {loadMovies, reloadMovie, loadReviews} from '../action';
+import {loadMovies, reloadMovie, loadReviews, saveReview} from '../action';
 
 const initialState = {
   movies: [],
   userMovies: [],
   isDataLoaded: false,
-  reviewsLoaded: []
 };
 
 const movieData = createReducer(initialState, (builder) => {
@@ -17,7 +16,6 @@ const movieData = createReducer(initialState, (builder) => {
   builder.addCase(loadReviews, (state, action) => {
     const movieToFind = state.movies.find((movie) => movie.id === action.payload.movieId);
     movieToFind.reviews = action.payload.reviews;
-    state.reviewsLoaded.push(action.payload.movieId);
   });
 
   builder.addCase(reloadMovie, (state, action) => {
@@ -33,6 +31,18 @@ const movieData = createReducer(initialState, (builder) => {
     }
 
     state.movies.splice(index, 1, action.payload);
+  });
+
+  builder.addCase(saveReview, (state, action) => {
+    const {movieId, review} = action.payload;
+
+    const index = state.movies.findIndex((movie) => movie.id === movieId);
+
+    if (index === -1) {
+      return;
+    }
+
+    state.movies[index].reviews.push(review);
   });
 });
 

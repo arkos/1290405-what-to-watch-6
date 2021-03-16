@@ -5,7 +5,7 @@ import * as redux from 'react-redux';
 import {createMemoryHistory} from 'history';
 import {render, screen} from '@testing-library/react';
 import App from '../app/app';
-import {AppRoute, AuthorizationStatus} from '../../util/const';
+import {AppRoute, AuthorizationStatus, State} from '../../util/const';
 import {getPlayerUrl, getReviewUrl} from '../../util/route';
 import {adaptToClient} from '../../util/movie';
 
@@ -119,6 +119,7 @@ describe(`Test routing`, () => {
     render(
         <redux.Provider store={mockStore({
           DATA: {movies, userMovies: [], isDataLoaded: true},
+          MOVIE: {dataProcessingState: State.DEFAULT},
           USER: {authorizationStatus: AuthorizationStatus.NO_AUTH}
         })}>
           <Router history={history}>
@@ -159,6 +160,7 @@ describe(`Test routing`, () => {
     render(
         <redux.Provider store={mockStore({
           DATA: {movies, userMovies: [], isDataLoaded: true},
+          MOVIE: {dataProcessingState: State.DEFAULT},
           USER: {authorizationStatus: AuthorizationStatus.AUTH}
         })}>
           <Router history={history}>

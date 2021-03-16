@@ -110,7 +110,6 @@ describe(`Reducer 'movieData should work correctly'`, () => {
       movies: [],
       userMovies: [],
       isDataLoaded: false,
-      reviewsLoaded: []
     });
   });
 

@@ -1,6 +1,6 @@
 import {movieProcess} from './movie-process';
 import {changeGenre} from '../action';
-import {FILTER_ALL_GENRES, MOVIES_PER_PAGE, TabName} from '../../util/const';
+import {FILTER_ALL_GENRES, MOVIES_PER_PAGE, TabName, State} from '../../util/const';
 
 describe(`Reducers work correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
@@ -8,7 +8,8 @@ describe(`Reducers work correctly`, () => {
     .toEqual({
       selectedGenre: FILTER_ALL_GENRES,
       activeTab: TabName.OVERVIEW,
-      renderedMoviesCount: MOVIES_PER_PAGE
+      renderedMoviesCount: MOVIES_PER_PAGE,
+      dataProcessingState: State.DEFAULT
     });
   });
   it(`Reducer should set a given genre and reset rendered movies`, () => {

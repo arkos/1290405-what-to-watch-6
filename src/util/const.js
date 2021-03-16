@@ -40,3 +40,9 @@ export const TabName = {
   DETAILS: `DETAILS`,
   REVIEWS: `REVIEWS`
 };
+
+export const State = {
+  SAVING: `SAVING`,
+  ABORTING: `ABORTING`,
+  DEFAULT: `DEFAULT`
+};
