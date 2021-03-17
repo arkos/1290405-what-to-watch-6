@@ -10,7 +10,7 @@ const VIDEO_PRELOAD = `none`;
 
 const MovieCard = ({movie}) => {
   const [shouldPlay, setShouldPlay] = useState(false);
-  const {previewImagePath, previewVideoUrl, name, id} = movie;
+  const {name, id} = movie;
 
   let timer = null;
 
@@ -40,11 +40,12 @@ const MovieCard = ({movie}) => {
     <article className="small-movie-card catalog__movies-card" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <Link to={getMovieUrl(id)}>
         <VideoPlayer
-          src={previewVideoUrl}
+          movie={movie}
           shouldPlay={shouldPlay}
+          isPreview={true}
           muted={IS_VIDEO_MUTED}
-          poster={previewImagePath}
           preload={VIDEO_PRELOAD}
+          onPlayButtonClick={() => {}}
         />
       </Link>
       <h3 className="small-movie-card__title">
