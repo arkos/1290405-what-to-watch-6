@@ -26,7 +26,7 @@ const VideoPlayer = ({shouldPlay, src, ...restProps}) => {
   }, [shouldPlay]);
 
   return (
-    <video ref={videoRef} {...restProps}>
+    <video className="player__video" ref={videoRef} {...restProps}>
       <source src={src}/>
       Your browser doesn&apos;t support HTML5 video.
     </video>
