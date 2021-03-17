@@ -3,6 +3,7 @@ import {useParams} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {getAllMovies} from '../../store/selectors/selectors';
 import NotFound from '../not-found/not-found';
+import VideoPlayer from '../video-player/video-player';
 
 const Player = () => {
   const {id} = useParams();
@@ -19,7 +20,7 @@ const Player = () => {
 
   return (
     <div className="player">
-      <video src={videoUrl} className="player__video" poster={backgroundImagePath}></video>
+      <VideoPlayer src={videoUrl} shouldPlay={true} poster={backgroundImagePath} />
 
       <button type="button" className="player__exit">Exit</button>
 
