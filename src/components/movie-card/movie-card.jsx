@@ -45,8 +45,6 @@ const MovieCard = ({movie}) => {
           muted={IS_VIDEO_MUTED}
           poster={previewImagePath}
           preload={VIDEO_PRELOAD}
-          width="280"
-          height="175"
         />
       </Link>
       <h3 className="small-movie-card__title">
