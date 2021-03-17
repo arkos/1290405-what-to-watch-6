@@ -12,7 +12,7 @@ const FULL_SCREEN_BUTTON_WIDTH = 27;
 const FULL_SCREEN_BUTTON_HEIGHT = 21;
 
 const VideoPlayer = ({shouldPlay, movie, isPreview, onPlayButtonClick, ...restProps}) => {
-  const {videoUrl, previewVideoUrl, name} = movie;
+  const {videoUrl, previewVideoUrl, previewImagePath, backgroundImagePath, name} = movie;
 
   const videoRef = useRef();
   const [isLoading, setIsLoading] = useState(true);
@@ -22,15 +22,16 @@ const VideoPlayer = ({shouldPlay, movie, isPreview, onPlayButtonClick, ...restPr
     videoRef.current.onpause = isPreview ? () => videoRef.current.load() : () => {};
 
     return () => {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
+      videoRef.current.oncanplaythrough = null;
+      videoRef.current.onplay = null;
       videoRef.current.onpause = null;
+      videoRef.current = null;
     };
   }, []);
 
   useEffect(() => {
     if (shouldPlay) {
-      videoRef.current.play().catch(() => {});
+      videoRef.current.play();
       return;
     }
 
@@ -56,7 +57,7 @@ const VideoPlayer = ({shouldPlay, movie, isPreview, onPlayButtonClick, ...restPr
 
   return (
     <div className={`${!isPreview ? `player` : ``}`}>
-      <video className="player__video" ref={videoRef} {...restProps}>
+      <video className="player__video" ref={videoRef} poster={`${isPreview ? previewImagePath : backgroundImagePath}`} {...restProps}>
         <source src={isPreview ? previewVideoUrl : videoUrl}/>
       Your browser doesn&apos;t support HTML5 video.
       </video>
