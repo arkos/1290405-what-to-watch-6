@@ -40,7 +40,7 @@ const MovieCard = ({movie}) => {
       }
       isMounted = false;
     };
-  }, []);
+  }, [shouldPlay]);
 
   return (
     <article className="small-movie-card catalog__movies-card" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
