@@ -39,6 +39,8 @@ const VideoPlayer = ({shouldPlay, movie, isPreview, onPlayButtonClick, ...restPr
       videoRef.current.oncanplaythrough = null;
       videoRef.current.onplay = null;
       videoRef.current.onpause = null;
+      videoRef.current.ontimeupdate = null;
+      videoRef.current.ondurationchange = null;
       videoRef.current = null;
     };
   }, []);
