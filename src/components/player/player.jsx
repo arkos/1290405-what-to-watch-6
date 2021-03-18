@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import {useParams} from 'react-router-dom';
+import {useParams, useHistory} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {getAllMovies} from '../../store/selectors/selectors';
 import NotFound from '../not-found/not-found';
 import VideoPlayer from '../video-player/video-player';
+import {AppRoute} from '../../util/const';
 
 
 const Player = () => {
@@ -13,11 +14,21 @@ const Player = () => {
 
   const movies = useSelector((state) => getAllMovies(state));
 
+  const history = useHistory();
+
   const movie = movies.find((item) => item.id === Number(id));
 
   if (!movie) {
     return <NotFound />;
   }
+
+  const exitPlayer = () => {
+    if (history.length > 1) {
+      history.goBack();
+      return;
+    }
+    history.push(AppRoute.ROOT);
+  };
 
   return (
     <VideoPlayer
@@ -25,6 +36,7 @@ const Player = () => {
       shouldPlay={isPlaying}
       isPreview={false}
       onPlayButtonClick={() => setIsPlaying(!isPlaying)}
+      onExitButtonClick={() => exitPlayer()}
       preload="auto" />
   );
 };

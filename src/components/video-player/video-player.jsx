@@ -14,7 +14,7 @@ const FULL_SCREEN_BUTTON_HEIGHT = 21;
 
 const DEFAULT_DURATION_FORMAT = `HH:mm:ss`;
 
-const VideoPlayer = ({shouldPlay, movie, isPreview, onPlayButtonClick, ...restProps}) => {
+const VideoPlayer = ({shouldPlay, movie, isPreview, onPlayButtonClick, onExitButtonClick, ...restProps}) => {
   const {videoUrl, previewVideoUrl, previewImagePath, backgroundImagePath, name} = movie;
 
   const videoRef = useRef();
@@ -77,6 +77,12 @@ const VideoPlayer = ({shouldPlay, movie, isPreview, onPlayButtonClick, ...restPr
     }
   };
 
+  const handleExitButtonClick = (evt) => {
+    evt.preventDefault();
+
+    onExitButtonClick();
+  };
+
   const createPlayerControlButton = (
       width,
       height,
@@ -102,7 +108,7 @@ const VideoPlayer = ({shouldPlay, movie, isPreview, onPlayButtonClick, ...restPr
       </video>
 
       {!isPreview && <Fragment>
-        <button type="button" className="player__exit">Exit</button>
+        <button type="button" className="player__exit" onClick={handleExitButtonClick}>Exit</button>
         <div className="player__controls">
           <div className="player__controls-row">
             <div className="player__time">
