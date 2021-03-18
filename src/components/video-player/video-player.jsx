@@ -23,6 +23,7 @@ const VideoPlayer = ({shouldPlay, movie, isPreview, onPlayButtonClick, ...restPr
   const [currentTime, setCurrentTime] = useState(0);
   const [elapsedPercent, setElapsedPercent] = useState(0);
   const [formattedTimeLeft, setFormattedTimeLeft] = useState(formatMovieDuration(0));
+  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     videoRef.current.oncanplaythrough = () => setIsLoading(false);
@@ -33,11 +34,20 @@ const VideoPlayer = ({shouldPlay, movie, isPreview, onPlayButtonClick, ...restPr
       setFormattedTimeLeft(formatMovieDuration(videoRef.current.duration - videoRef.current.currentTime, DEFAULT_DURATION_FORMAT));
     };
     videoRef.current.ondurationchange = () => setVideoDuration(videoRef.current.duration);
-    videoRef.current.onpause = isPreview ? () => videoRef.current.load() : () => {};
+    videoRef.current.onpause = () => {
+      setIsPlaying(false);
+
+      if (isPreview) {
+        return videoRef.current.load();
+      }
+      return () => {};
+    };
+    videoRef.current.onplaying = () => setIsPlaying(true);
 
     return () => {
       videoRef.current.oncanplaythrough = null;
       videoRef.current.onplay = null;
+      videoRef.current.onplaying = null;
       videoRef.current.onpause = null;
       videoRef.current.ontimeupdate = null;
       videoRef.current.ondurationchange = null;
@@ -46,12 +56,13 @@ const VideoPlayer = ({shouldPlay, movie, isPreview, onPlayButtonClick, ...restPr
   }, []);
 
   useEffect(() => {
-    if (shouldPlay) {
+    if (shouldPlay && videoRef.current.paused && !isPlaying) {
       videoRef.current.play();
       return;
     }
-
-    videoRef.current.pause();
+    if (!videoRef.current.paused && isPlaying) {
+      videoRef.current.pause();
+    }
   }, [shouldPlay]);
 
   const createPlayerControlButton = (
