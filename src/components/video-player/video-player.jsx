@@ -1,6 +1,7 @@
 import React, {useRef, useState, useEffect, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import Validator from '../../util/validate';
+import {formatMovieDuration} from '../../util/movie';
 
 const PLAY_BUTTON_WIDTH = 19;
 const PLAY_BUTTON_HEIGHT = 19;
@@ -11,6 +12,8 @@ const PAUSE_BUTTON_HEIGHT = 21;
 const FULL_SCREEN_BUTTON_WIDTH = 27;
 const FULL_SCREEN_BUTTON_HEIGHT = 21;
 
+const DEFAULT_DURATION_FORMAT = `HH:mm:ss`;
+
 const VideoPlayer = ({shouldPlay, movie, isPreview, onPlayButtonClick, ...restProps}) => {
   const {videoUrl, previewVideoUrl, previewImagePath, backgroundImagePath, name} = movie;
 
@@ -19,6 +22,7 @@ const VideoPlayer = ({shouldPlay, movie, isPreview, onPlayButtonClick, ...restPr
   const [videoDurationInSec, setVideoDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [elapsedPercent, setElapsedPercent] = useState(0);
+  const [formattedTimeLeft, setFormattedTimeLeft] = useState(formatMovieDuration(0));
 
   useEffect(() => {
     videoRef.current.oncanplaythrough = () => setIsLoading(false);
@@ -26,6 +30,7 @@ const VideoPlayer = ({shouldPlay, movie, isPreview, onPlayButtonClick, ...restPr
       setCurrentTime(videoRef.current.currentTime);
       const percent = videoRef.current.currentTime / videoRef.current.duration * 100;
       setElapsedPercent(percent);
+      setFormattedTimeLeft(formatMovieDuration(videoRef.current.duration - videoRef.current.currentTime, DEFAULT_DURATION_FORMAT));
     };
     videoRef.current.ondurationchange = () => setVideoDuration(videoRef.current.duration);
     videoRef.current.onpause = isPreview ? () => videoRef.current.load() : () => {};
@@ -79,7 +84,7 @@ const VideoPlayer = ({shouldPlay, movie, isPreview, onPlayButtonClick, ...restPr
               <progress className="player__progress" value={currentTime} max={videoDurationInSec}></progress>
               <div className="player__toggler" style={{"left": `${elapsedPercent}%`}}>Toggler</div>
             </div>
-            <div className="player__time-value">1:30:29</div>
+            <div className="player__time-value">{formattedTimeLeft}</div>
           </div>
           <div className="player__controls-row">
             {!shouldPlay ?
