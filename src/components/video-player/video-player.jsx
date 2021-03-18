@@ -22,7 +22,7 @@ const VideoPlayer = ({shouldPlay, movie, isPreview, onPlayButtonClick, ...restPr
   const [videoDurationInSec, setVideoDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [elapsedPercent, setElapsedPercent] = useState(0);
-  const [formattedTimeLeft, setFormattedTimeLeft] = useState(formatMovieDuration(0));
+  const [formattedTimeLeft, setFormattedTimeLeft] = useState(formatMovieDuration(0, DEFAULT_DURATION_FORMAT));
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
@@ -64,6 +64,18 @@ const VideoPlayer = ({shouldPlay, movie, isPreview, onPlayButtonClick, ...restPr
       videoRef.current.pause();
     }
   }, [shouldPlay]);
+
+  const handleFullScreen = (evt) => {
+    evt.preventDefault();
+
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+  };
 
   const createPlayerControlButton = (
       width,
@@ -111,7 +123,8 @@ const VideoPlayer = ({shouldPlay, movie, isPreview, onPlayButtonClick, ...restPr
                 FULL_SCREEN_BUTTON_HEIGHT,
                 `#full-screen`,
                 `Full screen`,
-                `player__full-screen`
+                `player__full-screen`,
+                (evt) => handleFullScreen(evt)
             )}
           </div>
         </div>
