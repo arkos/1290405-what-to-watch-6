@@ -16,9 +16,18 @@ const VideoPlayer = ({shouldPlay, movie, isPreview, onPlayButtonClick, ...restPr
 
   const videoRef = useRef();
   const [isLoading, setIsLoading] = useState(true);
+  const [videoDurationInSec, setVideoDuration] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [elapsedPercent, setElapsedPercent] = useState(0);
 
   useEffect(() => {
     videoRef.current.oncanplaythrough = () => setIsLoading(false);
+    videoRef.current.ontimeupdate = () => {
+      setCurrentTime(videoRef.current.currentTime);
+      const percent = videoRef.current.currentTime / videoRef.current.duration * 100;
+      setElapsedPercent(percent);
+    };
+    videoRef.current.ondurationchange = () => setVideoDuration(videoRef.current.duration);
     videoRef.current.onpause = isPreview ? () => videoRef.current.load() : () => {};
 
     return () => {
@@ -67,8 +76,8 @@ const VideoPlayer = ({shouldPlay, movie, isPreview, onPlayButtonClick, ...restPr
         <div className="player__controls">
           <div className="player__controls-row">
             <div className="player__time">
-              <progress className="player__progress" value="30" max="100"></progress>
-              <div className="player__toggler">Toggler</div>
+              <progress className="player__progress" value={currentTime} max={videoDurationInSec}></progress>
+              <div className="player__toggler" style={{"left": `${elapsedPercent}%`}}>Toggler</div>
             </div>
             <div className="player__time-value">1:30:29</div>
           </div>
