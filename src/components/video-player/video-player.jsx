@@ -143,7 +143,8 @@ VideoPlayer.propTypes = {
   shouldPlay: PropTypes.bool.isRequired,
   movie: Validator.MOVIE,
   isPreview: PropTypes.bool.isRequired,
-  onPlayButtonClick: PropTypes.func.isRequired
+  onPlayButtonClick: PropTypes.func.isRequired,
+  onExitButtonClick: PropTypes.func.isRequired
 };
 
 export default VideoPlayer;

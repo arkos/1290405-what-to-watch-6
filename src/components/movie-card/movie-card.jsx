@@ -52,6 +52,7 @@ const MovieCard = ({movie}) => {
           muted={IS_VIDEO_MUTED}
           preload={VIDEO_PRELOAD}
           onPlayButtonClick={() => {}}
+          onExitButtonClick={() => {}}
         />
       </Link>
       <h3 className="small-movie-card__title">
