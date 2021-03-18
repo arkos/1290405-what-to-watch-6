@@ -13,6 +13,7 @@ const MovieCard = ({movie}) => {
   const {name, id} = movie;
 
   let timer = null;
+  let isMounted = false;
 
   const handleMouseLeave = () => {
     clearTimeout(timer);
@@ -23,16 +24,21 @@ const MovieCard = ({movie}) => {
   const handleMouseEnter = () => {
     if (!timer) {
       timer = setTimeout(() => {
-        setShouldPlay(true);
+        if (isMounted) {
+          setShouldPlay(true);
+        }
       }, CARD_HOVER_DELAY);
     }
   };
 
   useEffect(() => {
+    isMounted = true;
     return () => {
       if (timer) {
         clearTimeout(timer);
+        timer = null;
       }
+      isMounted = false;
     };
   }, []);
 
