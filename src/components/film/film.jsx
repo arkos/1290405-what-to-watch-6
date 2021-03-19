@@ -3,7 +3,7 @@ import {Link, useParams, useHistory} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import {getAllMovies} from '../../store/selectors/selectors';
 import {AppRoute, AuthorizationStatus, TabName} from '../../util/const';
-import {getReviewUrl} from '../../util/route';
+import {getPlayerUrl, getReviewUrl} from '../../util/route';
 import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
 import Tabs from '../tabs/tabs';
 import {fetchMovie} from '../../store/api-actions';
@@ -76,13 +76,13 @@ const Film = () => {
                 <span className="movie-card__year">{released}</span>
               </p>
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button" onClick={() => history.push(`/player/`)}>
+                <button className="btn btn--play movie-card__button" type="button" onClick={() => history.push(getPlayerUrl(id))}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button" onClick={() => history.push(`/mylist`)}>
+                <button className="btn btn--list movie-card__button" type="button" onClick={() => history.push(AppRoute.MYLIST)}>
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
                   </svg>
