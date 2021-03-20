@@ -11,6 +11,7 @@ export const ActionType = {
   RELOAD_MOVIE: `data/reloadMovie`,
   LOAD_REVIEWS: `data/loadReviews`,
   SAVE_REVIEW: `data/saveReview`,
+  ADD_FAVORITE: `data/addFavorite`,
   REQUIRE_AUTHORIZATION: `user/requiredAuthorization`,
   REDIRECT_TO_ROUTE: `user/redirectToRoute`
 };
@@ -68,6 +69,12 @@ export const saveReview = createAction(ActionType.SAVE_REVIEW, (review, movieId)
       review,
       movieId
     }
+  };
+});
+
+export const addFavorite = createAction(ActionType.ADD_FAVORITE, (movie) => {
+  return {
+    payload: movie
   };
 });
 
