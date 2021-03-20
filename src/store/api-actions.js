@@ -35,8 +35,8 @@ export const fetchMovie = (id) => (dispatch, _getState, api) => (
 export const postReview = ({rating, comment}, movieId) => (dispatch, _getState, api) => {
   dispatch(changeDataProcessingState(State.SAVING));
   return api.post(getApiReviewsUrl(movieId), {rating, comment})
-    .then(() => dispatch(changeDataProcessingState(State.DEFAULT)))
     .then(({data}) => dispatch(saveReview({review: data, movieId})))
+    .then(() => dispatch(changeDataProcessingState(State.DEFAULT)))
     .then(() => dispatch(redirectToRoute(getMovieUrl(movieId))))
     .catch(() => dispatch(changeDataProcessingState(State.ABORTING)));
 };
@@ -49,7 +49,7 @@ export const postFavorite = (id, status) => (dispatch, _getState, api) => (
 export const fetchFavorites = () => (dispatch, _getState, api) => {
   dispatch(changeDataProcessingState(State.SAVING));
   return api.get(APIRoute.FAVORITE)
+    .then(({data}) => dispatch(loadFavorites(data.map(adaptToClient))))
     .then(() => dispatch(changeDataProcessingState(State.DEFAULT)))
-    .then(({data}) => dispatch(loadFavorites(data)))
     .catch(() => dispatch(changeDataProcessingState(State.ABORTING)));
 };
