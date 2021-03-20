@@ -59,6 +59,11 @@ const movieData = createReducer(initialState, (builder) => {
   builder.addCase(loadFavorites, (state, action) => {
     const favorites = action.payload;
 
+    if (state.movies.length === 0) {
+      state.movies = favorites;
+      return;
+    }
+
     for (const movie of state.movies) {
       const isFavorite = favorites.some((favorite) => favorite.id === movie.id);
       movie.isFavorite = isFavorite;
