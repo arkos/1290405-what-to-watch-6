@@ -15,6 +15,8 @@ export const getAllMovies = createSelector(
 );
 
 export const getFavoriteMovies = createSelector(
-    [moviesSelector],
-    (movies) => movies.filter((movie) => movie.isFavorite)
+    moviesSelector,
+    (movies) => {
+      return movies.filter((movie) => movie.isFavorite);
+    }
 );
