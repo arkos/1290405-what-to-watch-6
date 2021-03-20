@@ -2,15 +2,16 @@ import React, {useEffect, Fragment} from 'react';
 import {Link, useParams, useHistory} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import {getAllMovies} from '../../store/selectors/selectors';
-import {AppRoute, AuthorizationStatus, TabName} from '../../util/const';
+import {AppRoute, AuthorizationStatus, TabName, FavoriteStatus} from '../../util/const';
 import {getPlayerUrl, getReviewUrl} from '../../util/route';
 import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
 import Tabs from '../tabs/tabs';
-import {fetchMovie} from '../../store/api-actions';
+import {fetchMovie, postFavorite} from '../../store/api-actions';
 import Loading from '../loading/loading';
 import {changeActiveTab} from '../../store/action';
 import MovieList from '../movie-list/movie-list';
 import {filterSimilarMovies} from '../../util/movie';
+import AddFavorite from '../add-favorite/add-favorite';
 
 const Film = () => {
   const {id} = useParams();
@@ -26,6 +27,12 @@ const Film = () => {
   const movie = movies.find((item) => item.id === Number(id));
 
   const isMovieLoaded = movie !== undefined;
+
+  const addToFavorite = () => {
+    if (movie) {
+      dispatch(postFavorite(movie.id, FavoriteStatus.FAVORITE));
+    }
+  };
 
   useEffect(() => {
     if (!isMovieLoaded) {
@@ -82,12 +89,7 @@ const Film = () => {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button" onClick={() => history.push(AppRoute.MYLIST)}>
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
+                <AddFavorite onAddToFavorite={addToFavorite} favoriteStatus={movie.isFavorite}/>
                 {authorizationStatus === AuthorizationStatus.AUTH && <Link className="btn movie-card__button" to={getReviewUrl(id)}>Add review</Link>}
               </div>
             </div>
