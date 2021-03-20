@@ -17,7 +17,8 @@ export const APIRoute = {
   ROOT: `/`,
   LOGIN: `/login`,
   MOVIES: `/films`,
-  REVIEWS: `/comments`
+  REVIEWS: `/comments`,
+  FAVORITE: `/favorite`
 };
 
 export const AppRoute = {
