@@ -1,8 +1,8 @@
-import {loadMovies, loadReviews, requireAuthorization, redirectToRoute, reloadMovie, changeDataProcessingState, saveReview} from '../store/action';
+import {loadMovies, loadReviews, requireAuthorization, redirectToRoute, reloadMovie, changeDataProcessingState, saveReview, addFavorite} from '../store/action';
 import {AuthorizationStatus, State} from '../util/const';
 import {adaptToClient} from '../util/movie';
 import {APIRoute} from '../util/const';
-import {getApiMovieUrl, getApiReviewsUrl, getMovieUrl} from '../util/route';
+import {getApiMovieUrl, getApiReviewsUrl, getMovieUrl, getApiFavoriteUrl} from '../util/route';
 
 export const fetchMovies = () => (dispatch, _getState, api) => (
   api.get(APIRoute.MOVIES)
@@ -40,3 +40,8 @@ export const postReview = ({rating, comment}, movieId) => (dispatch, _getState, 
     .then(() => dispatch(redirectToRoute(getMovieUrl(movieId))))
     .catch(() => dispatch(changeDataProcessingState(State.ABORTING)));
 };
+
+export const postFavorite = ({id, status}) => (dispatch, _getState, api) => (
+  api.post(getApiFavoriteUrl(id, status))
+    .then(({data}) => dispatch(addFavorite(adaptToClient(data))))
+);
