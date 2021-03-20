@@ -1,13 +1,26 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
-import {useSelector} from 'react-redux';
-import {AppRoute} from '../../util/const';
+import {useSelector, useDispatch} from 'react-redux';
+import {AppRoute, State} from '../../util/const';
 import MovieList from '../movie-list/movie-list';
 import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
 import {getFavoriteMovies} from '../../store/selectors/selectors';
+import {fetchFavorites} from '../../store/api-actions';
+import Loading from '../loading/loading';
 
 const MyList = () => {
   const favoriteMovies = useSelector((state) => getFavoriteMovies(state));
+  const {isFavoriteLoading} = useSelector((state) => state.MOVIE);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFavorites());
+  }, []);
+
+  if (isFavoriteLoading === State.SAVING) {
+    return <Loading />;
+  }
 
   return (
     <div className="user-page">
