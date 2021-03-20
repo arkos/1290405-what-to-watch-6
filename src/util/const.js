@@ -47,3 +47,8 @@ export const State = {
   ABORTING: `ABORTING`,
   DEFAULT: `DEFAULT`
 };
+
+export const FavoriteStatus = {
+  NOT_FAVORITE: 0,
+  FAVORITE: 1
+};
