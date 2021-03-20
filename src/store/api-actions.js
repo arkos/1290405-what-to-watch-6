@@ -41,7 +41,7 @@ export const postReview = ({rating, comment}, movieId) => (dispatch, _getState, 
     .catch(() => dispatch(changeDataProcessingState(State.ABORTING)));
 };
 
-export const postFavorite = ({id, status}) => (dispatch, _getState, api) => (
+export const postFavorite = (id, status) => (dispatch, _getState, api) => (
   api.post(getApiFavoriteUrl(id, status))
     .then(({data}) => dispatch(addFavorite(adaptToClient(data))))
 );

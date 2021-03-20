@@ -2,14 +2,14 @@ import React, {useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {getFilteredMovies} from '../../store/selectors/selectors';
-import {AppRoute, MOVIES_PER_PAGE} from '../../util/const';
+import {AppRoute, FavoriteStatus, MOVIES_PER_PAGE} from '../../util/const';
 import {getPlayerUrl} from '../../util/route';
 import MovieList from '../movie-list/movie-list';
 import GenreList from '../genre-list/genre-list';
 import Loading from '../loading/loading';
 import ShowMore from '../show-more/show-more';
 import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
-import {fetchMovies} from '../../store/api-actions';
+import {fetchMovies, postFavorite} from '../../store/api-actions';
 import {changeCountToRender, resetMain} from '../../store/action';
 
 const Main = () => {
@@ -30,6 +30,11 @@ const Main = () => {
 
   const showMoreMovies = () => {
     dispatch(changeCountToRender(Math.min(filteredMoviesCount, renderedMoviesCount + MOVIES_PER_PAGE)));
+  };
+
+  const handleAddToFavoritesClick = (evt) => {
+    evt.preventDefault();
+    dispatch(postFavorite(promo.id, FavoriteStatus.FAVORITE));
   };
 
   useEffect(() => {
@@ -87,7 +92,7 @@ const Main = () => {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button" onClick={() => history.push(AppRoute.MYLIST)}>
+                <button className="btn btn--list movie-card__button" type="button" onClick={handleAddToFavoritesClick}>
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
                   </svg>
