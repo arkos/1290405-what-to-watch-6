@@ -57,7 +57,7 @@ const VideoPlayer = ({shouldPlay, movie, isPreview, onPlayButtonClick, onExitBut
 
   useEffect(() => {
     if (shouldPlay && videoRef.current.paused && !isPlaying) {
-      videoRef.current.play();
+      videoRef.current.play().catch(() => {});
       return;
     }
     if (!videoRef.current.paused && isPlaying) {
