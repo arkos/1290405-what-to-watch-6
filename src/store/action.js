@@ -12,6 +12,7 @@ export const ActionType = {
   LOAD_REVIEWS: `data/loadReviews`,
   SAVE_REVIEW: `data/saveReview`,
   ADD_FAVORITE: `data/addFavorite`,
+  LOAD_FAVORITES: `data/loadFavorites`,
   REQUIRE_AUTHORIZATION: `user/requiredAuthorization`,
   REDIRECT_TO_ROUTE: `user/redirectToRoute`
 };
@@ -60,6 +61,12 @@ export const loadReviews = createAction(ActionType.LOAD_REVIEWS, (reviews, movie
       reviews,
       movieId
     }
+  };
+});
+
+export const loadFavorites = createAction(ActionType.LOAD_FAVORITES, (favorites) => {
+  return {
+    payload: favorites
   };
 });
 
