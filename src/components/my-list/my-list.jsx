@@ -4,9 +4,10 @@ import {useSelector} from 'react-redux';
 import {AppRoute} from '../../util/const';
 import MovieList from '../movie-list/movie-list';
 import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
+import {getFavoriteMovies} from '../../store/selectors/selectors';
 
 const MyList = () => {
-  const {movies} = useSelector((state) => state.DATA);
+  const favoriteMovies = useSelector((state) => getFavoriteMovies(state));
 
   return (
     <div className="user-page">
@@ -28,7 +29,7 @@ const MyList = () => {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__movies-list">
-          <MovieList movies={movies} />
+          <MovieList movies={favoriteMovies} />
         </div>
       </section>
 
