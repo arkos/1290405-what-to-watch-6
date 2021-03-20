@@ -14,7 +14,8 @@ export const ActionType = {
   ADD_FAVORITE: `data/addFavorite`,
   LOAD_FAVORITES: `data/loadFavorites`,
   REQUIRE_AUTHORIZATION: `user/requiredAuthorization`,
-  REDIRECT_TO_ROUTE: `user/redirectToRoute`
+  REDIRECT_TO_ROUTE: `user/redirectToRoute`,
+  LOAD_USER: `user/loadUser`
 };
 
 export const changeGenre = createAction(ActionType.CHANGE_GENRE, (genre) => {
@@ -82,6 +83,12 @@ export const saveReview = createAction(ActionType.SAVE_REVIEW, (review, movieId)
 export const addFavorite = createAction(ActionType.ADD_FAVORITE, (movie) => {
   return {
     payload: movie
+  };
+});
+
+export const loadUser = createAction(ActionType.LOAD_USER, (user) => {
+  return {
+    payload: user
   };
 });
 

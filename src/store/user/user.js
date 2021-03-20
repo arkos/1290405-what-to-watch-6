@@ -3,6 +3,10 @@ import {AuthorizationStatus} from "../../util/const";
 import {requireAuthorization} from "../action";
 
 const initialState = {
+  id: null,
+  email: null,
+  name: null,
+  avatarUrl: null,
   authorizationStatus: AuthorizationStatus.NO_AUTH
 };
 
