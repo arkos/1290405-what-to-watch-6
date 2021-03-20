@@ -45,7 +45,7 @@ const movieData = createReducer(initialState, (builder) => {
   });
 
   builder.addCase(addFavorite, (state, action) => {
-    const {movie} = action.payload;
+    const movie = action.payload;
 
     const index = state.movies.findIndex((item) => item.id === movie.id);
 
