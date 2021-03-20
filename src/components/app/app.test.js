@@ -118,7 +118,7 @@ describe(`Test routing`, () => {
 
     render(
         <redux.Provider store={mockStore({
-          DATA: {movies, userMovies: [], isDataLoaded: true},
+          DATA: {movies, isDataLoaded: true},
           MOVIE: {dataProcessingState: State.DEFAULT},
           USER: {authorizationStatus: AuthorizationStatus.NO_AUTH}
         })}>
@@ -138,7 +138,7 @@ describe(`Test routing`, () => {
 
     render(
         <redux.Provider store={mockStore({
-          DATA: {movies, userMovies: [], isDataLoaded: true},
+          DATA: {movies, isDataLoaded: true},
           USER: {authorizationStatus: AuthorizationStatus.NO_AUTH}
         })}>
           <Router history={history}>
@@ -159,7 +159,7 @@ describe(`Test routing`, () => {
 
     render(
         <redux.Provider store={mockStore({
-          DATA: {movies, userMovies: [], isDataLoaded: true},
+          DATA: {movies, isDataLoaded: true},
           MOVIE: {dataProcessingState: State.DEFAULT},
           USER: {authorizationStatus: AuthorizationStatus.AUTH}
         })}>
@@ -180,7 +180,7 @@ describe(`Test routing`, () => {
 
     render(
         <redux.Provider store={mockStore({
-          DATA: {movies, userMovies: [], isDataLoaded: true},
+          DATA: {movies, isDataLoaded: true},
           USER: {authorizationStatus: AuthorizationStatus.AUTH}
         })}>
           <Router history={history}>
@@ -201,7 +201,7 @@ describe(`Test routing`, () => {
 
     render(
         <redux.Provider store={mockStore({
-          DATA: {movies, userMovies: [], isDataLoaded: true},
+          DATA: {movies, isDataLoaded: true},
           USER: {authorizationStatus: AuthorizationStatus.NO_AUTH}
         })}>
           <Router history={history}>
@@ -221,7 +221,7 @@ describe(`Test routing`, () => {
 
     render(
         <redux.Provider store={mockStore({
-          DATA: {movies, userMovies: [], isDataLoaded: true},
+          DATA: {movies, isDataLoaded: true},
           USER: {authorizationStatus: AuthorizationStatus.AUTH}
         })}>
           <Router history={history}>
@@ -239,7 +239,7 @@ describe(`Test routing`, () => {
 
     render(
         <redux.Provider store={mockStore({
-          DATA: {movies, userMovies: [], isDataLoaded: true},
+          DATA: {movies, isDataLoaded: true},
           USER: {authorizationStatus: AuthorizationStatus.NO_AUTH}
         })}>
           <Router history={history}>

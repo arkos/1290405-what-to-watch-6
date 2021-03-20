@@ -6,7 +6,7 @@ import MovieList from '../movie-list/movie-list';
 import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
 
 const MyList = () => {
-  const {userMovies} = useSelector((state) => state.DATA);
+  const {movies} = useSelector((state) => state.DATA);
 
   return (
     <div className="user-page">
@@ -28,7 +28,7 @@ const MyList = () => {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__movies-list">
-          <MovieList movies={userMovies} />
+          <MovieList movies={movies} />
         </div>
       </section>
 

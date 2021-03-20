@@ -3,7 +3,6 @@ import {loadMovies, reloadMovie, loadReviews, saveReview} from '../action';
 
 const initialState = {
   movies: [],
-  userMovies: [],
   isDataLoaded: false,
 };
 
