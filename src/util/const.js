@@ -17,7 +17,8 @@ export const APIRoute = {
   ROOT: `/`,
   LOGIN: `/login`,
   MOVIES: `/films`,
-  REVIEWS: `/comments`
+  REVIEWS: `/comments`,
+  FAVORITE: `/favorite`
 };
 
 export const AppRoute = {
@@ -45,4 +46,9 @@ export const State = {
   SAVING: `SAVING`,
   ABORTING: `ABORTING`,
   DEFAULT: `DEFAULT`
+};
+
+export const FavoriteStatus = {
+  NOT_FAVORITE: 0,
+  FAVORITE: 1
 };

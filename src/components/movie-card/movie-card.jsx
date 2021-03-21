@@ -10,9 +10,10 @@ const VIDEO_PRELOAD = `none`;
 
 const MovieCard = ({movie}) => {
   const [shouldPlay, setShouldPlay] = useState(false);
-  const {previewImagePath, previewVideoUrl, name, id} = movie;
+  const {name, id} = movie;
 
   let timer = null;
+  let isMounted = false;
 
   const handleMouseLeave = () => {
     clearTimeout(timer);
@@ -23,30 +24,35 @@ const MovieCard = ({movie}) => {
   const handleMouseEnter = () => {
     if (!timer) {
       timer = setTimeout(() => {
-        setShouldPlay(true);
+        if (isMounted) {
+          setShouldPlay(true);
+        }
       }, CARD_HOVER_DELAY);
     }
   };
 
   useEffect(() => {
+    isMounted = true;
     return () => {
       if (timer) {
         clearTimeout(timer);
+        timer = null;
       }
+      isMounted = false;
     };
-  }, []);
+  }, [shouldPlay]);
 
   return (
     <article className="small-movie-card catalog__movies-card" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <Link to={getMovieUrl(id)}>
         <VideoPlayer
-          src={previewVideoUrl}
+          movie={movie}
           shouldPlay={shouldPlay}
+          isPreview={true}
           muted={IS_VIDEO_MUTED}
-          poster={previewImagePath}
           preload={VIDEO_PRELOAD}
-          width="280"
-          height="175"
+          onPlayButtonClick={() => {}}
+          onExitButtonClick={() => {}}
         />
       </Link>
       <h3 className="small-movie-card__title">

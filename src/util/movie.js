@@ -67,3 +67,7 @@ export const filterSimilarMovies = (movies, movie, count = MAX_MOVIES_MORE_LIKE_
 
   return similarMovies;
 };
+
+export const formatMovieDuration = (durationInSec, template) => {
+  return dayjs.duration(durationInSec, `seconds`).format(template);
+};

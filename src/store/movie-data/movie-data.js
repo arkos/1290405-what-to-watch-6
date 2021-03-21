@@ -1,9 +1,8 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {loadMovies, reloadMovie, loadReviews, saveReview} from '../action';
+import {loadMovies, reloadMovie, loadReviews, loadFavorites, saveReview, addFavorite} from '../action';
 
 const initialState = {
   movies: [],
-  userMovies: [],
   isDataLoaded: false,
 };
 
@@ -43,6 +42,32 @@ const movieData = createReducer(initialState, (builder) => {
     }
 
     state.movies[index].reviews.push(review);
+  });
+
+  builder.addCase(addFavorite, (state, action) => {
+    const movie = action.payload;
+
+    const index = state.movies.findIndex((item) => item.id === movie.id);
+
+    if (index === -1) {
+      return;
+    }
+
+    state.movies[index].isFavorite = movie.isFavorite;
+  });
+
+  builder.addCase(loadFavorites, (state, action) => {
+    const favorites = action.payload;
+
+    if (state.movies.length === 0) {
+      state.movies = favorites;
+      return;
+    }
+
+    for (const movie of state.movies) {
+      const isFavorite = favorites.some((favorite) => favorite.id === movie.id);
+      movie.isFavorite = isFavorite;
+    }
   });
 });
 
