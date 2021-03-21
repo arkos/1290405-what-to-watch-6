@@ -3,14 +3,20 @@ import PropTypes from 'prop-types';
 import Validator from '../../util/validate';
 import {formatMovieDuration} from '../../util/movie';
 
-const PLAY_BUTTON_WIDTH = 19;
-const PLAY_BUTTON_HEIGHT = 19;
+const PlayButtonSize = {
+  WIDTH: 19,
+  HEIGHT: 19
+};
 
-const PAUSE_BUTTON_WIDTH = 14;
-const PAUSE_BUTTON_HEIGHT = 21;
+const PauseButtonSize = {
+  WIDTH: 14,
+  HEIGHT: 21
+};
 
-const FULL_SCREEN_BUTTON_WIDTH = 27;
-const FULL_SCREEN_BUTTON_HEIGHT = 21;
+const FullScreenButtonSize = {
+  WIDTH: 27,
+  HEIGHT: 21
+};
 
 const DEFAULT_DURATION_FORMAT = `HH:mm:ss`;
 
@@ -119,14 +125,14 @@ const VideoPlayer = ({shouldPlay, movie, isPreview, onPlayButtonClick, onExitBut
           </div>
           <div className="player__controls-row">
             {!shouldPlay ?
-              createPlayerControlButton(PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT, `#play-s`, `Play`) :
-              createPlayerControlButton(PAUSE_BUTTON_WIDTH, PAUSE_BUTTON_HEIGHT, `#pause`, `Pause`)
+              createPlayerControlButton(PlayButtonSize.WIDTH, PlayButtonSize.HEIGHT, `#play-s`, `Play`) :
+              createPlayerControlButton(PauseButtonSize.WIDTH, PauseButtonSize.HEIGHT, `#pause`, `Pause`)
             }
             <div className="player__name">{name}</div>
 
             {createPlayerControlButton(
-                FULL_SCREEN_BUTTON_WIDTH,
-                FULL_SCREEN_BUTTON_HEIGHT,
+                FullScreenButtonSize.WIDTH,
+                FullScreenButtonSize.HEIGHT,
                 `#full-screen`,
                 `Full screen`,
                 `player__full-screen`,
