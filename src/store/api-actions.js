@@ -1,24 +1,25 @@
 import {loadMovies, loadReviews, requireAuthorization, redirectToRoute, reloadMovie, changeDataProcessingState, saveReview, addFavorite, loadFavorites, loadUser} from '../store/action';
 import {AuthorizationStatus, State} from '../util/const';
-import {adaptToClient} from '../util/movie';
+import {adaptToClient as adaptMovieToClient} from '../util/movie';
+import {adaptToClient as adaptUserToClient} from '../util/user';
 import {APIRoute} from '../util/const';
 import {getApiMovieUrl, getApiReviewsUrl, getMovieUrl, getApiFavoriteUrl} from '../util/route';
 
 export const fetchMovies = () => (dispatch, _getState, api) => (
   api.get(APIRoute.MOVIES)
-    .then(({data}) => dispatch(loadMovies(data.map(adaptToClient))))
+    .then(({data}) => dispatch(loadMovies(data.map(adaptMovieToClient))))
 );
 
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
-    .then(({data: user}) => dispatch(loadUser(user)))
+    .then(({data: user}) => dispatch(loadUser(adaptUserToClient(user))))
     .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
     .catch(() => {})
 );
 
 export const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(APIRoute.LOGIN, {email, password})
-    .then(({data: user}) => dispatch(loadUser(user)))
+    .then(({data: user}) => dispatch(loadUser(adaptUserToClient(user))))
     .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
     .then(() => dispatch(redirectToRoute(APIRoute.ROOT)))
 );
@@ -30,7 +31,7 @@ export const fetchReviews = ({id: movieId}) => (dispatch, _getState, api) => (
 
 export const fetchMovie = (id) => (dispatch, _getState, api) => (
   api.get(getApiMovieUrl(id))
-    .then(({data}) => dispatch(reloadMovie(adaptToClient(data))))
+    .then(({data}) => dispatch(reloadMovie(adaptMovieToClient(data))))
     .catch(() => dispatch(redirectToRoute(`/not-found`)))
 );
 
@@ -45,13 +46,13 @@ export const postReview = ({rating, comment}, movieId) => (dispatch, _getState, 
 
 export const postFavorite = (id, status) => (dispatch, _getState, api) => (
   api.post(getApiFavoriteUrl(id, status))
-    .then(({data}) => dispatch(addFavorite(adaptToClient(data))))
+    .then(({data}) => dispatch(addFavorite(adaptMovieToClient(data))))
 );
 
 export const fetchFavorites = () => (dispatch, _getState, api) => {
   dispatch(changeDataProcessingState(State.SAVING));
   return api.get(APIRoute.FAVORITE)
-    .then(({data}) => dispatch(loadFavorites(data.map(adaptToClient))))
+    .then(({data}) => dispatch(loadFavorites(data.map(adaptMovieToClient))))
     .then(() => dispatch(changeDataProcessingState(State.DEFAULT)))
     .catch(() => dispatch(changeDataProcessingState(State.ABORTING)));
 };
