@@ -1,5 +1,5 @@
 import {loadMovies, loadReviews, requireAuthorization, redirectToRoute, reloadMovie, changeDataProcessingState, saveReview, addFavorite, loadFavorites, loadUser} from '../store/action';
-import {AuthorizationStatus, State} from '../util/const';
+import {AppRoute, AuthorizationStatus, State} from '../util/const';
 import {adaptToClient as adaptMovieToClient} from '../util/movie';
 import {adaptToClient as adaptUserToClient} from '../util/user';
 import {APIRoute} from '../util/const';
@@ -22,6 +22,13 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
     .then(({data: user}) => dispatch(loadUser(adaptUserToClient(user))))
     .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
     .then(() => dispatch(redirectToRoute(APIRoute.ROOT)))
+);
+
+export const logout = () => (dispatch, _getState, api) => (
+  api.get(APIRoute.LOGOUT)
+    .then(() => dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH)))
+    .then(() => dispatch(loadUser(null)))
+    .then(() => dispatch(redirectToRoute(AppRoute.ROOT)))
 );
 
 export const fetchReviews = ({id: movieId}) => (dispatch, _getState, api) => (
