@@ -20,6 +20,8 @@ const SignInIndicator = () => {
         authorizationStatus === AuthorizationStatus.NO_AUTH &&
       <Link to={AppRoute.LOGIN} className="user-block__link">Sign in</Link>
       }
+      {authorizationStatus === AuthorizationStatus.AUTH &&
+      <Link to={AppRoute.LOGIN} className="user-block__link">Sign out</Link>}
     </div>
   );
 };
