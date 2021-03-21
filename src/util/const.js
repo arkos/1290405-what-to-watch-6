@@ -23,6 +23,7 @@ export const APIRoute = {
 export const AppRoute = {
   ROOT: `/`,
   LOGIN: `/login`,
+  LOGOUT: `/logout`,
   MYLIST: `/mylist`,
   MOVIES: `/films`,
 };

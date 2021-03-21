@@ -1,10 +1,18 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
+import {logout} from '../../store/api-actions';
 import {AuthorizationStatus, AppRoute} from '../../util/const';
 
 const SignInIndicator = () => {
   const {authorizationStatus, user} = useSelector((state) => state.USER);
+
+  const dispatch = useDispatch();
+
+  const handleLogoutClick = (evt) => {
+    evt.preventDefault();
+    dispatch(logout());
+  };
 
   return (
     <div className="user-block">
@@ -21,7 +29,7 @@ const SignInIndicator = () => {
       <Link to={AppRoute.LOGIN} className="user-block__link">Sign in</Link>
       }
       {authorizationStatus === AuthorizationStatus.AUTH &&
-      <Link to={AppRoute.LOGIN} className="user-block__link">Sign out</Link>}
+      <Link to={AppRoute.LOGOUT} className="user-block__link" onClick={handleLogoutClick}>Sign out</Link>}
     </div>
   );
 };
