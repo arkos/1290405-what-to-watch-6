@@ -1,9 +1,29 @@
-import {loadMovies, loadReviews, requireAuthorization, redirectToRoute, reloadMovie, changeDataProcessingState, saveReview, addFavorite, loadFavorites, loadUser} from '../store/action';
+import {
+  loadMovies,
+  loadReviews,
+  requireAuthorization,
+  redirectToRoute,
+  reloadMovie,
+  changeDataProcessingState,
+  saveReview,
+  addFavorite,
+  loadFavorites,
+  loadUser,
+  loadPromo
+} from '../store/action';
+
 import {AppRoute, AuthorizationStatus, State} from '../util/const';
 import {adaptToClient as adaptMovieToClient} from '../util/movie';
 import {adaptToClient as adaptUserToClient} from '../util/user';
 import {APIRoute} from '../util/const';
-import {getApiMovieUrl, getApiReviewsUrl, getMovieUrl, getApiFavoriteUrl} from '../util/route';
+
+import {
+  getApiMovieUrl,
+  getApiReviewsUrl,
+  getMovieUrl,
+  getApiFavoriteUrl,
+  getPromoMovieUrl
+} from '../util/route';
 
 export const fetchMovies = () => (dispatch, _getState, api) => (
   api.get(APIRoute.MOVIES)
@@ -40,6 +60,12 @@ export const fetchMovie = (id) => (dispatch, _getState, api) => (
   api.get(getApiMovieUrl(id))
     .then(({data}) => dispatch(reloadMovie(adaptMovieToClient(data))))
     .catch(() => dispatch(redirectToRoute(`/not-found`)))
+);
+
+export const fetchPromo = () => (dispatch, _getState, api) => (
+  api.get(getPromoMovieUrl())
+    .then(({data: promo}) => dispatch(loadPromo(promo)))
+    .catch(() => {})
 );
 
 export const postReview = ({rating, comment}, movieId) => (dispatch, _getState, api) => {
