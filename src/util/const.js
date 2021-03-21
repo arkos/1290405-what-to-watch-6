@@ -14,6 +14,7 @@ export const AuthorizationStatus = {
 export const APIRoute = {
   ROOT: `/`,
   LOGIN: `/login`,
+  LOGOUT: `logout`,
   MOVIES: `/films`,
   REVIEWS: `/comments`,
   FAVORITE: `/favorite`
