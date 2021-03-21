@@ -1,4 +1,4 @@
-import {loadMovies, loadReviews, requireAuthorization, redirectToRoute, reloadMovie, changeDataProcessingState, saveReview, addFavorite, loadFavorites} from '../store/action';
+import {loadMovies, loadReviews, requireAuthorization, redirectToRoute, reloadMovie, changeDataProcessingState, saveReview, addFavorite, loadFavorites, loadUser} from '../store/action';
 import {AuthorizationStatus, State} from '../util/const';
 import {adaptToClient} from '../util/movie';
 import {APIRoute} from '../util/const';
@@ -11,12 +11,14 @@ export const fetchMovies = () => (dispatch, _getState, api) => (
 
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
+    .then(({data: user}) => dispatch(loadUser(user)))
     .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
     .catch(() => {})
 );
 
 export const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(APIRoute.LOGIN, {email, password})
+    .then(({data: user}) => dispatch(loadUser(user)))
     .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
     .then(() => dispatch(redirectToRoute(APIRoute.ROOT)))
 );
