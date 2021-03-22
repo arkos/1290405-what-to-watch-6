@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {getFilteredMovies} from '../../store/selectors/selectors';
-import {FavoriteStatus, MOVIES_PER_PAGE} from '../../util/const';
+import {getFilteredMovies, getPromoMovie} from '../../store/selectors/selectors';
+import {FavoriteStatus, MOVIES_PER_PAGE, State} from '../../util/const';
 import {getPlayerUrl} from '../../util/route';
 import MovieList from '../movie-list/movie-list';
 import GenreList from '../genre-list/genre-list';
@@ -16,11 +16,8 @@ import AddFavorite from '../add-favorite/add-favorite';
 const Main = () => {
   let movies = useSelector((state) => getFilteredMovies(state));
   const {isDataLoaded} = useSelector((state) => state.DATA);
-  const {renderedMoviesCount} = useSelector((state) => state.MOVIE);
-
-  const [promo = {}] = movies;
-
-  const {id, name, backgroundImagePath, posterImagePath, genre, released} = promo;
+  const {renderedMoviesCount, dataProcessingState} = useSelector((state) => state.MOVIE);
+  const promo = useSelector((state) => getPromoMovie(state));
 
   const filteredMoviesCount = movies.length;
   movies = movies.slice(0, renderedMoviesCount);
@@ -28,16 +25,6 @@ const Main = () => {
   const dispatch = useDispatch();
 
   const history = useHistory();
-
-  const showMoreMovies = () => {
-    dispatch(changeCountToRender(Math.min(filteredMoviesCount, renderedMoviesCount + MOVIES_PER_PAGE)));
-  };
-
-  const addToFavorite = () => {
-    if (promo) {
-      dispatch(postFavorite(promo.id, FavoriteStatus.FAVORITE));
-    }
-  };
 
   useEffect(() => {
     if (!isDataLoaded) {
@@ -49,9 +36,21 @@ const Main = () => {
     dispatch(resetMain());
   }, []);
 
-  if (!isDataLoaded) {
+  const showMoreMovies = () => {
+    dispatch(changeCountToRender(Math.min(filteredMoviesCount, renderedMoviesCount + MOVIES_PER_PAGE)));
+  };
+
+  const addToFavorite = () => {
+    if (promo) {
+      dispatch(postFavorite(promo.id, FavoriteStatus.FAVORITE));
+    }
+  };
+
+  if (dataProcessingState === State.SAVING) {
     return <Loading />;
   }
+
+  const {id, name, backgroundImagePath, posterImagePath, genre, released} = promo;
 
   return (
     <React.Fragment>
