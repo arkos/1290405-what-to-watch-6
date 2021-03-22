@@ -108,7 +108,7 @@ const VideoPlayer = ({shouldPlay, movie, isPreview, onPlayButtonClick, onExitBut
 
   return (
     <div className={`${!isPreview ? `player` : ``}`}>
-      <video className="player__video" ref={videoRef} poster={`${isPreview ? previewImagePath : backgroundImagePath}`} {...restProps}>
+      <video className={`${isPreview ? `` : `player__video`}`} ref={videoRef} poster={`${isPreview ? previewImagePath : backgroundImagePath}`} {...restProps}>
         <source src={isPreview ? previewVideoUrl : videoUrl}/>
       Your browser doesn&apos;t support HTML5 video.
       </video>

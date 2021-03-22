@@ -53,6 +53,9 @@ const MovieCard = ({movie}) => {
           preload={VIDEO_PRELOAD}
           onPlayButtonClick={() => {}}
           onExitButtonClick={() => {}}
+          width="280"
+          height="175"
+          style={{"objectFit": `fill`}}
         />
       </Link>
       <h3 className="small-movie-card__title">
