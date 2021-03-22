@@ -25,10 +25,14 @@ import {
   getPromoMovieUrl
 } from '../util/route';
 
-export const fetchMovies = () => (dispatch, _getState, api) => (
-  api.get(APIRoute.MOVIES)
+export const fetchMovies = () => (dispatch, _getState, api) => {
+  dispatch(changeDataProcessingState(State.SAVING));
+  return api.get(APIRoute.MOVIES)
     .then(({data}) => dispatch(loadMovies(data.map(adaptMovieToClient))))
-);
+    .then(() => fetchPromo())
+    .then(() => dispatch(changeDataProcessingState(State.DEFAULT)))
+    .catch(() => dispatch(changeDataProcessingState(State.ABORTING)));
+};
 
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
@@ -62,11 +66,13 @@ export const fetchMovie = (id) => (dispatch, _getState, api) => (
     .catch(() => dispatch(redirectToRoute(`/not-found`)))
 );
 
-export const fetchPromo = () => (dispatch, _getState, api) => (
-  api.get(getPromoMovieUrl())
-    .then(({data: promo}) => dispatch(loadPromo(promo)))
-    .catch(() => {})
-);
+export const fetchPromo = () => (dispatch, _getState, api) => {
+  dispatch(changeDataProcessingState(State.SAVING));
+  return api.get(getPromoMovieUrl())
+    .then(({data: promo}) => dispatch(loadPromo(adaptMovieToClient(promo))))
+    .then(() => dispatch(changeDataProcessingState(State.DEFAULT)))
+    .catch(() => dispatch(changeDataProcessingState(State.ABORTING)));
+};
 
 export const postReview = ({rating, comment}, movieId) => (dispatch, _getState, api) => {
   dispatch(changeDataProcessingState(State.SAVING));
