@@ -20,3 +20,10 @@ export const getFavoriteMovies = createSelector(
       return movies.filter((movie) => movie.isFavorite);
     }
 );
+
+export const getPromoMovie = createSelector(
+    moviesSelector,
+    (movies) => {
+      return movies.find((movie) => movie.isPromo);
+    }
+);
