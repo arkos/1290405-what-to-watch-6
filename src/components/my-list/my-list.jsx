@@ -40,10 +40,7 @@ const MyList = () => {
 
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-
-        <div className="catalog__movies-list">
-          <MovieList movies={favoriteMovies} />
-        </div>
+        <MovieList movies={favoriteMovies} />
       </section>
 
       <footer className="page-footer">
