@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {getFilteredMovies, getPromoMovie} from '../../store/selectors/selectors';
-import {FavoriteStatus, MOVIES_PER_PAGE, State} from '../../util/const';
+import {FavoriteStatus, MOVIES_PER_PAGE} from '../../util/const';
 import {getPlayerUrl} from '../../util/route';
 import MovieList from '../movie-list/movie-list';
 import GenreList from '../genre-list/genre-list';
@@ -16,7 +16,7 @@ import AddFavorite from '../add-favorite/add-favorite';
 const Main = () => {
   let movies = useSelector((state) => getFilteredMovies(state));
   const {isDataLoaded} = useSelector((state) => state.DATA);
-  const {renderedMoviesCount, dataProcessingState} = useSelector((state) => state.MOVIE);
+  const {renderedMoviesCount} = useSelector((state) => state.MOVIE);
   const promo = useSelector((state) => getPromoMovie(state));
 
   const filteredMoviesCount = movies.length;
@@ -46,7 +46,7 @@ const Main = () => {
     }
   };
 
-  if (dataProcessingState === State.SAVING) {
+  if (!isDataLoaded || promo === undefined) {
     return <Loading />;
   }
 

@@ -26,12 +26,10 @@ import {
 } from '../util/route';
 
 export const fetchMovies = () => (dispatch, _getState, api) => {
-  dispatch(changeDataProcessingState(State.SAVING));
   return api.get(APIRoute.MOVIES)
     .then(({data}) => dispatch(loadMovies(data.map(adaptMovieToClient))))
-    .then(() => fetchPromo())
-    .then(() => dispatch(changeDataProcessingState(State.DEFAULT)))
-    .catch(() => dispatch(changeDataProcessingState(State.ABORTING)));
+    .then(() => dispatch(fetchPromo()))
+    .catch(() => {});
 };
 
 export const checkAuth = () => (dispatch, _getState, api) => (
@@ -67,11 +65,9 @@ export const fetchMovie = (id) => (dispatch, _getState, api) => (
 );
 
 export const fetchPromo = () => (dispatch, _getState, api) => {
-  dispatch(changeDataProcessingState(State.SAVING));
   return api.get(getPromoMovieUrl())
     .then(({data: promo}) => dispatch(loadPromo(adaptMovieToClient(promo))))
-    .then(() => dispatch(changeDataProcessingState(State.DEFAULT)))
-    .catch(() => dispatch(changeDataProcessingState(State.ABORTING)));
+    .catch(() => {});
 };
 
 export const postReview = ({rating, comment}, movieId) => (dispatch, _getState, api) => {

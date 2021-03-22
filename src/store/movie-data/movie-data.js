@@ -71,9 +71,8 @@ const movieData = createReducer(initialState, (builder) => {
   });
 
   builder.addCase(loadPromo, (state, action) => {
-    const promo = action.payload;
-    state.movies.map((movie) => Object.assign(movie, {isPromo: false}));
-    state.movies.push(Object.assign(promo, {isPromo: true}));
+    state.movies = state.movies.map((movie) =>
+      Object.assign(movie, {isPromo: action.payload.id === movie.id}));
   });
 });
 
