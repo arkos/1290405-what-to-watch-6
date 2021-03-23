@@ -10,29 +10,31 @@ const VIDEO_PRELOAD = `none`;
 
 const MovieCard = ({movie}) => {
   const [shouldPlay, setShouldPlay] = useState(false);
+  const [hasMouse, setHasMouse] = useState(false);
   const {name, id} = movie;
 
-  let timer = null;
-  let isMounted = false;
-
   const handleMouseLeave = () => {
-    clearTimeout(timer);
-    setShouldPlay(false);
-    timer = null;
+    setHasMouse(false);
   };
 
   const handleMouseEnter = () => {
-    if (!timer) {
+    setHasMouse(true);
+  };
+
+  useEffect(() => {
+    let isMounted = true;
+    let timer = null;
+
+    if (hasMouse) {
       timer = setTimeout(() => {
         if (isMounted) {
           setShouldPlay(true);
         }
       }, CARD_HOVER_DELAY);
+    } else {
+      setShouldPlay(false);
     }
-  };
 
-  useEffect(() => {
-    isMounted = true;
     return () => {
       if (timer) {
         clearTimeout(timer);
@@ -40,7 +42,7 @@ const MovieCard = ({movie}) => {
       }
       isMounted = false;
     };
-  }, [shouldPlay]);
+  }, [hasMouse]);
 
   return (
     <article className="small-movie-card catalog__movies-card" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
