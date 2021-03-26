@@ -1,9 +1,9 @@
 import MockAdapter from 'axios-mock-adapter';
 import {createAPI} from '../../services/api';
-import {APIRoute} from '../../util/const';
-import {getPromoMovieUrl} from '../../util/route';
-import {addFavorite, loadFavorites, loadMovies, loadPromo, loadReviews, reloadMovie, saveReview} from '../action';
-import {fetchMovies, fetchPromo} from '../api-actions';
+import {APIRoute, FavoriteStatus, State} from '../../util/const';
+import {getApiFavoriteUrl, getApiMovieUrl, getApiReviewsUrl, getMovieUrl, getPromoMovieUrl} from '../../util/route';
+import {addFavorite, changeDataProcessingState, loadFavorites, loadMovies, loadPromo, loadReviews, redirectToRoute, reloadMovie, saveReview} from '../action';
+import {fetchFavorites, fetchMovie, fetchMovies, fetchPromo, fetchReviews, postFavorite, postReview} from '../api-actions';
 import {movieData} from './movie-data';
 
 
@@ -341,6 +341,100 @@ describe(`Async operation should work correctly`, () => {
         expect(dispatch).toHaveBeenNthCalledWith(1,
             loadPromo({fake: true})
         );
+      });
+  });
+
+  it(`Should make a correct API call to /comments`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const reviewLoader = fetchReviews({id: 1});
+
+    apiMock
+      .onGet(getApiReviewsUrl(1))
+      .reply(200, [{fake: true}]);
+
+    return reviewLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1,
+            loadReviews([{fake: true}], 1));
+      });
+  });
+
+  it(`Should make a correct API call to /films/:id`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const movieLoader = fetchMovie(1);
+
+    apiMock
+      .onGet(getApiMovieUrl(1))
+      .reply(200, {fake: true});
+
+    return movieLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1,
+            reloadMovie({fake: true}));
+      });
+  });
+
+  it(`Should make a correct API call to /favorite`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const favoriteLoader = fetchFavorites();
+
+    apiMock
+      .onGet(APIRoute.FAVORITE)
+      .reply(200, [{fake: true}]);
+
+    return favoriteLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(3);
+        expect(dispatch).toHaveBeenNthCalledWith(1,
+            changeDataProcessingState(State.SAVING));
+        expect(dispatch).toHaveBeenNthCalledWith(2,
+            loadFavorites([{fake: true}]));
+        expect(dispatch).toHaveBeenNthCalledWith(3,
+            changeDataProcessingState(State.DEFAULT));
+      });
+  });
+  it(`Should make a correct API post call to /favorite`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const favoriteSender = postFavorite(1, FavoriteStatus.FAVORITE);
+
+    apiMock
+      .onPost(getApiFavoriteUrl(1, FavoriteStatus.FAVORITE))
+      .reply(200, {fake: true});
+
+    return favoriteSender(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1,
+            addFavorite({fake: true}));
+      });
+  });
+
+  it(`Should make a correct API post call to /comments/:id`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const reviewSender = postReview({rating: 10, comment: ``}, 1);
+
+    apiMock
+      .onPost(getApiReviewsUrl(1))
+      .reply(200, {fake: true});
+
+    return reviewSender(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(4);
+        expect(dispatch).toHaveBeenNthCalledWith(1,
+            changeDataProcessingState(State.SAVING));
+        expect(dispatch).toHaveBeenNthCalledWith(2,
+            saveReview({review: {fake: true}, movieId: 1}));
+        expect(dispatch).toHaveBeenNthCalledWith(3,
+            changeDataProcessingState(State.DEFAULT));
+        expect(dispatch).toHaveBeenNthCalledWith(4,
+            redirectToRoute(getMovieUrl(1)));
       });
   });
 });
