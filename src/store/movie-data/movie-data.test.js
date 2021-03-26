@@ -1,35 +1,13 @@
 import MockAdapter from 'axios-mock-adapter';
 import {createAPI} from '../../services/api';
 import {APIRoute} from '../../util/const';
-import {loadMovies, loadReviews, reloadMovie} from '../action';
-import {fetchMovies} from '../api-actions';
+import {getPromoMovieUrl} from '../../util/route';
+import {loadMovies, loadPromo, loadReviews, reloadMovie} from '../action';
+import {fetchMovies, fetchPromo} from '../api-actions';
 import {movieData} from './movie-data';
 
 
 const api = createAPI(() => {});
-
-const reviews = [
-  {
-    "id": 1,
-    "user": {
-      "id": 13,
-      "name": `Zak`
-    },
-    "rating": 1.4,
-    "comment": `This movie is just plain bad. There must be some big payola going round this awards season. Badly written, average acting at best, all the characters are unrelatable and inlikeable. 2 hours of my life wasted.`,
-    "date": `2021-03-07T08:04:28.658Z`
-  },
-  {
-    "id": 2,
-    "user": {
-      "id": 17,
-      "name": `Emely`
-    },
-    "rating": 7.2,
-    "comment": `This movie is just plain bad. There must be some big payola going round this awards season. Badly written, average acting at best, all the characters are unrelatable and inlikeable. 2 hours of my life wasted.`,
-    "date": `2021-02-22T08:04:28.658Z`
-  }
-];
 
 const movies = [
   {
@@ -249,9 +227,27 @@ describe(`Async operation should work correctly`, () => {
 
     return movieLoader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch).toHaveBeenNthCalledWith(1,
             loadMovies([{fake: true}])
+        );
+      });
+  });
+
+  it(`Should make a correct API call to /films/promo`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const promoLoader = fetchPromo();
+
+    apiMock
+      .onGet(getPromoMovieUrl())
+      .reply(200, {fake: true});
+
+    return promoLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1,
+            loadPromo({fake: true})
         );
       });
   });
