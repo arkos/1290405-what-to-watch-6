@@ -15,7 +15,11 @@ describe(`Should SignInIndicator render correctly`, () => {
 
     const {getByText} = render(
         <redux.Provider store={mockStore({
-          USER: {authorizationStatus: AuthorizationStatus.NO_AUTH}
+          USER: {
+            user: {
+              avatarUrl: `avatar.jpg`
+            },
+            authorizationStatus: AuthorizationStatus.NO_AUTH}
         })}>
           <Router history={history}>
             <SignInIndicator />
@@ -31,7 +35,11 @@ describe(`Should SignInIndicator render correctly`, () => {
 
     const {getByTestId} = render(
         <redux.Provider store={mockStore({
-          USER: {authorizationStatus: AuthorizationStatus.AUTH}
+          USER: {
+            user: {
+              avatarUrl: `avatar.jpg`
+            },
+            authorizationStatus: AuthorizationStatus.AUTH}
         })}>
           <Router history={history}>
             <SignInIndicator />
