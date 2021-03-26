@@ -2,17 +2,24 @@ import React from 'react';
 import {Link, useParams} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import Validator from '../../util/validate';
-import {AppRoute} from '../../util/const';
+import {AppRoute, AuthorizationStatus} from '../../util/const';
 import {getMovieUrl} from '../../util/route';
 import NotFound from '../not-found/not-found';
 import AddReviewForm from '../add-review-form/add-review-form';
 import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
 import {getAllMovies} from '../../store/selectors/selectors';
+import AuthorizationProgress from '../authorization-progress/authorization-progress';
 
 const AddReview = () => {
   const {id} = useParams();
 
   const movies = useSelector((state) => getAllMovies(state));
+
+  const {authorizationStatus} = useSelector((state) => state.USER);
+
+  if (authorizationStatus === AuthorizationStatus.UNKNOWN) {
+    return <AuthorizationProgress />;
+  }
 
   const movie = movies.find((item) => item.id === Number(id));
 
