@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {Router} from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import * as redux from 'react-redux';
@@ -106,6 +106,28 @@ const movies = [
   }
 ];
 
+jest.mock(`../../components/video-player/video-player`, () => {
+  const mockVideoPlayer = () => <>This is VideoPlayer mock</>;
+  mockVideoPlayer.displayName = `MockVideoPlayer`;
+  return {
+    __esModule: true,
+    default: () => {
+      return mockVideoPlayer();
+    }
+  };
+});
+
+jest.mock(`../../components/my-list/my-list`, () => {
+  const mockMyList = () => <>This is MyList mock</>;
+  mockMyList.displayName = `MockMyList`;
+  return {
+    __esModule: true,
+    default: () => {
+      return mockMyList();
+    }
+  };
+});
+
 describe(`Test routing`, () => {
   jest.spyOn(redux, `useSelector`);
   jest.spyOn(redux, `useDispatch`);
@@ -128,8 +150,7 @@ describe(`Test routing`, () => {
         </redux.Provider>
     );
 
-    expect(screen.getByText(/Pause/i)).toBeInTheDocument();
-    expect(screen.getByText(/Full screen/i)).toBeInTheDocument();
+    expect(screen.getByText(/VideoPlayer/i)).toBeInTheDocument();
   });
 
   it(`Render Player when user navigates to /player/non-existent-id`, () => {
@@ -239,7 +260,7 @@ describe(`Test routing`, () => {
         </redux.Provider>
     );
 
-    expect(screen.getByText(/My list/i)).toBeInTheDocument();
+    expect(screen.getByText(/MyList/i)).toBeInTheDocument();
   });
 
   it(`Render NotFound when an unauthorized user navigates to /mylist`, () => {
