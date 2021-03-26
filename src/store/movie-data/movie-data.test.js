@@ -1,12 +1,35 @@
 import MockAdapter from 'axios-mock-adapter';
 import {createAPI} from '../../services/api';
 import {APIRoute} from '../../util/const';
-import {loadMovies} from '../action';
+import {loadMovies, loadReviews, reloadMovie} from '../action';
 import {fetchMovies} from '../api-actions';
 import {movieData} from './movie-data';
 
 
 const api = createAPI(() => {});
+
+const reviews = [
+  {
+    "id": 1,
+    "user": {
+      "id": 13,
+      "name": `Zak`
+    },
+    "rating": 1.4,
+    "comment": `This movie is just plain bad. There must be some big payola going round this awards season. Badly written, average acting at best, all the characters are unrelatable and inlikeable. 2 hours of my life wasted.`,
+    "date": `2021-03-07T08:04:28.658Z`
+  },
+  {
+    "id": 2,
+    "user": {
+      "id": 17,
+      "name": `Emely`
+    },
+    "rating": 7.2,
+    "comment": `This movie is just plain bad. There must be some big payola going round this awards season. Badly written, average acting at best, all the characters are unrelatable and inlikeable. 2 hours of my life wasted.`,
+    "date": `2021-02-22T08:04:28.658Z`
+  }
+];
 
 const movies = [
   {
@@ -117,6 +140,101 @@ describe(`Reducer 'movieData should work correctly'`, () => {
     expect(movieData(state, loadMovies(movies)))
     .toEqual({movies, isDataLoaded: true});
   });
+
+  it(`Reducer should update reviews by loadReviews`, () => {
+    const sampleMovies = [
+      {
+        name: `Second`,
+        id: 2
+      },
+      {
+        name: `First`,
+        id: 1
+      },
+    ];
+
+    const [, sampleMovie] = sampleMovies;
+
+    const state = {movies: sampleMovies, isDataLoaded: true};
+
+    const sampleReviews = [
+      {
+        id: 1,
+        user: {},
+        comment: ``
+      },
+      {
+        id: 2,
+        user: {},
+        comment: ``
+      }
+    ];
+
+    expect(movieData(state, loadReviews(sampleReviews, sampleMovie.id)))
+      .toEqual({movies: expect.arrayContaining(
+          [expect.objectContaining({reviews: sampleReviews})]), isDataLoaded: true}
+      );
+  });
+});
+
+it(`Reducer should update reviews by loadReviews even if there are no reviews`, () => {
+  const sampleMovies = [
+    {
+      name: `Second`,
+      id: 2
+    },
+    {
+      name: `First`,
+      id: 1
+    },
+  ];
+
+  const [, sampleMovie] = sampleMovies;
+
+  const state = {movies: sampleMovies, isDataLoaded: true};
+
+  const sampleReviews = [];
+
+  expect(movieData(state, loadReviews(sampleReviews, sampleMovie.id)))
+      .toEqual({movies: expect.arrayContaining(
+          [expect.objectContaining({reviews: sampleReviews})]), isDataLoaded: true}
+      );
+});
+
+it(`Reducer should not update movie by reloadMovie if it's null`, () => {
+  const sampleMovies = [
+    {
+      name: `First`,
+      id: 1
+    },
+    {
+      name: `Second`,
+      id: 2
+    },
+  ];
+
+  const state = {movies: sampleMovies, isDataLoaded: true};
+
+  expect(movieData(state, reloadMovie(null))).toEqual({movies: expect.not.arrayContaining([null]), isDataLoaded: true});
+});
+
+it(`Reducer should update movie by reloadMovie if it's not null`, () => {
+  const sampleMovies = [
+    {
+      name: `First`,
+      id: 1
+    },
+    {
+      name: `Second`,
+      id: 2
+    },
+  ];
+
+  const state = {movies: sampleMovies, isDataLoaded: true};
+
+  const expectedMovie = {name: `Third`, id: 3};
+
+  expect(movieData(state, reloadMovie(expectedMovie))).toEqual({movies: expect.arrayContaining([expectedMovie]), isDataLoaded: true});
 });
 
 describe(`Async operation should work correctly`, () => {
