@@ -32,19 +32,22 @@ export const fetchMovies = () => (dispatch, _getState, api) => {
     .catch(() => {});
 };
 
-export const checkAuth = () => (dispatch, _getState, api) => (
-  api.get(APIRoute.LOGIN)
+export const checkAuth = () => (dispatch, _getState, api) => {
+  dispatch(requireAuthorization(AuthorizationStatus.UNKNOWN));
+  return api.get(APIRoute.LOGIN)
     .then(({data: user}) => dispatch(loadUser(adaptUserToClient(user))))
     .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
-    .catch(() => {})
-);
+    .catch(() => dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH)));
+};
 
-export const login = ({login: email, password}) => (dispatch, _getState, api) => (
-  api.post(APIRoute.LOGIN, {email, password})
-    .then(({data: user}) => dispatch(loadUser(adaptUserToClient(user))))
-    .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
-    .then(() => dispatch(redirectToRoute(APIRoute.ROOT)))
-);
+export const login = ({login: email, password}) => (dispatch, _getState, api) => {
+  dispatch(requireAuthorization(AuthorizationStatus.UNKNOWN));
+  return api.post(APIRoute.LOGIN, {email, password})
+  .then(({data: user}) => dispatch(loadUser(adaptUserToClient(user))))
+  .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
+  .then(() => dispatch(redirectToRoute(APIRoute.ROOT)))
+  .catch(() => dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH)));
+};
 
 export const logout = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGOUT)
