@@ -5,7 +5,7 @@ import * as redux from 'react-redux';
 import {createMemoryHistory} from 'history';
 import {render, screen} from '@testing-library/react';
 import App from '../app/app';
-import {AppRoute} from '../../util/const';
+import {AppRoute, AuthorizationStatus} from '../../util/const';
 // import {getReviewUrl} from '../../util/route';
 // import {adaptToClient} from '../../util/movie';
 
@@ -258,7 +258,14 @@ describe(`Test routing`, () => {
     history.push(AppRoute.LOGIN);
 
     render(
-        <redux.Provider store={mockStore({})}>
+        <redux.Provider store={mockStore({
+          USER: {
+            user: {
+              avatarUrl: `avatar.jpg`
+            },
+            authorizationStatus: AuthorizationStatus.NO_AUTH
+          }
+        })}>
           <Router history={history}>
             <App />
           </Router>
