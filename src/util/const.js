@@ -8,7 +8,8 @@ export const MOVIES_PER_PAGE = 8;
 
 export const AuthorizationStatus = {
   AUTH: `AUTH`,
-  NO_AUTH: `NO_AUTH`
+  NO_AUTH: `NO_AUTH`,
+  UNKNOWN: `UNKNOWN`
 };
 
 export const APIRoute = {
