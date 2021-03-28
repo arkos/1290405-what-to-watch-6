@@ -74,6 +74,6 @@ export const formatMovieDuration = (durationInSec, template) => {
 };
 
 export const generateStars = (count) => {
-  const stars = new Array(count).fill(nanoid());
-  return stars;
+  const stars = new Array(count).fill();
+  return stars.map((_) => nanoid());
 };
