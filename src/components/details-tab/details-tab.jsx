@@ -20,7 +20,7 @@ const DetailsTab = ({movie}) => {
               {starring.map((item, index) => {
                 const isLastItem = index === starring.length - 1;
                 return (
-                  <Fragment key={index}>
+                  <Fragment key={item}>
                     {item}
                     {isLastItem ? `` : `,`}
                     {isLastItem ? `` : <br />}
