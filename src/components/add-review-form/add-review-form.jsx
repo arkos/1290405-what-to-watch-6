@@ -3,12 +3,15 @@ import {useDispatch, useSelector} from 'react-redux';
 import {changeDataProcessingState} from '../../store/action';
 import {postReview} from '../../store/api-actions';
 import {State} from '../../util/const';
+import {generateStars} from '../../util/movie';
 import Validator from '../../util/validate';
 
 const STARS_COUNT = 10;
 const DEFAULT_RATING = `8`;
 const REVIEW_TEXT_LENGTH_MIN = 50;
 const REVIEW_TEXT_LENGTH_MAX = 400;
+
+const radioButtonStars = generateStars(STARS_COUNT);
 
 const AddReviewForm = ({movie}) => {
   const [reviewForm, setReviewForm] = useState({
@@ -78,12 +81,10 @@ const AddReviewForm = ({movie}) => {
     setReviewForm({...reviewForm, reviewText: evt.target.value});
   };
 
-  const createRadioButtonStars = (count = STARS_COUNT) => {
-    const radioButtonStars = new Array(count).fill(null);
-
-    return radioButtonStars.map((_, index) => {
+  const createRadioButtonStars = () => {
+    return radioButtonStars.map((starId, index) => {
       const serialId = (index + 1).toString();
-      return <React.Fragment key={serialId}>
+      return <React.Fragment key={starId}>
         <input className="rating__input"
           id={`star-${serialId}`}
           type="radio"
