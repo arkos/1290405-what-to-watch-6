@@ -2,6 +2,7 @@ import {MAX_MOVIES_MORE_LIKE_THIS, Rating} from "./const";
 import {filterByGenre} from '../util/genre';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
+import {nanoid} from "nanoid";
 
 dayjs.extend(duration);
 
@@ -70,4 +71,9 @@ export const filterSimilarMovies = (movies, movie, count = MAX_MOVIES_MORE_LIKE_
 
 export const formatMovieDuration = (durationInSec, template) => {
   return dayjs.duration(durationInSec, `seconds`).format(template);
+};
+
+export const generateStars = (count) => {
+  const stars = new Array(count).fill(nanoid());
+  return stars;
 };
