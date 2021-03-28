@@ -18,8 +18,8 @@ const GenreList = () => {
 
   return (
     <ul className="catalog__genres-list">
-      {genres.map((genre, index) => (
-        <li key={index} className={`catalog__genres-item ${genre === selectedGenre ? `catalog__genres-item--active` : ``}`}>
+      {genres.map((genre) => (
+        <li key={genre} className={`catalog__genres-item ${genre === selectedGenre ? `catalog__genres-item--active` : ``}`}>
           <a href="#" className="catalog__genres-link" data-genre={genre} onClick={(evt) => handleSelectGenre(evt)}>{getGenreName(genre)}</a>
         </li>
       ))}
