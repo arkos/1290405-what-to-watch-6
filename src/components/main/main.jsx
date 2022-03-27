@@ -1,22 +1,25 @@
-import React, {useEffect} from 'react';
-import {useHistory} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
-import {getFilteredMovies, getPromoMovie} from '../../store/selectors/selectors';
-import {FavoriteStatus, MOVIES_PER_PAGE} from '../../util/const';
-import {getPlayerUrl} from '../../util/route';
-import MovieList from '../movie-list/movie-list';
-import GenreList from '../genre-list/genre-list';
-import Loading from '../loading/loading';
-import ShowMore from '../show-more/show-more';
-import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
-import {fetchMovies, postFavorite} from '../../store/api-actions';
-import {changeCountToRender, resetMain} from '../../store/action';
-import AddFavorite from '../add-favorite/add-favorite';
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getFilteredMovies,
+  getPromoMovie,
+} from "../../store/selectors/selectors";
+import { FavoriteStatus, MOVIES_PER_PAGE } from "../../util/const";
+import { getPlayerUrl } from "../../util/route";
+import MovieList from "../movie-list/movie-list";
+import GenreList from "../genre-list/genre-list";
+import Loading from "../loading/loading";
+import ShowMore from "../show-more/show-more";
+import SignInIndicator from "../sign-in-indicator/sign-in-indicator";
+import { fetchMovies, postFavorite } from "../../store/api-actions";
+import { changeCountToRender, resetMain } from "../../store/action";
+import AddFavorite from "../add-favorite/add-favorite";
 
 const Main = () => {
   let movies = useSelector((state) => getFilteredMovies(state));
-  const {isDataLoaded} = useSelector((state) => state.DATA);
-  const {renderedMoviesCount} = useSelector((state) => state.MOVIE);
+  const { isDataLoaded } = useSelector((state) => state.DATA);
+  const { renderedMoviesCount } = useSelector((state) => state.MOVIE);
   const promo = useSelector((state) => getPromoMovie(state));
 
   const filteredMoviesCount = movies.length;
@@ -24,7 +27,7 @@ const Main = () => {
 
   const dispatch = useDispatch();
 
-  const history = useHistory();
+  const history = useNavigate();
 
   useEffect(() => {
     if (!isDataLoaded) {
@@ -37,7 +40,11 @@ const Main = () => {
   }, []);
 
   const showMoreMovies = () => {
-    dispatch(changeCountToRender(Math.min(filteredMoviesCount, renderedMoviesCount + MOVIES_PER_PAGE)));
+    dispatch(
+      changeCountToRender(
+        Math.min(filteredMoviesCount, renderedMoviesCount + MOVIES_PER_PAGE)
+      )
+    );
   };
 
   const addToFavorite = () => {
@@ -50,7 +57,8 @@ const Main = () => {
     return <Loading />;
   }
 
-  const {id, name, backgroundImagePath, posterImagePath, genre, released} = promo;
+  const { id, name, backgroundImagePath, posterImagePath, genre, released } =
+    promo;
 
   return (
     <React.Fragment>
@@ -76,7 +84,12 @@ const Main = () => {
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">
-              <img src={posterImagePath} alt={`${name} poster`} width="218" height="327" />
+              <img
+                src={posterImagePath}
+                alt={`${name} poster`}
+                width="218"
+                height="327"
+              />
             </div>
 
             <div className="movie-card__desc">
@@ -87,18 +100,25 @@ const Main = () => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button" onClick={() => history.push(getPlayerUrl(id))}>
+                <button
+                  className="btn btn--play movie-card__button"
+                  type="button"
+                  onClick={() => history.push(getPlayerUrl(id))}
+                >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
-                <AddFavorite onAddToFavorite={addToFavorite} favoriteStatus={promo.isFavorite}/>
+                <AddFavorite
+                  onAddToFavorite={addToFavorite}
+                  favoriteStatus={promo.isFavorite}
+                />
               </div>
             </div>
           </div>
         </div>
-      </section >
+      </section>
 
       <div className="page-content">
         <section className="catalog">
@@ -108,7 +128,11 @@ const Main = () => {
 
           <MovieList movies={movies} />
 
-          <ShowMore allItemsCount={filteredMoviesCount} renderedItemsCount={renderedMoviesCount} onShowMoreClick={showMoreMovies}/>
+          <ShowMore
+            allItemsCount={filteredMoviesCount}
+            renderedItemsCount={renderedMoviesCount}
+            onShowMoreClick={showMoreMovies}
+          />
         </section>
 
         <footer className="page-footer">
@@ -125,8 +149,7 @@ const Main = () => {
           </div>
         </footer>
       </div>
-
-    </React.Fragment >
+    </React.Fragment>
   );
 };
 

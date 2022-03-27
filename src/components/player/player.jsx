@@ -1,20 +1,19 @@
-import React, {useState} from 'react';
-import {useParams, useHistory} from 'react-router-dom';
-import {useSelector} from 'react-redux';
-import {getAllMovies} from '../../store/selectors/selectors';
-import NotFound from '../not-found/not-found';
-import VideoPlayer from '../video-player/video-player';
-import {AppRoute} from '../../util/const';
-
+import React, { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { getAllMovies } from "../../store/selectors/selectors";
+import NotFound from "../not-found/not-found";
+import VideoPlayer from "../video-player/video-player";
+import { AppRoute } from "../../util/const";
 
 const Player = () => {
-  const {id} = useParams();
+  const { id } = useParams();
 
   const [isPlaying, setIsPlaying] = useState(true);
 
   const movies = useSelector((state) => getAllMovies(state));
 
-  const history = useHistory();
+  const history = useNavigate();
 
   const movie = movies.find((item) => item.id === Number(id));
 
@@ -37,7 +36,8 @@ const Player = () => {
       isPreview={false}
       onPlayButtonClick={() => setIsPlaying(!isPlaying)}
       onExitButtonClick={() => exitPlayer()}
-      preload="auto" />
+      preload="auto"
+    />
   );
 };
 
