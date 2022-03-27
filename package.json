@@ -1,7 +1,8 @@
 {
   "name": "1290405-what-to-watch-6",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
+  "description": "Личный проект «Что посмотреть» от HTML Academy",
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.0",
     "@testing-library/jest-dom": "^4.2.4",
@@ -10,6 +11,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
+    "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0"
   },
   "scripts": {
