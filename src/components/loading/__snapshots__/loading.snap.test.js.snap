@@ -1,0 +1,122 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should Loading render correctly 1`] = `
+<div>
+  <section
+    class="movie-card"
+  >
+    <div
+      class="movie-card__bg"
+    >
+      <img
+        alt="The Grand Budapest Hotel"
+        src="img/bg-the-grand-budapest-hotel.jpg"
+      />
+    </div>
+    <h1
+      class="visually-hidden"
+    >
+      WTW
+    </h1>
+    <header
+      class="page-header movie-card__head"
+    >
+      <div
+        class="movie-card__desc"
+      >
+        <h2
+          class="movie-card__title"
+        >
+          Loading...
+        </h2>
+      </div>
+    </header>
+    <div
+      class="movie-card__wrap"
+    >
+      <div
+        class="movie-card__info"
+      >
+        <div
+          class="movie-card__poster"
+        >
+          <img
+            alt="The Grand Budapest Hotel poster"
+            height="327"
+            src="/img/snatch.jpg"
+            width="218"
+          />
+        </div>
+        <div
+          class="movie-card__poster"
+        >
+          <img
+            alt="The Grand Budapest Hotel poster"
+            height="327"
+            src="/img/macbeth.jpg"
+            width="218"
+          />
+        </div>
+        <div
+          class="movie-card__poster"
+        >
+          <img
+            alt="The Grand Budapest Hotel poster"
+            height="327"
+            src="img/seven-years-in-tibet.jpg"
+            width="218"
+          />
+        </div>
+        <div
+          class="movie-card__poster"
+        >
+          <img
+            alt="The Grand Budapest Hotel poster"
+            height="327"
+            src="/img/war-of-the-worlds.jpg"
+            width="218"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+  <div
+    class="page-content"
+  >
+    <footer
+      class="page-footer"
+    >
+      <div
+        class="logo"
+      >
+        <a
+          class="logo__link logo__link--light"
+        >
+          <span
+            class="logo__letter logo__letter--1"
+          >
+            W
+          </span>
+          <span
+            class="logo__letter logo__letter--2"
+          >
+            T
+          </span>
+          <span
+            class="logo__letter logo__letter--3"
+          >
+            W
+          </span>
+        </a>
+      </div>
+      <div
+        class="copyright"
+      >
+        <p>
+          © 2019 What to watch Ltd.
+        </p>
+      </div>
+    </footer>
+  </div>
+</div>
+`;

@@ -1,21 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import { store } from './app/store';
-import { Provider } from 'react-redux';
-import * as serviceWorker from './serviceWorker';
+import {Router as BrowserRouter} from 'react-router-dom';
+import browserHistory from './util/browser-history';
+import {configureStore} from '@reduxjs/toolkit';
+import {Provider} from 'react-redux';
+import rootReducer from './store/root-reducer';
+import {AuthorizationStatus} from './util/const';
+import {requireAuthorization} from './store/action';
+import {createAPI} from './services/api';
+import {checkAuth} from './store/api-actions';
+import {redirect} from './store/middlewares/redirect';
+import App from './components/app/app';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
+const api = createAPI(
+    () => store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH))
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      thunk: {
+        extraArgument: api
+      }
+    })
+    .concat(redirect)
+});
+
+store.dispatch(checkAuth());
+
+ReactDOM.render(
+    <Provider store={store}>
+      <BrowserRouter history={browserHistory}>
+        <App />
+      </BrowserRouter>
+    </Provider>,
+    document.querySelector(`#root`)
+);
