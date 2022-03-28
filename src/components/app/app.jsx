@@ -15,31 +15,28 @@ import Validator from "../../util/validate";
 const App = () => {
   return (
     <Routes>
-      <Route exact path={AppRoute.ROOT}>
-        <Main />
-      </Route>
-      <Route exact path={AppRoute.LOGIN}>
-        <SignIn />
-      </Route>
-      <PrivateRoute
-        exact
+      <Route path={AppRoute.ROOT} element={<Main />} />
+      <Route path={AppRoute.LOGIN} element={<SignIn />} />
+      <Route
         path={AppRoute.MYLIST}
-        render={() => <MyList />}
-      ></PrivateRoute>
-      <Route exact path={getMovieUrl()}>
-        <Film />
-      </Route>
-      <PrivateRoute
-        exact
-        path={getReviewUrl()}
-        render={() => <AddReview />}
-      ></PrivateRoute>
-      <Route exact path={getPlayerUrl()}>
-        <Player />
-      </Route>
-      <Route>
-        <NotFound />
-      </Route>
+        element={
+          <PrivateRoute
+            path={AppRoute.MYLIST}
+            render={() => <MyList />}
+          ></PrivateRoute>
+        }
+      />
+      <Route path={getMovieUrl()} element={<Film />} />
+      <Route
+        element={
+          <PrivateRoute
+            path={getReviewUrl()}
+            render={() => <AddReview />}
+          ></PrivateRoute>
+        }
+      />
+      <Route path={getPlayerUrl()} element={<Player />} />
+      <Route element={<NotFound />} />
     </Routes>
   );
 };
