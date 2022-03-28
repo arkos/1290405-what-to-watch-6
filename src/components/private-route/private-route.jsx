@@ -1,30 +1,17 @@
 import React from "react";
-import { Navigate, Route } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { PropTypes } from "prop-types";
 import { AuthorizationStatus } from "../../util/const";
 import { AppRoute } from "../../util/const";
 
-const PrivateRoute = ({ render, path }) => {
+const PrivateRoute = ({ children }) => {
   const { authorizationStatus } = useSelector((state) => state.USER);
 
-  return (
-    <Route
-      path={path}
-      render={(routeProps) => {
-        return authorizationStatus === AuthorizationStatus.AUTH ? (
-          render(routeProps)
-        ) : (
-          <Navigate to={AppRoute.LOGIN} />
-        );
-      }}
-    ></Route>
+  return authorizationStatus === AuthorizationStatus.AUTH ? (
+    children
+  ) : (
+    <Navigate to={AppRoute.LOGIN} />
   );
-};
-
-PrivateRoute.propTypes = {
-  path: PropTypes.string.isRequired,
-  render: PropTypes.func.isRequired,
 };
 
 export default PrivateRoute;

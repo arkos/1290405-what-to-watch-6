@@ -20,19 +20,18 @@ const App = () => {
       <Route
         path={AppRoute.MYLIST}
         element={
-          <PrivateRoute
-            path={AppRoute.MYLIST}
-            render={() => <MyList />}
-          ></PrivateRoute>
+          <PrivateRoute>
+            <MyList />
+          </PrivateRoute>
         }
       />
       <Route path={getMovieUrl()} element={<Film />} />
       <Route
+        path={getReviewUrl()}
         element={
-          <PrivateRoute
-            path={getReviewUrl()}
-            render={() => <AddReview />}
-          ></PrivateRoute>
+          <PrivateRoute>
+            <AddReview />
+          </PrivateRoute>
         }
       />
       <Route path={getPlayerUrl()} element={<Player />} />
