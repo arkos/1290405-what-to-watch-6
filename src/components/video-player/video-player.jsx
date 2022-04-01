@@ -52,12 +52,10 @@ const VideoPlayer = ({ playerConrol, path, onPlayerEvent, ...restProps }) => {
   }, [playerConrol]);
 
   return (
-    <div>
-      <video ref={videoRef} {...restProps}>
-        <source src={path} />
-        Your browser doesn&apos;t support HTML5 video.
-      </video>
-    </div>
+    <video ref={videoRef} {...restProps}>
+      <source src={path} />
+      Your browser doesn&apos;t support HTML5 video.
+    </video>
   );
 };
 
