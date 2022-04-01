@@ -1,11 +1,14 @@
-import React from 'react';
+import React from "react";
 
 const Loading = () => {
   return (
     <React.Fragment>
       <section className="movie-card">
         <div className="movie-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img
+            src="img/bg-the-grand-budapest-hotel.jpg"
+            alt="The Grand Budapest Hotel"
+          />
         </div>
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header movie-card__head">
@@ -16,16 +19,36 @@ const Loading = () => {
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">
-              <img src="/img/snatch.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img
+                src="/img/snatch.jpg"
+                alt="The Grand Budapest Hotel poster"
+                width="218"
+                height="327"
+              />
             </div>
             <div className="movie-card__poster">
-              <img src="/img/macbeth.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img
+                src="/img/macbeth.jpg"
+                alt="The Grand Budapest Hotel poster"
+                width="218"
+                height="327"
+              />
             </div>
             <div className="movie-card__poster">
-              <img src="img/seven-years-in-tibet.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img
+                src="img/seven-years-in-tibet.jpg"
+                alt="The Grand Budapest Hotel poster"
+                width="218"
+                height="327"
+              />
             </div>
             <div className="movie-card__poster">
-              <img src="/img/war-of-the-worlds.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img
+                src="/img/war-of-the-worlds.jpg"
+                alt="The Grand Budapest Hotel poster"
+                width="218"
+                height="327"
+              />
             </div>
           </div>
         </div>

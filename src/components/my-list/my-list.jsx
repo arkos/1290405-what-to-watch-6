@@ -1,18 +1,18 @@
-import React, {useEffect} from 'react';
-import {Link} from 'react-router-dom';
-import {useSelector, useDispatch} from 'react-redux';
-import {AppRoute, AuthorizationStatus, State} from '../../util/const';
-import MovieList from '../movie-list/movie-list';
-import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
-import {getFavoriteMovies} from '../../store/selectors/selectors';
-import {fetchFavorites} from '../../store/api-actions';
-import Loading from '../loading/loading';
-import AuthorizationProgress from '../authorization-progress/authorization-progress';
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { AppRoute, AuthorizationStatus, State } from "../../util/const";
+import MovieList from "../movie-list/movie-list";
+import SignInIndicator from "../sign-in-indicator/sign-in-indicator";
+import { getFavoriteMovies } from "../../store/selectors/selectors";
+import { fetchFavorites } from "../../store/api-actions";
+import Loading from "../loading/loading";
+import AuthorizationProgress from "../authorization-progress/authorization-progress";
 
 const MyList = () => {
   const favoriteMovies = useSelector((state) => getFavoriteMovies(state));
-  const {isFavoriteLoading} = useSelector((state) => state.MOVIE);
-  const {authorizationStatus} = useSelector((state) => state.USER);
+  const { isFavoriteLoading } = useSelector((state) => state.MOVIE);
+  const { authorizationStatus } = useSelector((state) => state.USER);
 
   const dispatch = useDispatch();
 

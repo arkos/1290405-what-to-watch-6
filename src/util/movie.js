@@ -1,8 +1,8 @@
-import {MAX_MOVIES_MORE_LIKE_THIS, Rating} from "./const";
-import {filterByGenre} from '../util/genre';
-import dayjs from 'dayjs';
-import duration from 'dayjs/plugin/duration';
-import {nanoid} from "nanoid";
+import { MAX_MOVIES_MORE_LIKE_THIS, Rating } from "./const";
+import { filterByGenre } from "../util/genre";
+import dayjs from "dayjs";
+import duration from "dayjs/plugin/duration";
+import { nanoid } from "nanoid";
 
 dayjs.extend(duration);
 
@@ -16,7 +16,7 @@ export const adaptToClient = (movie) => {
     previewVideoUrl: movie.preview_video_link,
     score: movie.scores_count,
     runTime: movie.run_time,
-    isFavorite: movie.is_favorite
+    isFavorite: movie.is_favorite,
   });
 
   delete adaptedMovie.poster_image;
@@ -59,9 +59,15 @@ export const formatRunTime = (runTime, template) => {
   return dayjs.duration(runTime, `minutes`).format(template);
 };
 
-export const filterSimilarMovies = (movies, movie, count = MAX_MOVIES_MORE_LIKE_THIS) => {
+export const filterSimilarMovies = (
+  movies,
+  movie,
+  count = MAX_MOVIES_MORE_LIKE_THIS
+) => {
   let similarMovies = filterByGenre(movies, movie.genre);
-  similarMovies = similarMovies.filter((similarMovie) => similarMovie.id !== movie.id);
+  similarMovies = similarMovies.filter(
+    (similarMovie) => similarMovie.id !== movie.id
+  );
 
   const similarMoviesMaxSize = Math.min(similarMovies.length, count);
   similarMovies = similarMovies.slice(0, similarMoviesMaxSize);

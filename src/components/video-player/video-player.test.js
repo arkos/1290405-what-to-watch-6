@@ -1,6 +1,6 @@
-import React from 'react';
-import {render, screen} from '@testing-library/react';
-import VideoPlayer from '../video-player/video-player';
+import React from "react";
+import { render, screen } from "@testing-library/react";
+import VideoPlayer from "../video-player/video-player";
 
 describe(`Test VideoPlayer`, () => {
   beforeAll(() => {
@@ -26,21 +26,20 @@ describe(`Test VideoPlayer`, () => {
       genre: ``,
       released: 2020,
       isFavorite: false,
-      id: 1
+      id: 1,
     };
 
-    const {container} = render(
-        <VideoPlayer
-          shouldPlay={true}
-          isPreview={false}
-          movie={movie}
-          onPlayButtonClick={jest.fn()}
-          onExitButtonClick={jest.fn()}
-        />
+    const { container } = render(
+      <VideoPlayer
+        isPlaying={true}
+        isPreview={false}
+        movie={movie}
+        onPlayButtonClick={jest.fn()}
+        onExitButtonClick={jest.fn()}
+      />
     );
 
     expect(screen.getAllByRole(`button`)).toHaveLength(3);
     expect(container.querySelector(`video`)).toBeInTheDocument();
   });
-}
-);
+});

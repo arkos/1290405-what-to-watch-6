@@ -32,7 +32,7 @@ const Player = () => {
   return (
     <VideoPlayer
       movie={movie}
-      shouldPlay={isPlaying}
+      isPlaying={isPlaying}
       isPreview={false}
       onPlayButtonClick={() => setIsPlaying(!isPlaying)}
       onExitButtonClick={() => exitPlayer()}

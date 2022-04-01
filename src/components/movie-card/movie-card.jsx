@@ -1,17 +1,23 @@
-import React, {useEffect, useState} from 'react';
-import {Link} from 'react-router-dom';
-import {getMovieUrl} from '../../util/route';
-import VideoPlayer from '../video-player/video-player';
-import Validator from '../../util/validate';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { getMovieUrl } from "../../util/route";
+import VideoPlayer, {
+  PlayerControl,
+  PlayerEvent,
+} from "../video-player/video-player";
+import Validator from "../../util/validate";
 
 const CARD_HOVER_DELAY = 1000;
 const IS_VIDEO_MUTED = true;
 const VIDEO_PRELOAD = `none`;
 
-const MovieCard = ({movie}) => {
-  const [shouldPlay, setShouldPlay] = useState(false);
+const MovieCard = ({ movie }) => {
+  const [playerEvent, setPlayerEvent] = useState();
+
+  const [playerControl, setPlayerControl] = useState();
+
   const [hasMouse, setHasMouse] = useState(false);
-  const {name, id} = movie;
+  const { name, id } = movie;
 
   const handleMouseLeave = () => {
     setHasMouse(false);
@@ -28,11 +34,11 @@ const MovieCard = ({movie}) => {
     if (hasMouse) {
       timer = setTimeout(() => {
         if (isMounted) {
-          setShouldPlay(true);
+          setPlayerControl(PlayerControl.PLAY);
         }
       }, CARD_HOVER_DELAY);
     } else {
-      setShouldPlay(false);
+      setPlayerControl(PlayerControl.LOAD);
     }
 
     return () => {
@@ -44,31 +50,42 @@ const MovieCard = ({movie}) => {
     };
   }, [hasMouse]);
 
+  const handlePlayerEvent = (playerEvent) => {
+    setPlayerEvent(playerEvent);
+  };
+
   return (
-    <article className="small-movie-card catalog__movies-card" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <article
+      className="small-movie-card catalog__movies-card"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <Link to={getMovieUrl(id)}>
         <VideoPlayer
-          movie={movie}
-          shouldPlay={shouldPlay}
-          isPreview={true}
-          muted={IS_VIDEO_MUTED}
-          preload={VIDEO_PRELOAD}
-          onPlayButtonClick={() => {}}
-          onExitButtonClick={() => {}}
+          playerConrol={playerControl}
+          path={movie.videoUrl}
+          onPlayerEvent={handlePlayerEvent}
+          poster={movie.previewImagePath}
           width="280"
           height="175"
-          style={{"objectFit": `fill`}}
+          style={{ objectFit: `fill` }}
+          preload={VIDEO_PRELOAD}
+          muted={IS_VIDEO_MUTED}
         />
       </Link>
       <h3 className="small-movie-card__title">
-        <Link className="small-movie-card__link" to={getMovieUrl(id)}>{name}</Link>
+        <Link className="small-movie-card__link" to={getMovieUrl(id)}>
+          {playerEvent === PlayerEvent.LOAD_START
+            ? `${name} (loading...)`
+            : name}
+        </Link>
       </h3>
     </article>
   );
 };
 
 MovieCard.propTypes = {
-  movie: Validator.MOVIE
+  movie: Validator.MOVIE,
 };
 
 export default MovieCard;

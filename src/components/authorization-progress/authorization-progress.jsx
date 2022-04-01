@@ -1,10 +1,12 @@
-import React from 'react';
+import React from "react";
 
 const AuthorizationProgress = () => {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
-        <h1 className="page-title user-page__title">Authorization in progress...</h1>
+        <h1 className="page-title user-page__title">
+          Authorization in progress...
+        </h1>
       </header>
 
       <footer className="page-footer">

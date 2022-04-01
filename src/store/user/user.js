@@ -1,10 +1,10 @@
-import {createReducer} from "@reduxjs/toolkit";
-import {AuthorizationStatus} from "../../util/const";
-import {requireAuthorization, loadUser} from "../action";
+import { createReducer } from "@reduxjs/toolkit";
+import { AuthorizationStatus } from "../../util/const";
+import { requireAuthorization, loadUser } from "../action";
 
 const initialState = {
   user: null,
-  authorizationStatus: AuthorizationStatus.NO_AUTH
+  authorizationStatus: AuthorizationStatus.NO_AUTH,
 };
 
 const user = createReducer(initialState, (builder) => {
@@ -17,4 +17,4 @@ const user = createReducer(initialState, (builder) => {
   });
 });
 
-export {user};
+export { user };

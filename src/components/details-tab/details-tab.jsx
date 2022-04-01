@@ -1,10 +1,9 @@
-import React, {Fragment} from 'react';
-import Validator from '../../util/validate';
-import {formatRunTime} from '../../util/movie';
+import React, { Fragment } from "react";
+import Validator from "../../util/validate";
+import { formatRunTime } from "../../util/movie";
 
-
-const DetailsTab = ({movie}) => {
-  const {director, genre, released, runTime, starring} = movie;
+const DetailsTab = ({ movie }) => {
+  const { director, genre, released, runTime, starring } = movie;
 
   return (
     <Fragment>
@@ -34,7 +33,9 @@ const DetailsTab = ({movie}) => {
         <div className="movie-card__text-col">
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Run Time</strong>
-            <span className="movie-card__details-value">{formatRunTime(runTime, `H[h] mm[m]`)}</span>
+            <span className="movie-card__details-value">
+              {formatRunTime(runTime, `H[h] mm[m]`)}
+            </span>
           </p>
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Genre</strong>
@@ -51,7 +52,7 @@ const DetailsTab = ({movie}) => {
 };
 
 DetailsTab.propTypes = {
-  movie: Validator.MOVIE
+  movie: Validator.MOVIE,
 };
 
 export default DetailsTab;

@@ -1,13 +1,15 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
-import {AppRoute} from '../../util/const';
+import React from "react";
+import { Link } from "react-router-dom";
+import { AppRoute } from "../../util/const";
 
 const NotFound = () => {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
         <div className="logo">
-          <Link to={AppRoute.ROOT} className="logo__link">Back to Home</Link>
+          <Link to={AppRoute.ROOT} className="logo__link">
+            Back to Home
+          </Link>
         </div>
         <h1 className="page-title user-page__title">404. Page Not Found</h1>
       </header>
@@ -23,7 +25,7 @@ const NotFound = () => {
           <p>© 2019 What to watch Ltd.</p>
         </div>
       </footer>
-    </div >
+    </div>
   );
 };
 

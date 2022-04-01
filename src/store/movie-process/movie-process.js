@@ -1,12 +1,23 @@
-import {createReducer} from "@reduxjs/toolkit";
-import {FILTER_ALL_GENRES, MOVIES_PER_PAGE, TabName, State} from "../../util/const";
-import {changeGenre, changeActiveTab, changeCountToRender, resetMain, changeDataProcessingState} from "../action";
+import { createReducer } from "@reduxjs/toolkit";
+import {
+  FILTER_ALL_GENRES,
+  MOVIES_PER_PAGE,
+  TabName,
+  State,
+} from "../../util/const";
+import {
+  changeGenre,
+  changeActiveTab,
+  changeCountToRender,
+  resetMain,
+  changeDataProcessingState,
+} from "../action";
 
 const initialState = {
   selectedGenre: FILTER_ALL_GENRES,
   activeTab: TabName.OVERVIEW,
   renderedMoviesCount: MOVIES_PER_PAGE,
-  dataProcessingState: State.DEFAULT
+  dataProcessingState: State.DEFAULT,
 };
 
 const movieProcess = createReducer(initialState, (builder) => {
@@ -33,4 +44,4 @@ const movieProcess = createReducer(initialState, (builder) => {
   });
 });
 
-export {movieProcess};
+export { movieProcess };

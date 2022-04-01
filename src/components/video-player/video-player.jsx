@@ -1,172 +1,64 @@
-import React, { useRef, useState, useEffect, Fragment } from "react";
-import PropTypes from "prop-types";
-import Validator from "../../util/validate";
-import { formatMovieDuration } from "../../util/movie";
+import React, { useEffect, useRef, useState } from "react";
 
-const PlayButtonSize = {
-  WIDTH: 19,
-  HEIGHT: 19,
+export const PlayerControl = {
+  PLAY: `PLAY`,
+  PAUSE: `PAUSE`,
+  LOAD: `LOAD`,
 };
 
-const PauseButtonSize = {
-  WIDTH: 14,
-  HEIGHT: 21,
+export const PlayerEvent = {
+  PLAYING: `PLAYING`,
+  PAUSED: `PAUSED`,
+  CANPLAYTHROUGH: `CANPLAYTHROUGH`,
+  CANPLAY: `CANPLAY`,
+  LOAD_START: `LOAD_START`,
+  LOADED_DATA: `LOADED_DATA`,
+  LOADED_METADATA: `LOADED_METADATA`,
 };
 
-const FullScreenButtonSize = {
-  WIDTH: 27,
-  HEIGHT: 21,
-};
-
-const DEFAULT_DURATION_FORMAT = `HH:mm:ss`;
-
-const VideoPlayer = ({
-  shouldPlay,
-  movie,
-  isPreview,
-  onPlayButtonClick,
-  onExitButtonClick,
-  ...restProps
-}) => {
-  const {
-    videoUrl,
-    previewVideoUrl,
-    previewImagePath,
-    backgroundImagePath,
-    name,
-  } = movie;
-
+const VideoPlayer = ({ playerConrol, path, onPlayerEvent, ...restProps }) => {
   const videoRef = useRef();
-  const [isLoading, setIsLoading] = useState(true);
-  const [videoDurationInSec, setVideoDuration] = useState(0);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [elapsedPercent, setElapsedPercent] = useState(0);
-  const [formattedTimeLeft, setFormattedTimeLeft] = useState(
-    formatMovieDuration(0, DEFAULT_DURATION_FORMAT)
-  );
-  const [isPlaying, setIsPlaying] = useState(false);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    videoRef.current.onloadstart = () => onPlayerEvent(PlayerEvent.LOAD_START);
 
-  useEffect(() => {}, [shouldPlay]);
+    videoRef.current.onloadedmetadata = () =>
+      onPlayerEvent(PlayerEvent.LOADED_METADATA);
 
-  const handleFullScreen = (evt) => {
-    evt.preventDefault();
+    videoRef.current.onloadeddata = () =>
+      onPlayerEvent(PlayerEvent.LOADED_DATA);
 
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen();
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      }
+    videoRef.current.oncanplay = () => onPlayerEvent(PlayerEvent.CANPLAY);
+
+    videoRef.current.oncanplaythrough = () =>
+      onPlayerEvent(PlayerEvent.CANPLAYTHROUGH);
+
+    videoRef.current.onpaused = () => onPlayerEvent(PlayerEvent.PAUSED);
+
+    videoRef.current.onplaying = () => onPlayerEvent(PlayerEvent.PLAYING);
+  }, [onPlayerEvent]);
+
+  useEffect(() => {
+    if (playerConrol === PlayerControl.PLAY && videoRef.current.paused) {
+      videoRef.current.play();
+    } else if (
+      playerConrol === PlayerControl.PAUSE &&
+      !videoRef.current.paused
+    ) {
+      videoRef.current.pause();
+    } else if (playerConrol === PlayerControl.LOAD) {
+      videoRef.current.load();
     }
-  };
-
-  const handleExitButtonClick = (evt) => {
-    evt.preventDefault();
-
-    onExitButtonClick();
-  };
-
-  const createPlayerControlButton = (
-    width,
-    height,
-    xlinkHref,
-    label,
-    className = `player__play`,
-    onButtonClick = onPlayButtonClick
-  ) => {
-    return (
-      <button
-        type="button"
-        disabled={`${isLoading ? `disabled` : ``}`}
-        className={className}
-        onClick={onButtonClick}
-      >
-        <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
-          <use xlinkHref={xlinkHref}></use>
-        </svg>
-        <span>{label}</span>
-      </button>
-    );
-  };
+  }, [playerConrol]);
 
   return (
-    <div className={`${!isPreview ? `player` : ``}`}>
-      <video
-        className={`${isPreview ? `` : `player__video`}`}
-        ref={videoRef}
-        poster={`${isPreview ? previewImagePath : backgroundImagePath}`}
-        {...restProps}
-      >
-        <source src={isPreview ? previewVideoUrl : videoUrl} />
+    <div>
+      <video ref={videoRef} {...restProps}>
+        <source src={path} />
         Your browser doesn&apos;t support HTML5 video.
       </video>
-
-      {!isPreview && (
-        <Fragment>
-          <button
-            type="button"
-            className="player__exit"
-            onClick={handleExitButtonClick}
-          >
-            Exit
-          </button>
-          <div className="player__controls">
-            <div className="player__controls-row">
-              <div className="player__time">
-                <progress
-                  className="player__progress"
-                  value={currentTime}
-                  max={videoDurationInSec}
-                ></progress>
-                <div
-                  className="player__toggler"
-                  style={{ left: `${elapsedPercent}%` }}
-                >
-                  Toggler
-                </div>
-              </div>
-              <div className="player__time-value">{formattedTimeLeft}</div>
-            </div>
-            <div className="player__controls-row">
-              {!shouldPlay
-                ? createPlayerControlButton(
-                    PlayButtonSize.WIDTH,
-                    PlayButtonSize.HEIGHT,
-                    `#play-s`,
-                    `Play`
-                  )
-                : createPlayerControlButton(
-                    PauseButtonSize.WIDTH,
-                    PauseButtonSize.HEIGHT,
-                    `#pause`,
-                    `Pause`
-                  )}
-              <div className="player__name">{name}</div>
-
-              {createPlayerControlButton(
-                FullScreenButtonSize.WIDTH,
-                FullScreenButtonSize.HEIGHT,
-                `#full-screen`,
-                `Full screen`,
-                `player__full-screen`,
-                (evt) => handleFullScreen(evt)
-              )}
-            </div>
-          </div>
-        </Fragment>
-      )}
     </div>
   );
-};
-
-VideoPlayer.propTypes = {
-  shouldPlay: PropTypes.bool.isRequired,
-  movie: Validator.MOVIE,
-  isPreview: PropTypes.bool.isRequired,
-  onPlayButtonClick: PropTypes.func.isRequired,
-  onExitButtonClick: PropTypes.func.isRequired,
 };
 
 export default VideoPlayer;

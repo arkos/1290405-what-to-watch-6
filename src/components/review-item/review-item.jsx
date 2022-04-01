@@ -1,10 +1,10 @@
-import React from 'react';
-import {formatDate} from '../../util/common';
-import {formatRating} from '../../util/movie';
-import Validator from '../../util/validate';
+import React from "react";
+import { formatDate } from "../../util/common";
+import { formatRating } from "../../util/movie";
+import Validator from "../../util/validate";
 
-const ReviewItem = ({review}) => {
-  const {comment, user, date, rating} = review;
+const ReviewItem = ({ review }) => {
+  const { comment, user, date, rating } = review;
 
   return (
     <div className="review">
@@ -13,7 +13,12 @@ const ReviewItem = ({review}) => {
 
         <footer className="review__details">
           <cite className="review__author">{user.name}</cite>
-          <time className="review__date" dateTime={`${formatDate(date, `YYYY-MM-DD`)}`}>{formatDate(date, `MMMM D, YYYY`)}</time>
+          <time
+            className="review__date"
+            dateTime={`${formatDate(date, `YYYY-MM-DD`)}`}
+          >
+            {formatDate(date, `MMMM D, YYYY`)}
+          </time>
         </footer>
       </blockquote>
 
@@ -23,7 +28,7 @@ const ReviewItem = ({review}) => {
 };
 
 ReviewItem.propTypes = {
-  review: Validator.REVIEW
+  review: Validator.REVIEW,
 };
 
 export default ReviewItem;

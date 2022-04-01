@@ -1,4 +1,4 @@
-import {AppRoute, APIRoute} from './const';
+import { AppRoute, APIRoute } from "./const";
 
 export const getMovieUrl = (id = `:id`) => `${AppRoute.MOVIES}/${id}`;
 
@@ -10,6 +10,7 @@ export const getApiReviewsUrl = (id) => `${APIRoute.REVIEWS}/${id}`;
 
 export const getApiMovieUrl = (id) => `${APIRoute.MOVIES}/${id}`;
 
-export const getApiFavoriteUrl = (id, status) => `${APIRoute.FAVORITE}/${id}/${status}`;
+export const getApiFavoriteUrl = (id, status) =>
+  `${APIRoute.FAVORITE}/${id}/${status}`;
 
 export const getPromoMovieUrl = () => `${APIRoute.MOVIES}/promo`;

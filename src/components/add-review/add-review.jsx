@@ -1,21 +1,21 @@
-import React from 'react';
-import {Link, useParams} from 'react-router-dom';
-import {useSelector} from 'react-redux';
-import Validator from '../../util/validate';
-import {AppRoute, AuthorizationStatus} from '../../util/const';
-import {getMovieUrl} from '../../util/route';
-import NotFound from '../not-found/not-found';
-import AddReviewForm from '../add-review-form/add-review-form';
-import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
-import {getAllMovies} from '../../store/selectors/selectors';
-import AuthorizationProgress from '../authorization-progress/authorization-progress';
+import React from "react";
+import { Link, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import Validator from "../../util/validate";
+import { AppRoute, AuthorizationStatus } from "../../util/const";
+import { getMovieUrl } from "../../util/route";
+import NotFound from "../not-found/not-found";
+import AddReviewForm from "../add-review-form/add-review-form";
+import SignInIndicator from "../sign-in-indicator/sign-in-indicator";
+import { getAllMovies } from "../../store/selectors/selectors";
+import AuthorizationProgress from "../authorization-progress/authorization-progress";
 
 const AddReview = () => {
-  const {id} = useParams();
+  const { id } = useParams();
 
   const movies = useSelector((state) => getAllMovies(state));
 
-  const {authorizationStatus} = useSelector((state) => state.USER);
+  const { authorizationStatus } = useSelector((state) => state.USER);
 
   if (authorizationStatus === AuthorizationStatus.UNKNOWN) {
     return <AuthorizationProgress />;
@@ -27,8 +27,7 @@ const AddReview = () => {
     return <NotFound />;
   }
 
-  const {backgroundImagePath, name, posterImagePath} = movie;
-
+  const { backgroundImagePath, name, posterImagePath } = movie;
 
   return (
     <section className="movie-card movie-card--full">
@@ -51,7 +50,9 @@ const AddReview = () => {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link className="breadcrumbs__link" to={getMovieUrl(id)}>{name}</Link>
+                <Link className="breadcrumbs__link" to={getMovieUrl(id)}>
+                  {name}
+                </Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>
@@ -75,7 +76,7 @@ const AddReview = () => {
 };
 
 AddReview.propTypes = {
-  movies: Validator.MOVIES
+  movies: Validator.MOVIES,
 };
 
 export default AddReview;

@@ -1,9 +1,9 @@
-import React, {Fragment} from 'react';
-import Validator from '../../util/validate';
-import {getRatingName, formatRating} from '../../util/movie';
+import React, { Fragment } from "react";
+import Validator from "../../util/validate";
+import { getRatingName, formatRating } from "../../util/movie";
 
-const OverviewTab = ({movie}) => {
-  const {rating, score, director, starring, description} = movie;
+const OverviewTab = ({ movie }) => {
+  const { rating, score, director, starring, description } = movie;
 
   return (
     <Fragment>
@@ -17,16 +17,20 @@ const OverviewTab = ({movie}) => {
       <div className="movie-card__text">
         <p>{description}</p>
 
-        <p className="movie-card__director"><strong>{`Director: ${director}`}</strong></p>
+        <p className="movie-card__director">
+          <strong>{`Director: ${director}`}</strong>
+        </p>
 
-        <p className="movie-card__starring"><strong>{`Starring: ${starring.join(`, `)} and other`}</strong></p>
+        <p className="movie-card__starring">
+          <strong>{`Starring: ${starring.join(`, `)} and other`}</strong>
+        </p>
       </div>
     </Fragment>
   );
 };
 
 OverviewTab.propTypes = {
-  movie: Validator.MOVIE
+  movie: Validator.MOVIE,
 };
 
 export default OverviewTab;

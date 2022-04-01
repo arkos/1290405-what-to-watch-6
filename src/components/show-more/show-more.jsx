@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-const ShowMore = ({allItemsCount, renderedItemsCount, onShowMoreClick}) => {
+const ShowMore = ({ allItemsCount, renderedItemsCount, onShowMoreClick }) => {
   if (renderedItemsCount >= allItemsCount) {
     return null;
   }
@@ -13,7 +13,13 @@ const ShowMore = ({allItemsCount, renderedItemsCount, onShowMoreClick}) => {
 
   return (
     <div className="catalog__more">
-      <button className="catalog__button" type="button" onClick={handleShowMoreClick}>Show more</button>
+      <button
+        className="catalog__button"
+        type="button"
+        onClick={handleShowMoreClick}
+      >
+        Show more
+      </button>
     </div>
   );
 };
@@ -21,7 +27,7 @@ const ShowMore = ({allItemsCount, renderedItemsCount, onShowMoreClick}) => {
 ShowMore.propTypes = {
   allItemsCount: PropTypes.number.isRequired,
   renderedItemsCount: PropTypes.number.isRequired,
-  onShowMoreClick: PropTypes.func.isRequired
+  onShowMoreClick: PropTypes.func.isRequired,
 };
 
 export default ShowMore;

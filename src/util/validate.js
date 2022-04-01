@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const movieValidator = PropTypes.shape({
   id: PropTypes.number.isRequired,
@@ -8,7 +8,9 @@ const movieValidator = PropTypes.shape({
   backgroundImagePath: PropTypes.string,
   backgroundColor: (props, propName, componentName) => {
     if (!/^#[0-9a-fA-F]{6}$/.test(props[propName])) {
-      return new Error(`Invalid prop ${propName} supplied to ${componentName}. Must be a valid color code`);
+      return new Error(
+        `Invalid prop ${propName} supplied to ${componentName}. Must be a valid color code`
+      );
     }
     return null;
   },
@@ -22,29 +24,27 @@ const movieValidator = PropTypes.shape({
   runTime: PropTypes.number.isRequired,
   genre: PropTypes.string.isRequired,
   released: PropTypes.number.isRequired,
-  isFavorite: PropTypes.bool.isRequired
+  isFavorite: PropTypes.bool.isRequired,
 });
 
 const movieCollectionValidator = PropTypes.arrayOf(movieValidator);
 
 const reviewValidator = PropTypes.shape({
   id: PropTypes.number.isRequired,
-  user: PropTypes.shape(
-      {
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired
-      }
-  ),
+  user: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+  }),
   rating: PropTypes.number.isRequired,
   comment: PropTypes.string.isRequired,
-  date: PropTypes.string.isRequired
+  date: PropTypes.string.isRequired,
 });
 
 const reviewCollectionValidator = PropTypes.arrayOf(reviewValidator);
 
 const appValidator = {
   films: movieCollectionValidator,
-  reviews: reviewCollectionValidator
+  reviews: reviewCollectionValidator,
 };
 
 const Validator = {
@@ -52,7 +52,7 @@ const Validator = {
   MOVIES: movieCollectionValidator,
   APP: appValidator,
   REVIEW: reviewValidator,
-  REVIEWS: reviewCollectionValidator
+  REVIEWS: reviewCollectionValidator,
 };
 
 export default Validator;

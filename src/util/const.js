@@ -9,7 +9,7 @@ export const MOVIES_PER_PAGE = 8;
 export const AuthorizationStatus = {
   AUTH: `AUTH`,
   NO_AUTH: `NO_AUTH`,
-  UNKNOWN: `UNKNOWN`
+  UNKNOWN: `UNKNOWN`,
 };
 
 export const APIRoute = {
@@ -18,7 +18,7 @@ export const APIRoute = {
   LOGOUT: `logout`,
   MOVIES: `/films`,
   REVIEWS: `/comments`,
-  FAVORITE: `/favorite`
+  FAVORITE: `/favorite`,
 };
 
 export const AppRoute = {
@@ -34,22 +34,22 @@ export const Rating = {
   NORMAL: 5,
   GOOD: 8,
   VERYGOOD: 10,
-  AWESOME: Infinity
+  AWESOME: Infinity,
 };
 
 export const TabName = {
   OVERVIEW: `OVERVIEW`,
   DETAILS: `DETAILS`,
-  REVIEWS: `REVIEWS`
+  REVIEWS: `REVIEWS`,
 };
 
 export const State = {
   SAVING: `SAVING`,
   ABORTING: `ABORTING`,
-  DEFAULT: `DEFAULT`
+  DEFAULT: `DEFAULT`,
 };
 
 export const FavoriteStatus = {
   NOT_FAVORITE: 0,
-  FAVORITE: 1
+  FAVORITE: 1,
 };
