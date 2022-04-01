@@ -23,10 +23,10 @@ const Player = () => {
 
   const exitPlayer = () => {
     if (history.length > 1) {
-      history.goBack();
+      history(-1);
       return;
     }
-    history.push(AppRoute.ROOT);
+    history(AppRoute.ROOT);
   };
 
   return (
