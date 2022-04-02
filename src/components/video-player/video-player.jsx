@@ -14,6 +14,8 @@ export const PlayerEvent = {
   LOAD_START: `LOAD_START`,
   LOADED_DATA: `LOADED_DATA`,
   LOADED_METADATA: `LOADED_METADATA`,
+  TIME_UPDATE: `TIME_UPDATE`,
+  DURATION_CHANGE: `DURATION_CHANGE`,
 };
 
 const VideoPlayer = ({ playerConrol, path, onPlayerEvent, ...restProps }) => {
@@ -36,6 +38,26 @@ const VideoPlayer = ({ playerConrol, path, onPlayerEvent, ...restProps }) => {
     videoRef.current.onpaused = () => onPlayerEvent(PlayerEvent.PAUSED);
 
     videoRef.current.onplaying = () => onPlayerEvent(PlayerEvent.PLAYING);
+
+    videoRef.current.ondurationchange = () =>
+      onPlayerEvent(PlayerEvent.DURATION_CHANGE, videoRef.current.duration);
+
+    videoRef.current.ontimeupdate = () =>
+      onPlayerEvent(PlayerEvent.TIME_UPDATE, videoRef.current.currentTime);
+
+    const currentRef = videoRef.current;
+
+    return () => {
+      currentRef.onloadstart = null;
+      currentRef.onloadedmetadata = null;
+      currentRef.onloadeddata = null;
+      currentRef.oncanplay = null;
+      currentRef.oncanplaythrough = null;
+      currentRef.onpaused = null;
+      currentRef.onplaying = null;
+      currentRef.ondurationchange = null;
+      currentRef.ontimeupdate = null;
+    };
   }, [onPlayerEvent]);
 
   useEffect(() => {
