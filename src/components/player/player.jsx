@@ -22,7 +22,7 @@ const PauseButtonSize = {
 
 const FullScreenButtonSize = {
   WIDTH: 27,
-  HEIGHT: 21,
+  HEIGHT: 27,
 };
 
 const DEFAULT_DURATION_FORMAT = `HH:mm:ss`;
@@ -61,6 +61,10 @@ const Player = () => {
       )
     );
   }, [currentTime, videoDurationInSec]);
+
+  useEffect(() => {
+    setPlayerControl(PlayerControl.PLAY);
+  }, []);
 
   if (!movie) {
     return <NotFound />;

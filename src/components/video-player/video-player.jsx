@@ -35,7 +35,7 @@ const VideoPlayer = ({ playerConrol, path, onPlayerEvent, ...restProps }) => {
     videoRef.current.oncanplaythrough = () =>
       onPlayerEvent(PlayerEvent.CANPLAYTHROUGH);
 
-    videoRef.current.onpaused = () => onPlayerEvent(PlayerEvent.PAUSED);
+    videoRef.current.onpause = () => onPlayerEvent(PlayerEvent.PAUSED);
 
     videoRef.current.onplaying = () => onPlayerEvent(PlayerEvent.PLAYING);
 
