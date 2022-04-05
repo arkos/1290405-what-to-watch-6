@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getAllMovies } from "../../store/selectors/selectors";
@@ -52,24 +52,6 @@ const Player = () => {
 
   const movie = movies.find((item) => item.id === Number(id));
 
-  useEffect(() => {
-    setElapsedPercent((currentTime / videoDurationInSec) * 100);
-    setFormattedTimeLeft(
-      formatMovieDuration(
-        videoDurationInSec - currentTime,
-        DEFAULT_DURATION_FORMAT
-      )
-    );
-  }, [currentTime, videoDurationInSec]);
-
-  useEffect(() => {
-    setPlayerControl(PlayerControl.PLAY);
-  }, []);
-
-  if (!movie) {
-    return <NotFound />;
-  }
-
   const handleExitButtonClick = (evt) => {
     evt.preventDefault();
 
@@ -80,7 +62,7 @@ const Player = () => {
     history(AppRoute.ROOT);
   };
 
-  const handlePlayerEvent = (playerEvent, data) => {
+  const handlePlayerEvent = useCallback((playerEvent, data) => {
     switch (playerEvent) {
       case PlayerEvent.DURATION_CHANGE:
         setVideoDuration(data);
@@ -102,7 +84,7 @@ const Player = () => {
         break;
       default:
     }
-  };
+  }, []);
 
   const handleFullScreen = (evt) => {
     evt.preventDefault();
@@ -123,6 +105,24 @@ const Player = () => {
   const handlePauseButtonClick = () => {
     setPlayerControl(PlayerControl.PAUSE);
   };
+
+  useEffect(() => {
+    setElapsedPercent((currentTime / videoDurationInSec) * 100);
+    setFormattedTimeLeft(
+      formatMovieDuration(
+        videoDurationInSec - currentTime,
+        DEFAULT_DURATION_FORMAT
+      )
+    );
+  }, [currentTime, videoDurationInSec]);
+
+  useEffect(() => {
+    setPlayerControl(PlayerControl.PLAY);
+  }, []);
+
+  if (!movie) {
+    return <NotFound />;
+  }
 
   const createPlayerControlButton = (
     width,

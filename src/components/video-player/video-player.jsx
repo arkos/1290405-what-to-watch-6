@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useCancellablePromise } from "../../hooks/use-cancellable-promise";
 
 export const PlayerControl = {
   PLAY: `PLAY`,
@@ -20,8 +21,10 @@ export const PlayerEvent = {
 
 const VideoPlayer = ({ playerConrol, path, onPlayerEvent, ...restProps }) => {
   const videoRef = useRef();
+  // const { cancellablePromise } = useCancellablePromise();
 
   useEffect(() => {
+    console.log(`New effect`);
     videoRef.current.onloadstart = () => onPlayerEvent(PlayerEvent.LOAD_START);
 
     videoRef.current.onloadedmetadata = () =>
@@ -42,8 +45,10 @@ const VideoPlayer = ({ playerConrol, path, onPlayerEvent, ...restProps }) => {
     videoRef.current.ondurationchange = () =>
       onPlayerEvent(PlayerEvent.DURATION_CHANGE, videoRef.current.duration);
 
-    videoRef.current.ontimeupdate = () =>
+    videoRef.current.ontimeupdate = () => {
+      console.log(`Time updated: ${videoRef.current.currentTime}`);
       onPlayerEvent(PlayerEvent.TIME_UPDATE, videoRef.current.currentTime);
+    };
 
     const currentRef = videoRef.current;
 

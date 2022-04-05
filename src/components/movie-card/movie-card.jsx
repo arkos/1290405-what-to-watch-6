@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getMovieUrl } from "../../util/route";
 import VideoPlayer, {
@@ -9,12 +9,12 @@ import Validator from "../../util/validate";
 
 const CARD_HOVER_DELAY = 1000;
 const IS_VIDEO_MUTED = true;
-const VIDEO_PRELOAD = `none`;
+const VIDEO_PRELOAD = `auto`;
 
 const MovieCard = ({ movie }) => {
   const [playerEvent, setPlayerEvent] = useState();
 
-  const [playerControl, setPlayerControl] = useState();
+  const [playerControl, setPlayerControl] = useState(PlayerControl.LOAD);
 
   const [hasMouse, setHasMouse] = useState(false);
   const { name, id } = movie;
@@ -50,9 +50,9 @@ const MovieCard = ({ movie }) => {
     };
   }, [hasMouse]);
 
-  const handlePlayerEvent = (playerEvent) => {
+  const handlePlayerEvent = useCallback((playerEvent) => {
     setPlayerEvent(playerEvent);
-  };
+  }, []);
 
   return (
     <article
