@@ -44,7 +44,7 @@ const Player = () => {
 
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const [playerControl, setPlayerControl] = useState();
+  const [playerControl, setPlayerControl] = useState(PlayerControl.PLAY);
 
   const movies = useSelector((state) => getAllMovies(state));
 

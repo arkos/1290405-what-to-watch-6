@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useCancellablePromise } from "../../hooks/use-cancellable-promise";
 
 export const PlayerControl = {
@@ -42,8 +42,7 @@ const VideoPlayer = ({ playerConrol, path, onPlayerEvent, ...restProps }) => {
     videoRef.current.onpause = () =>
       !currentRef.paused && onPlayerEvent(PlayerEvent.PAUSED);
 
-    videoRef.current.onplaying = () =>
-      currentRef.paused && onPlayerEvent(PlayerEvent.PLAYING);
+    videoRef.current.onplaying = () => onPlayerEvent(PlayerEvent.PLAYING);
 
     videoRef.current.ondurationchange = () =>
       onPlayerEvent(PlayerEvent.DURATION_CHANGE, videoRef.current.duration);
