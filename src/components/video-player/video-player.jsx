@@ -75,7 +75,7 @@ const VideoPlayer = ({ playerConrol, path, onPlayerEvent, ...restProps }) => {
     } else if (playerConrol === PlayerControl.LOAD) {
       videoRef.current.load();
     }
-  }, [playerConrol]);
+  }, [playerConrol, cancellablePromise]);
 
   return (
     <video ref={videoRef} {...restProps}>

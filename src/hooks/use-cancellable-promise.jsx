@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { makeCancellable } from "../util/common";
 
 const useCancellablePromise = () => {
@@ -13,11 +13,11 @@ const useCancellablePromise = () => {
     };
   });
 
-  const cancellablePromise = (promise) => {
+  const cancellablePromise = useCallback((promise) => {
     const cancellablePromise = makeCancellable(promise);
     promises.current.push(cancellablePromise);
     return cancellablePromise.promise;
-  };
+  }, []);
 
   return { cancellablePromise };
 };
