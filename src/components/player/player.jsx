@@ -116,10 +116,6 @@ const Player = () => {
     );
   }, [currentTime, videoDurationInSec]);
 
-  useEffect(() => {
-    setPlayerControl(PlayerControl.PLAY);
-  }, []);
-
   if (!movie) {
     return <NotFound />;
   }
