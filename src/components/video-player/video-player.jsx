@@ -21,10 +21,13 @@ export const PlayerEvent = {
 
 const VideoPlayer = ({ playerConrol, path, onPlayerEvent, ...restProps }) => {
   const videoRef = useRef();
-  // const { cancellablePromise } = useCancellablePromise();
+  const { cancellablePromise } = useCancellablePromise();
 
   useEffect(() => {
     console.log(`New effect`);
+
+    const currentRef = videoRef.current;
+
     videoRef.current.onloadstart = () => onPlayerEvent(PlayerEvent.LOAD_START);
 
     videoRef.current.onloadedmetadata = () =>
@@ -38,9 +41,11 @@ const VideoPlayer = ({ playerConrol, path, onPlayerEvent, ...restProps }) => {
     videoRef.current.oncanplaythrough = () =>
       onPlayerEvent(PlayerEvent.CANPLAYTHROUGH);
 
-    videoRef.current.onpause = () => onPlayerEvent(PlayerEvent.PAUSED);
+    videoRef.current.onpause = () =>
+      !currentRef.paused && onPlayerEvent(PlayerEvent.PAUSED);
 
-    videoRef.current.onplaying = () => onPlayerEvent(PlayerEvent.PLAYING);
+    videoRef.current.onplaying = () =>
+      currentRef.paused && onPlayerEvent(PlayerEvent.PLAYING);
 
     videoRef.current.ondurationchange = () =>
       onPlayerEvent(PlayerEvent.DURATION_CHANGE, videoRef.current.duration);
@@ -49,8 +54,6 @@ const VideoPlayer = ({ playerConrol, path, onPlayerEvent, ...restProps }) => {
       console.log(`Time updated: ${videoRef.current.currentTime}`);
       onPlayerEvent(PlayerEvent.TIME_UPDATE, videoRef.current.currentTime);
     };
-
-    const currentRef = videoRef.current;
 
     return () => {
       currentRef.onloadstart = null;
@@ -67,12 +70,12 @@ const VideoPlayer = ({ playerConrol, path, onPlayerEvent, ...restProps }) => {
 
   useEffect(() => {
     if (playerConrol === PlayerControl.PLAY && videoRef.current.paused) {
-      videoRef.current.play();
+      cancellablePromise(videoRef.current.play());
     } else if (
       playerConrol === PlayerControl.PAUSE &&
       !videoRef.current.paused
     ) {
-      videoRef.current.pause();
+      cancellablePromise(videoRef.current.pause());
     } else if (playerConrol === PlayerControl.LOAD) {
       videoRef.current.load();
     }

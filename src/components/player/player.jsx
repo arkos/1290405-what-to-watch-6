@@ -107,6 +107,7 @@ const Player = () => {
   };
 
   useEffect(() => {
+    console.log(`Entering Player first useEffect`);
     setElapsedPercent((currentTime / videoDurationInSec) * 100);
     setFormattedTimeLeft(
       formatMovieDuration(
@@ -117,6 +118,7 @@ const Player = () => {
   }, [currentTime, videoDurationInSec]);
 
   useEffect(() => {
+    console.log(`Entering Player second useEffect`);
     setPlayerControl(PlayerControl.PLAY);
   }, []);
 
