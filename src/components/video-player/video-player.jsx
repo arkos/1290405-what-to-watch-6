@@ -24,8 +24,6 @@ const VideoPlayer = ({ playerConrol, path, onPlayerEvent, ...restProps }) => {
   const { cancellablePromise } = useCancellablePromise();
 
   useEffect(() => {
-    console.log(`New effect`);
-
     const currentRef = videoRef.current;
 
     videoRef.current.onloadstart = () => onPlayerEvent(PlayerEvent.LOAD_START);
@@ -51,7 +49,6 @@ const VideoPlayer = ({ playerConrol, path, onPlayerEvent, ...restProps }) => {
       onPlayerEvent(PlayerEvent.DURATION_CHANGE, videoRef.current.duration);
 
     videoRef.current.ontimeupdate = () => {
-      console.log(`Time updated: ${videoRef.current.currentTime}`);
       onPlayerEvent(PlayerEvent.TIME_UPDATE, videoRef.current.currentTime);
     };
 
@@ -61,7 +58,7 @@ const VideoPlayer = ({ playerConrol, path, onPlayerEvent, ...restProps }) => {
       currentRef.onloadeddata = null;
       currentRef.oncanplay = null;
       currentRef.oncanplaythrough = null;
-      currentRef.onpaused = null;
+      currentRef.onpause = null;
       currentRef.onplaying = null;
       currentRef.ondurationchange = null;
       currentRef.ontimeupdate = null;
@@ -75,7 +72,7 @@ const VideoPlayer = ({ playerConrol, path, onPlayerEvent, ...restProps }) => {
       playerConrol === PlayerControl.PAUSE &&
       !videoRef.current.paused
     ) {
-      cancellablePromise(videoRef.current.pause());
+      videoRef.current.pause();
     } else if (playerConrol === PlayerControl.LOAD) {
       videoRef.current.load();
     }
