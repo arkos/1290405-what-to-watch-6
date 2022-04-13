@@ -5,7 +5,7 @@ import {
   getFilteredMovies,
   getPromoMovie,
 } from "../../store/selectors/selectors";
-import { FavoriteStatus, MOVIES_PER_PAGE } from "../../util/const";
+import { FavoriteStatus, MOVIES_PER_PAGE, StateStatus } from "../../util/const";
 import { getPlayerUrl } from "../../util/route";
 import MovieList from "../movie-list/movie-list";
 import GenreList from "../genre-list/genre-list";
@@ -18,7 +18,7 @@ import AddFavorite from "../add-favorite/add-favorite";
 
 const Main = () => {
   let movies = useSelector((state) => getFilteredMovies(state));
-  const { isDataLoaded } = useSelector((state) => state.DATA);
+  const { status: statusMovies } = useSelector((state) => state.DATA);
   const { renderedMoviesCount } = useSelector((state) => state.MOVIE);
   const promo = useSelector((state) => getPromoMovie(state));
 
@@ -30,10 +30,10 @@ const Main = () => {
   const history = useNavigate();
 
   useEffect(() => {
-    if (!isDataLoaded) {
+    if (statusMovies === StateStatus.IDLE) {
       dispatch(fetchMovies());
     }
-  }, [isDataLoaded]);
+  }, [statusMovies, dispatch]);
 
   useEffect(() => {
     dispatch(resetMain());
@@ -53,7 +53,7 @@ const Main = () => {
     }
   };
 
-  if (!isDataLoaded || promo === undefined) {
+  if (statusMovies === StateStatus.LOADING || promo === undefined) {
     return <Loading />;
   }
 
