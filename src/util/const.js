@@ -53,3 +53,10 @@ export const FavoriteStatus = {
   NOT_FAVORITE: 0,
   FAVORITE: 1,
 };
+
+export const StateStatus = {
+  IDLE: `idle`,
+  LOADING: `loading`,
+  SUCCEEDED: `succeeded`,
+  FAILED: `failed`,
+};

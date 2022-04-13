@@ -1,4 +1,5 @@
 import { createAction } from "@reduxjs/toolkit";
+import { SliceType } from "./slice";
 
 export const ActionType = {
   CHANGE_GENRE: `movies/changeGenre`,
@@ -16,6 +17,7 @@ export const ActionType = {
   REQUIRE_AUTHORIZATION: `user/requiredAuthorization`,
   REDIRECT_TO_ROUTE: `user/redirectToRoute`,
   LOAD_USER: `user/loadUser`,
+  FETCH_MOVIES: `${SliceType.MOVIES}/fetchMovies`,
 };
 
 export const changeGenre = createAction(ActionType.CHANGE_GENRE, (genre) => {

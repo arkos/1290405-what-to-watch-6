@@ -1,5 +1,4 @@
 import {
-  loadMovies,
   loadReviews,
   requireAuthorization,
   redirectToRoute,
@@ -10,6 +9,7 @@ import {
   loadFavorites,
   loadUser,
   loadPromo,
+  ActionType,
 } from "../store/action";
 
 import { AppRoute, AuthorizationStatus, State } from "../util/const";
@@ -24,14 +24,25 @@ import {
   getApiFavoriteUrl,
   getPromoMovieUrl,
 } from "../util/route";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const fetchMovies = () => (dispatch, _getState, api) => {
-  return api
-    .get(APIRoute.MOVIES)
-    .then(({ data }) => dispatch(loadMovies(data.map(adaptMovieToClient))))
-    .then(() => dispatch(fetchPromo()))
-    .catch(() => {});
-};
+// TODO: Remove authorization from fetch movies
+// TODO: Use entity adapter for store slices
+// TODO: Use separate entity/slice for promo
+// TODO: loadMovies functionality should be moved to fetchMovies
+
+export const fetchMovies = createAsyncThunk(
+  ActionType.FETCH_MOVIES,
+  async ({ dispatch, getState: __getState, extra: api }) => {
+    try {
+      const { data } = await api.get(APIRoute.MOVIES);
+      dispatch(fetchPromo());
+      return data.map(adaptMovieToClient);
+    } catch (err) {
+      console.log(`Failed to fetch movies: `, err);
+    }
+  }
+);
 
 export const checkAuth = () => (dispatch, _getState, api) => {
   dispatch(requireAuthorization(AuthorizationStatus.UNKNOWN));
