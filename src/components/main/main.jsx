@@ -55,6 +55,10 @@ const Main = () => {
     }
   };
 
+  if (statusMovies === StateStatus.IDLE || statusPromo === StateStatus.IDLE) {
+    return null;
+  }
+
   if (
     statusMovies === StateStatus.LOADING ||
     statusPromo === StateStatus.LOADING

@@ -32,7 +32,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchMovies = createAsyncThunk(
   ActionType.FETCH_MOVIES,
-  async ({ dispatch, getState: __getState, extra: api }) => {
+  async (_, { dispatch, extra: api }) => {
     try {
       const { data } = await api.get(APIRoute.MOVIES);
       dispatch(fetchPromo());
@@ -85,8 +85,8 @@ export const fetchMovie = (id) => (dispatch, _getState, api) =>
     .catch(() => dispatch(redirectToRoute(`/not-found`)));
 
 export const fetchPromo = createAsyncThunk(
-  ActionType,
-  async ({ dispatch: __dispatch, getState: __getState, api }) => {
+  ActionType.FETCH_PROMO,
+  async (_, { dispatch, extra: api }) => {
     try {
       const { data: promo } = await api.get(getPromoMovieUrl());
       return adaptMovieToClient(promo);
