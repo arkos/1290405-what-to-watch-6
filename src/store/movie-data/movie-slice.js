@@ -72,12 +72,6 @@ const moviesSlice = createSlice({
         movie.isFavorite = isFavorite;
       }
     },
-
-    loadPromo: (state, action) => {
-      state.movies = state.movies.map((movie) =>
-        Object.assign(movie, { isPromo: action.payload.id === movie.id })
-      );
-    },
   },
   extraReducers: (builder) => {
     builder
