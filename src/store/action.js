@@ -9,7 +9,6 @@ export const ActionType = {
   CHANGE_DATA_PROCESSING_STATE: `movies/changeDataProcessingState`,
   LOAD_MOVIES: `data/loadMovies`,
   RELOAD_MOVIE: `data/reloadMovie`,
-  LOAD_PROMO: `data/loadPromo`,
   LOAD_REVIEWS: `data/loadReviews`,
   SAVE_REVIEW: `data/saveReview`,
   ADD_FAVORITE: `data/addFavorite`,
@@ -18,6 +17,7 @@ export const ActionType = {
   REDIRECT_TO_ROUTE: `user/redirectToRoute`,
   LOAD_USER: `user/loadUser`,
   FETCH_MOVIES: `${SliceType.MOVIES}/fetchMovies`,
+  FETCH_PROMO: `${SliceType.PROMO}/fetchPromo`,
 };
 
 export const changeGenre = createAction(ActionType.CHANGE_GENRE, (genre) => {
@@ -64,12 +64,6 @@ export const loadMovies = createAction(ActionType.LOAD_MOVIES, (movies) => {
 export const reloadMovie = createAction(ActionType.RELOAD_MOVIE, (movie) => {
   return {
     payload: movie,
-  };
-});
-
-export const loadPromo = createAction(ActionType.LOAD_PROMO, (promo) => {
-  return {
-    payload: promo,
   };
 });
 

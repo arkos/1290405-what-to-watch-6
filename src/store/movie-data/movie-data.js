@@ -6,7 +6,6 @@ import {
   loadFavorites,
   saveReview,
   addFavorite,
-  loadPromo,
 } from "../action";
 
 const initialState = {
@@ -80,12 +79,6 @@ const movieData = createReducer(initialState, (builder) => {
       const isFavorite = favorites.some((favorite) => favorite.id === movie.id);
       movie.isFavorite = isFavorite;
     }
-  });
-
-  builder.addCase(loadPromo, (state, action) => {
-    state.movies = state.movies.map((movie) =>
-      Object.assign(movie, { isPromo: action.payload.id === movie.id })
-    );
   });
 });
 

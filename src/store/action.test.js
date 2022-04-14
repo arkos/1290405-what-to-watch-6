@@ -9,7 +9,6 @@ import {
   resetMain,
   changeDataProcessingState,
   reloadMovie,
-  loadPromo,
   loadReviews,
   loadFavorites,
   saveReview,
