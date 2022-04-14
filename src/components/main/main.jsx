@@ -12,7 +12,7 @@ import GenreList from "../genre-list/genre-list";
 import Loading from "../loading/loading";
 import ShowMore from "../show-more/show-more";
 import SignInIndicator from "../sign-in-indicator/sign-in-indicator";
-import { fetchMovies, postFavorite } from "../../store/api-actions";
+import { fetchMovies, postFavorite, fetchPromo } from "../../store/api-actions";
 import { changeCountToRender, resetMain } from "../../store/action";
 import AddFavorite from "../add-favorite/add-favorite";
 
@@ -32,10 +32,16 @@ const Main = () => {
   const history = useNavigate();
 
   useEffect(() => {
-    if (statusMovies === StateStatus.IDLE) {
+    if (statusMovies === StateStatus.LOADING) {
       dispatch(fetchMovies());
     }
   }, [statusMovies, dispatch]);
+
+  useEffect(() => {
+    if (statusPromo === StateStatus.LOADING) {
+      dispatch(fetchPromo());
+    }
+  }, [statusPromo, dispatch]);
 
   useEffect(() => {
     dispatch(resetMain());
@@ -54,10 +60,6 @@ const Main = () => {
       dispatch(postFavorite(promo.id, FavoriteStatus.FAVORITE));
     }
   };
-
-  if (statusMovies === StateStatus.IDLE || statusPromo === StateStatus.IDLE) {
-    return null;
-  }
 
   if (
     statusMovies === StateStatus.LOADING ||

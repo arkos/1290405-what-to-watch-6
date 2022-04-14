@@ -35,7 +35,6 @@ export const fetchMovies = createAsyncThunk(
   async (_, { dispatch, extra: api }) => {
     try {
       const { data } = await api.get(APIRoute.MOVIES);
-      dispatch(fetchPromo());
       return data.map(adaptMovieToClient);
     } catch (err) {
       console.log(`Failed to fetch movies: `, err);

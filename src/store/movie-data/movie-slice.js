@@ -8,7 +8,7 @@ const moviesSlice = createSlice({
   initialState: {
     movies: [],
     // TODO: Move reviews to a separate slice
-    status: StateStatus.IDLE,
+    status: StateStatus.LOADING,
   },
   reducers: {
     loadReviews: (state, action) => {

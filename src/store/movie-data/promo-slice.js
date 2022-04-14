@@ -6,7 +6,7 @@ import { SliceType } from "../slice";
 const promoSlice = createSlice({
   name: SliceType.PROMO,
   initialState: {
-    status: StateStatus.IDLE,
+    status: StateStatus.LOADING,
     promo: {},
   },
   extraReducers: (builder) => {
