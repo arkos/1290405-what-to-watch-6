@@ -20,6 +20,8 @@ const Main = () => {
   let movies = useSelector((state) => getFilteredMovies(state));
   const { status: statusMovies } = useSelector((state) => state.DATA);
   const { renderedMoviesCount } = useSelector((state) => state.MOVIE);
+
+  const { status: statusPromo } = useSelector((state) => state.PROMO);
   const promo = useSelector((state) => getPromoMovie(state));
 
   const filteredMoviesCount = movies.length;
@@ -53,7 +55,10 @@ const Main = () => {
     }
   };
 
-  if (statusMovies === StateStatus.LOADING || promo === undefined) {
+  if (
+    statusMovies === StateStatus.LOADING ||
+    statusPromo === StateStatus.LOADING
+  ) {
     return <Loading />;
   }
 
