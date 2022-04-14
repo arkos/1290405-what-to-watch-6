@@ -8,7 +8,6 @@ import {
   addFavorite,
   loadFavorites,
   loadUser,
-  loadPromo,
   ActionType,
 } from "../store/action";
 
@@ -85,12 +84,17 @@ export const fetchMovie = (id) => (dispatch, _getState, api) =>
     .then(({ data }) => dispatch(reloadMovie(adaptMovieToClient(data))))
     .catch(() => dispatch(redirectToRoute(`/not-found`)));
 
-export const fetchPromo = () => (dispatch, _getState, api) => {
-  return api
-    .get(getPromoMovieUrl())
-    .then(({ data: promo }) => dispatch(loadPromo(adaptMovieToClient(promo))))
-    .catch(() => {});
-};
+export const fetchPromo = createAsyncThunk(
+  ActionType,
+  async ({ dispatch: __dispatch, getState: __getState, api }) => {
+    try {
+      const { data: promo } = await api.get(getPromoMovieUrl());
+      return adaptMovieToClient(promo);
+    } catch (err) {
+      console.log(`Failed fetching promo: `, err);
+    }
+  }
+);
 
 export const postReview =
   ({ rating, comment }, movieId) =>
