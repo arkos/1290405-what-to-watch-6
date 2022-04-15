@@ -67,12 +67,27 @@ export const logout = () => (dispatch, _getState, api) =>
     .then(() => dispatch(loadUser(null)))
     .then(() => dispatch(redirectToRoute(AppRoute.ROOT)));
 
-export const fetchReviews =
-  ({ id: movieId }) =>
-  (dispatch, _getState, api) =>
-    api
-      .get(getApiReviewsUrl(movieId))
-      .then(({ data }) => dispatch(loadReviews(data, movieId)));
+// export const fetchReviews =
+//   ({ id: movieId }) =>
+//   (dispatch, _getState, api) =>
+//     api
+//       .get(getApiReviewsUrl(movieId))
+//       .then(({ data }) => dispatch(loadReviews(data, movieId)));
+
+export const fetchReviews = createAsyncThunk(
+  ActionType.FETCH_REVIEWS,
+  async (movieId, { dispatch: _dispatch, extra: api }) => {
+    try {
+      const { data } = await api.get(getApiReviewsUrl(movieId));
+      return {
+        reviews: data,
+        movieId,
+      };
+    } catch (err) {
+      console.log(`Failed to fetch reviews: `, err);
+    }
+  }
+);
 
 export const fetchMovie = (id) => (dispatch, _getState, api) =>
   api

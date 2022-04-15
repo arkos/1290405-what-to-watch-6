@@ -17,6 +17,7 @@ export const ActionType = {
   LOAD_USER: `user/loadUser`,
   FETCH_MOVIES: `${SliceType.MOVIES}/fetchMovies`,
   FETCH_PROMO: `${SliceType.PROMO}/fetchPromo`,
+  FETCH_REVIEWS: `${SliceType.REVIEWS}/fetchReviews`,
 };
 
 export const changeGenre = createAction(ActionType.CHANGE_GENRE, (genre) => {
