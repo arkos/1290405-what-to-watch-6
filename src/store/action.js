@@ -7,7 +7,6 @@ export const ActionType = {
   CHANGE_COUNT_TO_RENDER: `movies/changeCountToRender`,
   RESET_MAIN: `movies/resetMain`,
   CHANGE_DATA_PROCESSING_STATE: `movies/changeDataProcessingState`,
-  LOAD_MOVIES: `data/loadMovies`,
   RELOAD_MOVIE: `data/reloadMovie`,
   LOAD_REVIEWS: `data/loadReviews`,
   SAVE_REVIEW: `data/saveReview`,
@@ -54,12 +53,6 @@ export const changeDataProcessingState = createAction(
     };
   }
 );
-
-export const loadMovies = createAction(ActionType.LOAD_MOVIES, (movies) => {
-  return {
-    payload: movies,
-  };
-});
 
 export const reloadMovie = createAction(ActionType.RELOAD_MOVIE, (movie) => {
   return {

@@ -25,10 +25,7 @@ import {
 } from "../util/route";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-// TODO: Remove authorization from fetch movies
 // TODO: Use entity adapter for store slices
-// TODO: Use separate entity/slice for promo
-// TODO: loadMovies functionality should be moved to fetchMovies
 
 export const fetchMovies = createAsyncThunk(
   ActionType.FETCH_MOVIES,

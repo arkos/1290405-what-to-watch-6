@@ -1,7 +1,7 @@
 import { createSelector } from "reselect";
 import { filterByGenre } from "../../util/genre";
 
-const moviesSelector = ({ DATA }) => DATA.movies;
+const moviesSelector = ({ MOVIES }) => MOVIES.movies;
 const genreSelector = ({ MOVIE }) => MOVIE.selectedGenre;
 const promoSelector = ({ PROMO }) => PROMO.promo;
 

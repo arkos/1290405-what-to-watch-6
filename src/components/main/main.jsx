@@ -18,7 +18,7 @@ import AddFavorite from "../add-favorite/add-favorite";
 
 const Main = () => {
   let movies = useSelector((state) => getFilteredMovies(state));
-  const { status: statusMovies } = useSelector((state) => state.DATA);
+  const { status: statusMovies } = useSelector((state) => state.MOVIES);
   const { renderedMoviesCount } = useSelector((state) => state.MOVIE);
 
   const { status: statusPromo } = useSelector((state) => state.PROMO);
