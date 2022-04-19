@@ -4,6 +4,8 @@ import { filterByGenre } from "../../util/genre";
 const moviesSelector = ({ MOVIES }) => MOVIES.movies;
 const genreSelector = ({ MOVIE }) => MOVIE.selectedGenre;
 const promoSelector = ({ PROMO }) => PROMO.promo;
+const reviewsSelector = ({ REVIEWS }) => REVIEWS.data;
+const reviewsStatusSelector = ({ REVIEWS }) => REVIEWS.status;
 
 export const getFilteredMovies = createSelector(
   [moviesSelector, genreSelector],
@@ -17,3 +19,17 @@ export const getFavoriteMovies = createSelector(moviesSelector, (movies) => {
 });
 
 export const getPromoMovie = createSelector(promoSelector, (promo) => promo);
+
+export const getReviewsForMovie = createSelector(
+  reviewsSelector,
+  (_state, movieId) => movieId,
+  (data, movieId) => {
+    const findItem = data.find((item) => item.movieId === movieId);
+    return findItem && findItem.reviews;
+  }
+);
+
+export const getStatusReviews = createSelector(
+  reviewsStatusSelector,
+  (status) => status
+);

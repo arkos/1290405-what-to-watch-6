@@ -76,7 +76,7 @@ export const logout = () => (dispatch, _getState, api) =>
 
 export const fetchReviews = createAsyncThunk(
   ActionType.FETCH_REVIEWS,
-  async (movieId, { dispatch: _dispatch, extra: api }) => {
+  async ({ id: movieId }, { dispatch: _dispatch, extra: api }) => {
     try {
       const { data } = await api.get(getApiReviewsUrl(movieId));
       return {
