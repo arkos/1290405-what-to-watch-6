@@ -3,4 +3,5 @@ export const SliceType = {
   PROMO: `promo`,
   PROCESS: `process`,
   REVIEWS: `reviews`,
+  USER: `user`,
 };
