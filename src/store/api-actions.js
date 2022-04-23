@@ -1,17 +1,14 @@
 import {
-  loadReviews,
-  requireAuthorization,
   redirectToRoute,
   reloadMovie,
   changeDataProcessingState,
   saveReview,
   addFavorite,
   loadFavorites,
-  loadUser,
   ActionType,
 } from "../store/action";
 
-import { AppRoute, AuthorizationStatus, State } from "../util/const";
+import { AppRoute, State } from "../util/const";
 import { adaptToClient as adaptMovieToClient } from "../util/movie";
 import { adaptToClient as adaptUserToClient } from "../util/user";
 import { APIRoute } from "../util/const";
@@ -26,6 +23,37 @@ import {
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 // TODO: Use entity adapter for store slices
+// TODO: Remove redundant stores after implementing all slices
+// TODO: Fix all tests
+
+// USER
+
+export const checkAuth = createAsyncThunk(
+  ActionType.CHECK_AUTH,
+  async (_, { dispatch: _dispatch, extra: api }) => {
+    const { data } = await api.get(APIRoute.LOGIN);
+    return adaptUserToClient(data);
+  }
+);
+
+export const login = createAsyncThunk(
+  ActionType.LOGIN,
+  async ({ login: email, password }, { dispatch, extra: api }) => {
+    const { data: user } = await api.post(APIRoute.LOGIN, { email, password });
+    dispatch(redirectToRoute(APIRoute.ROOT));
+    return adaptUserToClient(user);
+  }
+);
+
+export const logout = createAsyncThunk(
+  ActionType.LOGOUT,
+  async (_, { dispatch, extra: api }) => {
+    await api.get(APIRoute.LOGOUT);
+    dispatch(redirectToRoute(AppRoute.ROOT));
+  }
+);
+
+// MOVIES
 
 export const fetchMovies = createAsyncThunk(
   ActionType.FETCH_MOVIES,
@@ -39,40 +67,27 @@ export const fetchMovies = createAsyncThunk(
   }
 );
 
-export const checkAuth = () => (dispatch, _getState, api) => {
-  dispatch(requireAuthorization(AuthorizationStatus.UNKNOWN));
-  return api
-    .get(APIRoute.LOGIN)
-    .then(({ data: user }) => dispatch(loadUser(adaptUserToClient(user))))
-    .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
-    .catch(() => dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH)));
-};
-
-export const login =
-  ({ login: email, password }) =>
-  (dispatch, _getState, api) => {
-    dispatch(requireAuthorization(AuthorizationStatus.UNKNOWN));
-    return api
-      .post(APIRoute.LOGIN, { email, password })
-      .then(({ data: user }) => dispatch(loadUser(adaptUserToClient(user))))
-      .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
-      .then(() => dispatch(redirectToRoute(APIRoute.ROOT)))
-      .catch(() => dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH)));
-  };
-
-export const logout = () => (dispatch, _getState, api) =>
+export const fetchMovie = (id) => (dispatch, _getState, api) =>
   api
-    .get(APIRoute.LOGOUT)
-    .then(() => dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH)))
-    .then(() => dispatch(loadUser(null)))
-    .then(() => dispatch(redirectToRoute(AppRoute.ROOT)));
+    .get(getApiMovieUrl(id))
+    .then(({ data }) => dispatch(reloadMovie(adaptMovieToClient(data))))
+    .catch(() => dispatch(redirectToRoute(`/not-found`)));
 
-// export const fetchReviews =
-//   ({ id: movieId }) =>
-//   (dispatch, _getState, api) =>
-//     api
-//       .get(getApiReviewsUrl(movieId))
-//       .then(({ data }) => dispatch(loadReviews(data, movieId)));
+// PROMO
+
+export const fetchPromo = createAsyncThunk(
+  ActionType.FETCH_PROMO,
+  async (_, { dispatch: _dispatch, extra: api }) => {
+    try {
+      const { data: promo } = await api.get(getPromoMovieUrl());
+      return adaptMovieToClient(promo);
+    } catch (err) {
+      console.log(`Failed fetching promo: `, err);
+    }
+  }
+);
+
+// REVIEWS
 
 export const fetchReviews = createAsyncThunk(
   ActionType.FETCH_REVIEWS,
@@ -89,24 +104,6 @@ export const fetchReviews = createAsyncThunk(
   }
 );
 
-export const fetchMovie = (id) => (dispatch, _getState, api) =>
-  api
-    .get(getApiMovieUrl(id))
-    .then(({ data }) => dispatch(reloadMovie(adaptMovieToClient(data))))
-    .catch(() => dispatch(redirectToRoute(`/not-found`)));
-
-export const fetchPromo = createAsyncThunk(
-  ActionType.FETCH_PROMO,
-  async (_, { dispatch, extra: api }) => {
-    try {
-      const { data: promo } = await api.get(getPromoMovieUrl());
-      return adaptMovieToClient(promo);
-    } catch (err) {
-      console.log(`Failed fetching promo: `, err);
-    }
-  }
-);
-
 export const postReview =
   ({ rating, comment }, movieId) =>
   (dispatch, _getState, api) => {
@@ -118,6 +115,8 @@ export const postReview =
       .then(() => dispatch(redirectToRoute(getMovieUrl(movieId))))
       .catch(() => dispatch(changeDataProcessingState(State.ABORTING)));
   };
+
+// FAVORITES
 
 export const postFavorite = (id, status) => (dispatch, _getState, api) =>
   api

@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Validator from "../../util/validate";
-import { AppRoute, AuthorizationStatus } from "../../util/const";
+import { AppRoute, StateStatus } from "../../util/const";
 import { getMovieUrl } from "../../util/route";
 import NotFound from "../not-found/not-found";
 import AddReviewForm from "../add-review-form/add-review-form";
@@ -15,9 +15,9 @@ const AddReview = () => {
 
   const movies = useSelector((state) => getAllMovies(state));
 
-  const { authorizationStatus } = useSelector((state) => state.USER);
+  const { status: statusUser } = useSelector((state) => state.USER.status);
 
-  if (authorizationStatus === AuthorizationStatus.UNKNOWN) {
+  if (statusUser === StateStatus.LOADING) {
     return <AuthorizationProgress />;
   }
 

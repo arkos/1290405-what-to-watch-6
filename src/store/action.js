@@ -14,10 +14,12 @@ export const ActionType = {
   LOAD_FAVORITES: `data/loadFavorites`,
   REQUIRE_AUTHORIZATION: `user/requiredAuthorization`,
   REDIRECT_TO_ROUTE: `user/redirectToRoute`,
-  LOAD_USER: `user/loadUser`,
   FETCH_MOVIES: `${SliceType.MOVIES}/fetchMovies`,
   FETCH_PROMO: `${SliceType.PROMO}/fetchPromo`,
   FETCH_REVIEWS: `${SliceType.REVIEWS}/fetchReviews`,
+  CHECK_AUTH: `${SliceType.USER}/checkAuth`,
+  LOGIN: `${SliceType.USER}/login`,
+  LOGOUT: `${SliceType.USER}/logout`,
 };
 
 export const changeGenre = createAction(ActionType.CHANGE_GENRE, (genre) => {

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
-import { AppRoute, AuthorizationStatus } from "../../util/const";
+import { AppRoute, AuthorizationStatus, StateStatus } from "../../util/const";
 import { login } from "../../store/api-actions";
 import AuthorizationProgress from "../authorization-progress/authorization-progress";
 
@@ -18,7 +18,9 @@ const SignIn = () => {
 
   const { authorizationStatus } = useSelector((state) => state.USER);
 
-  if (authorizationStatus === AuthorizationStatus.UNKNOWN) {
+  const { status: statusUser } = useSelector((state) => state.USER.status);
+
+  if (statusUser === StateStatus.LOADING) {
     return <AuthorizationProgress />;
   }
 

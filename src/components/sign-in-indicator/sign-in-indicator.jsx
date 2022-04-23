@@ -6,7 +6,6 @@ import { AuthorizationStatus, AppRoute } from "../../util/const";
 
 const SignInIndicator = () => {
   const { authorizationStatus, user } = useSelector((state) => state.USER);
-
   const dispatch = useDispatch();
 
   const handleLogoutClick = (evt) => {
