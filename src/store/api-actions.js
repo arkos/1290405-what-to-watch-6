@@ -1,6 +1,5 @@
 import {
   redirectToRoute,
-  reloadMovie,
   changeDataProcessingState,
   addFavorite,
   loadFavorites,
@@ -13,7 +12,6 @@ import { adaptToClient as adaptUserToClient } from "../util/user";
 import { APIRoute } from "../util/const";
 
 import {
-  getApiMovieUrl,
   getApiReviewsUrl,
   getMovieUrl,
   getApiFavoriteUrl,
@@ -65,12 +63,6 @@ export const fetchMovies = createAsyncThunk(
     }
   }
 );
-
-export const fetchMovie = (id) => (dispatch, _getState, api) =>
-  api
-    .get(getApiMovieUrl(id))
-    .then(({ data }) => dispatch(reloadMovie(adaptMovieToClient(data))))
-    .catch(() => dispatch(redirectToRoute(`/not-found`)));
 
 // PROMO
 

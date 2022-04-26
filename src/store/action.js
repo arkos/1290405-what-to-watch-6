@@ -7,17 +7,21 @@ export const ActionType = {
   CHANGE_COUNT_TO_RENDER: `movies/changeCountToRender`,
   RESET_MAIN: `movies/resetMain`,
   CHANGE_DATA_PROCESSING_STATE: `movies/changeDataProcessingState`,
-  RELOAD_MOVIE: `data/reloadMovie`,
-  LOAD_REVIEWS: `data/loadReviews`,
-  SAVE_REVIEW: `data/saveReview`,
+
   ADD_FAVORITE: `data/addFavorite`,
   LOAD_FAVORITES: `data/loadFavorites`,
-  REQUIRE_AUTHORIZATION: `user/requiredAuthorization`,
+
   REDIRECT_TO_ROUTE: `user/redirectToRoute`,
+
   FETCH_MOVIES: `${SliceType.MOVIES}/fetchMovies`,
   FETCH_PROMO: `${SliceType.PROMO}/fetchPromo`,
+
   FETCH_REVIEWS: `${SliceType.REVIEWS}/fetchReviews`,
   POST_REVIEW: `${SliceType.REVIEWS}/postReview`,
+  LOAD_REVIEWS: `data/loadReviews`,
+  SAVE_REVIEW: `data/saveReview`,
+
+  REQUIRE_AUTHORIZATION: `user/requiredAuthorization`,
   CHECK_AUTH: `${SliceType.USER}/checkAuth`,
   LOGIN: `${SliceType.USER}/login`,
   LOGOUT: `${SliceType.USER}/logout`,
@@ -57,12 +61,6 @@ export const changeDataProcessingState = createAction(
     };
   }
 );
-
-export const reloadMovie = createAction(ActionType.RELOAD_MOVIE, (movie) => {
-  return {
-    payload: movie,
-  };
-});
 
 export const loadReviews = createAction(
   ActionType.LOAD_REVIEWS,

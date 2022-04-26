@@ -3,6 +3,7 @@ import { filterByGenre } from "../../util/genre";
 
 const moviesSelector = ({ MOVIES }) => MOVIES.movies;
 const genreSelector = ({ MOVIE }) => MOVIE.selectedGenre;
+const moviesStatusSelector = ({ MOVIES }) => MOVIES.status;
 const promoSelector = ({ PROMO }) => PROMO.promo;
 const reviewsSelector = ({ REVIEWS }) => REVIEWS.data;
 const reviewsStatusSelector = ({ REVIEWS }) => REVIEWS.status;
@@ -13,6 +14,17 @@ export const getFilteredMovies = createSelector(
 );
 
 export const getAllMovies = createSelector(moviesSelector, (movies) => movies);
+
+export const getMovieById = createSelector(
+  moviesSelector,
+  (_, id) => id,
+  (movies, id) => movies.find((item) => item.id === +id)
+);
+
+export const getStatusMovies = createSelector(
+  moviesStatusSelector,
+  (status) => status
+);
 
 export const getFavoriteMovies = createSelector(moviesSelector, (movies) => {
   return movies.filter((movie) => movie.isFavorite);
