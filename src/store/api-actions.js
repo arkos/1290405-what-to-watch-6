@@ -2,7 +2,6 @@ import {
   redirectToRoute,
   reloadMovie,
   changeDataProcessingState,
-  saveReview,
   addFavorite,
   loadFavorites,
   ActionType,
@@ -104,17 +103,18 @@ export const fetchReviews = createAsyncThunk(
   }
 );
 
-export const postReview =
-  ({ rating, comment }, movieId) =>
-  (dispatch, _getState, api) => {
-    dispatch(changeDataProcessingState(State.SAVING));
-    return api
-      .post(getApiReviewsUrl(movieId), { rating, comment })
-      .then(({ data }) => dispatch(saveReview({ review: data, movieId })))
-      .then(() => dispatch(changeDataProcessingState(State.DEFAULT)))
-      .then(() => dispatch(redirectToRoute(getMovieUrl(movieId))))
-      .catch(() => dispatch(changeDataProcessingState(State.ABORTING)));
-  };
+export const postReview = createAsyncThunk(
+  ActionType.POST_REVIEW,
+  async ({ commentInfo, movieId }, { dispatch, extra: api }) => {
+    const { rating, comment } = commentInfo;
+    const { data: reviews } = await api.post(getApiReviewsUrl(movieId), {
+      rating,
+      comment,
+    });
+    dispatch(redirectToRoute(getMovieUrl(movieId)));
+    return { reviews, movieId };
+  }
+);
 
 // FAVORITES
 

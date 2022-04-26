@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { StateStatus } from "../../util/const";
-import { fetchReviews } from "../api-actions";
+import { fetchReviews, postReview } from "../api-actions";
 import { SliceType } from "../slice";
 
 const reviewSlice = createSlice({
@@ -26,6 +26,23 @@ const reviewSlice = createSlice({
         }
       })
       .addCase(fetchReviews.rejected, (state) => {
+        state.status = StateStatus.FAILED;
+      })
+      .addCase(postReview.pending, (state) => {
+        state.status = StateStatus.LOADING;
+      })
+      .addCase(postReview.fulfilled, (state, action) => {
+        state.status = StateStatus.SUCCEEDED;
+
+        const index = state.data.findIndex(
+          (item) => item.movieId === action.payload.movieId
+        );
+
+        if (~index) {
+          state.data[index] = action.payload;
+        }
+      })
+      .addCase(postReview.rejected, (state) => {
         state.status = StateStatus.FAILED;
       });
   },

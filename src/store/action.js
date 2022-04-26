@@ -17,6 +17,7 @@ export const ActionType = {
   FETCH_MOVIES: `${SliceType.MOVIES}/fetchMovies`,
   FETCH_PROMO: `${SliceType.PROMO}/fetchPromo`,
   FETCH_REVIEWS: `${SliceType.REVIEWS}/fetchReviews`,
+  POST_REVIEW: `${SliceType.REVIEWS}/postReview`,
   CHECK_AUTH: `${SliceType.USER}/checkAuth`,
   LOGIN: `${SliceType.USER}/login`,
   LOGOUT: `${SliceType.USER}/logout`,
