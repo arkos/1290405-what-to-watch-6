@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeDataProcessingState } from "../../store/action";
 import { postReview } from "../../store/api-actions";
-import { State } from "../../util/const";
+import { StateStatus } from "../../util/const";
 import { generateStars } from "../../util/movie";
 import Validator from "../../util/validate";
 
@@ -28,7 +27,7 @@ const AddReviewForm = ({ movie }) => {
 
   const dispatch = useDispatch();
 
-  const { dataProcessingState } = useSelector((state) => state.MOVIE);
+  const { status: statusReviews } = useSelector((state) => state.REVIEWS);
 
   const validateReviewText = () => {
     return (
@@ -46,10 +45,6 @@ const AddReviewForm = ({ movie }) => {
   };
 
   useEffect(() => {
-    dispatch(changeDataProcessingState(State.DEFAULT));
-  }, []);
-
-  useEffect(() => {
     setFormState({
       ...formState,
       isValid: validateAll(),
@@ -59,22 +54,22 @@ const AddReviewForm = ({ movie }) => {
   useEffect(() => {
     setFormState({
       ...formState,
-      isSaving: dataProcessingState === State.SAVING,
-      isDisabled: dataProcessingState === State.SAVING,
-      isAborting: dataProcessingState === State.ABORTING,
+      isSaving: statusReviews === StateStatus.LOADING,
+      isDisabled: statusReviews === StateStatus.LOADING,
+      isAborting: statusReviews === StateStatus.FAILED,
     });
-  }, [dataProcessingState]);
+  }, [statusReviews]);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
     dispatch(
-      postReview(
-        {
+      postReview({
+        commentInfo: {
           rating: parseInt(reviewForm.rating, 10),
           comment: reviewForm.reviewText,
         },
-        movie.id
-      )
+        movieId: movie.id,
+      })
     );
   };
 
