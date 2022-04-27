@@ -17,7 +17,7 @@ const AddReview = () => {
 
   const { status: statusUser } = useSelector((state) => state.USER.status);
 
-  if (statusUser === StateStatus.LOADING) {
+  if (statusUser === StateStatus.WORKING) {
     return <AuthorizationProgress />;
   }
 

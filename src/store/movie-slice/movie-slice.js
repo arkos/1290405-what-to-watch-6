@@ -7,7 +7,7 @@ const moviesSlice = createSlice({
   name: SliceType.MOVIES,
   initialState: {
     movies: [],
-    status: StateStatus.LOADING,
+    status: StateStatus.WORKING,
   },
   reducers: {
     loadReviews: (state, action) => {
@@ -75,7 +75,7 @@ const moviesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchMovies.pending, (state) => {
-        state.status = StateStatus.LOADING;
+        state.status = StateStatus.WORKING;
       })
       .addCase(fetchMovies.fulfilled, (state, action) => {
         state.movies = action.payload;

@@ -6,13 +6,13 @@ import { SliceType } from "../slice";
 const promoSlice = createSlice({
   name: SliceType.PROMO,
   initialState: {
-    status: StateStatus.LOADING,
+    status: StateStatus.WORKING,
     promo: {},
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchPromo.pending, (state) => {
-        state.status = StateStatus.LOADING;
+        state.status = StateStatus.WORKING;
       })
       .addCase(fetchPromo.fulfilled, (state, action) => {
         state.status = StateStatus.SUCCEEDED;

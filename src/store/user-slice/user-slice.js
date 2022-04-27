@@ -18,7 +18,7 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(checkAuth.pending, (state) => {
-        state.status = StateStatus.LOADING;
+        state.status = StateStatus.WORKING;
       })
       .addCase(checkAuth.fulfilled, (state, action) => {
         state.status = StateStatus.SUCCEEDED;
@@ -31,7 +31,7 @@ const userSlice = createSlice({
         state.authorizationStatus = AuthorizationStatus.NO_AUTH;
       })
       .addCase(login.pending, (state) => {
-        state.status = StateStatus.LOADING;
+        state.status = StateStatus.WORKING;
       })
       .addCase(login.fulfilled, (state, action) => {
         state.status = StateStatus.SUCCEEDED;

@@ -7,12 +7,12 @@ const reviewSlice = createSlice({
   name: SliceType.REVIEWS,
   initialState: {
     data: [],
-    status: StateStatus.LOADING,
+    status: StateStatus.WORKING,
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchReviews.pending, (state) => {
-        state.status = StateStatus.LOADING;
+        state.status = StateStatus.WORKING;
       })
       .addCase(fetchReviews.fulfilled, (state, action) => {
         state.status = StateStatus.SUCCEEDED;
@@ -29,7 +29,7 @@ const reviewSlice = createSlice({
         state.status = StateStatus.FAILED;
       })
       .addCase(postReview.pending, (state) => {
-        state.status = StateStatus.LOADING;
+        state.status = StateStatus.WORKING;
       })
       .addCase(postReview.fulfilled, (state, action) => {
         state.status = StateStatus.SUCCEEDED;

@@ -56,7 +56,7 @@ export const FavoriteStatus = {
 
 export const StateStatus = {
   IDLE: `idle`,
-  LOADING: `loading`,
+  WORKING: `working`,
   SUCCEEDED: `succeeded`,
   FAILED: `failed`,
 };

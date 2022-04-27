@@ -20,7 +20,7 @@ const MyList = () => {
     dispatch(fetchFavorites());
   }, []);
 
-  if (statusUser === StateStatus.LOADING) {
+  if (statusUser === StateStatus.WORKING) {
     return <AuthorizationProgress />;
   }
 

@@ -44,7 +44,7 @@ const Film = () => {
   };
 
   useEffect(() => {
-    if (statusMovies === StateStatus.LOADING) {
+    if (statusMovies === StateStatus.WORKING) {
       dispatch(fetchMovies());
     }
   }, [statusMovies, dispatch, id]);
@@ -53,11 +53,11 @@ const Film = () => {
     dispatch(changeActiveTab(TabName.OVERVIEW));
   }, []);
 
-  if (!movie && statusMovies !== StateStatus.LOADING) {
+  if (!movie && statusMovies !== StateStatus.WORKING) {
     return <NotFound />;
   }
 
-  if (statusMovies === StateStatus.LOADING) {
+  if (statusMovies === StateStatus.WORKING) {
     return <Loading />;
   }
 

@@ -32,13 +32,13 @@ const Main = () => {
   const history = useNavigate();
 
   useEffect(() => {
-    if (statusMovies === StateStatus.LOADING) {
+    if (statusMovies === StateStatus.WORKING) {
       dispatch(fetchMovies());
     }
   }, [statusMovies, dispatch]);
 
   useEffect(() => {
-    if (statusPromo === StateStatus.LOADING) {
+    if (statusPromo === StateStatus.WORKING) {
       dispatch(fetchPromo());
     }
   }, [statusPromo, dispatch]);
@@ -62,8 +62,8 @@ const Main = () => {
   };
 
   if (
-    statusMovies === StateStatus.LOADING ||
-    statusPromo === StateStatus.LOADING
+    statusMovies === StateStatus.WORKING ||
+    statusPromo === StateStatus.WORKING
   ) {
     return <Loading />;
   }

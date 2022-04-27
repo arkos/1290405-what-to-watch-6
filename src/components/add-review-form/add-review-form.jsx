@@ -54,8 +54,8 @@ const AddReviewForm = ({ movie }) => {
   useEffect(() => {
     setFormState({
       ...formState,
-      isSaving: statusReviews === StateStatus.LOADING,
-      isDisabled: statusReviews === StateStatus.LOADING,
+      isSaving: statusReviews === StateStatus.WORKING,
+      isDisabled: statusReviews === StateStatus.WORKING,
       isAborting: statusReviews === StateStatus.FAILED,
     });
   }, [statusReviews]);
