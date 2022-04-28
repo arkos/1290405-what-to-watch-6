@@ -21,7 +21,7 @@ const Main = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (statusMovies === StateStatus.WORKING) {
+    if (statusMovies === StateStatus.IDLE) {
       dispatch(fetchMovies());
     }
   }, [statusMovies, dispatch]);

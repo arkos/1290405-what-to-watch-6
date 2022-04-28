@@ -7,7 +7,7 @@ const moviesSlice = createSlice({
   name: SliceType.MOVIES,
   initialState: {
     movies: [],
-    status: StateStatus.WORKING,
+    status: StateStatus.IDLE,
   },
   reducers: {
     loadReviews: (state, action) => {
@@ -80,6 +80,9 @@ const moviesSlice = createSlice({
       .addCase(fetchMovies.fulfilled, (state, action) => {
         state.movies = action.payload;
         state.status = StateStatus.SUCCEEDED;
+      })
+      .addCase(fetchMovies.rejected, (state) => {
+        state.status = StateStatus.FAILED;
       });
   },
 });
