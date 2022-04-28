@@ -55,12 +55,8 @@ export const logout = createAsyncThunk(
 export const fetchMovies = createAsyncThunk(
   ActionType.FETCH_MOVIES,
   async (_, { dispatch, extra: api }) => {
-    try {
-      const { data } = await api.get(APIRoute.MOVIES);
-      return data.map(adaptMovieToClient);
-    } catch (err) {
-      console.log(`Failed to fetch movies: `, err);
-    }
+    const { data } = await api.get(APIRoute.MOVIES);
+    return data.map(adaptMovieToClient);
   }
 );
 
@@ -69,12 +65,8 @@ export const fetchMovies = createAsyncThunk(
 export const fetchPromo = createAsyncThunk(
   ActionType.FETCH_PROMO,
   async (_, { dispatch: _dispatch, extra: api }) => {
-    try {
-      const { data: promo } = await api.get(getPromoMovieUrl());
-      return adaptMovieToClient(promo);
-    } catch (err) {
-      console.log(`Failed fetching promo: `, err);
-    }
+    const { data: promo } = await api.get(getPromoMovieUrl());
+    return adaptMovieToClient(promo);
   }
 );
 
@@ -83,15 +75,11 @@ export const fetchPromo = createAsyncThunk(
 export const fetchReviews = createAsyncThunk(
   ActionType.FETCH_REVIEWS,
   async ({ id: movieId }, { dispatch: _dispatch, extra: api }) => {
-    try {
-      const { data } = await api.get(getApiReviewsUrl(movieId));
-      return {
-        reviews: data,
-        movieId,
-      };
-    } catch (err) {
-      console.log(`Failed to fetch reviews: `, err);
-    }
+    const { data } = await api.get(getApiReviewsUrl(movieId));
+    return {
+      reviews: data,
+      movieId,
+    };
   }
 );
 
