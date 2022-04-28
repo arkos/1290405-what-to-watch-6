@@ -14,7 +14,6 @@ import {
   StateStatus,
 } from "../../util/const";
 import { getPlayerUrl, getReviewUrl } from "../../util/route";
-import SignInIndicator from "../sign-in-indicator/sign-in-indicator";
 import Tabs from "../tabs/tabs";
 import { fetchMovies, postFavorite } from "../../store/api-actions";
 import Loading from "../loading/loading";
@@ -45,7 +44,7 @@ const Film = () => {
   };
 
   useEffect(() => {
-    if (statusMovies === StateStatus.WORKING) {
+    if (statusMovies === StateStatus.IDLE) {
       dispatch(fetchMovies());
     }
   }, [statusMovies, dispatch, id]);
@@ -58,17 +57,18 @@ const Film = () => {
     return <NotFound />;
   }
 
+  let content;
+  let similarMovies = [];
+
   if (statusMovies === StateStatus.WORKING) {
     return <Loading />;
-  }
+  } else if (statusMovies === StateStatus.SUCCEEDED) {
+    const { name, backgroundImagePath, genre, released } = movie;
 
-  const { name, backgroundImagePath, genre, released } = movie;
+    similarMovies = filterSimilarMovies(movies, movie);
 
-  const similarMovies = filterSimilarMovies(movies, movie);
-
-  return (
-    <Fragment>
-      <section className="movie-card movie-card--full">
+    content = (
+      <>
         <div className="movie-card__hero">
           <div className="movie-card__bg">
             <img src={backgroundImagePath} alt={name} />
@@ -112,7 +112,13 @@ const Film = () => {
         <div className="movie-card__wrap movie-card__translate-top">
           <Tabs movie={movie} />
         </div>
-      </section>
+      </>
+    );
+  }
+
+  return (
+    <Fragment>
+      <section className="movie-card movie-card--full">{content}</section>
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
