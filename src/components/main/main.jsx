@@ -39,7 +39,7 @@ const Main = () => {
   };
 
   if (statusMovies === StateStatus.WORKING) {
-    return <Loading />;
+    return <Loading text="Loading movies ..." />;
   }
 
   return (
