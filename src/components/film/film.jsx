@@ -23,6 +23,7 @@ import MovieList from "../movie-list/movie-list";
 import { filterSimilarMovies } from "../../util/movie";
 import AddFavorite from "../add-favorite/add-favorite";
 import NotFound from "../not-found/not-found";
+import Header from "../header/header";
 
 const Film = () => {
   const { id } = useParams();
@@ -73,16 +74,7 @@ const Film = () => {
             <img src={backgroundImagePath} alt={name} />
           </div>
           <h1 className="visually-hidden">WTW</h1>
-          <header className="page-header movie-card__head">
-            <div className="logo">
-              <Link to={AppRoute.ROOT} className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </Link>
-            </div>
-            <SignInIndicator />
-          </header>
+          <Header className="movie-card__head" href={AppRoute.ROOT} />
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
               <h2 className="movie-card__title">{name}</h2>

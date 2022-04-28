@@ -9,6 +9,8 @@ import AddReviewForm from "../add-review-form/add-review-form";
 import SignInIndicator from "../sign-in-indicator/sign-in-indicator";
 import { getAllMovies } from "../../store/selectors/selectors";
 import AuthorizationProgress from "../authorization-progress/authorization-progress";
+import Header from "../header/header";
+import Logo from "../logo/logo";
 
 const AddReview = () => {
   const { id } = useParams();
@@ -38,15 +40,8 @@ const AddReview = () => {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <header className="page-header">
-          <div className="logo">
-            <Link to={AppRoute.ROOT} className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </Link>
-          </div>
-
+        <Header>
+          <Logo href={AppRoute.ROOT} />
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
@@ -59,9 +54,8 @@ const AddReview = () => {
               </li>
             </ul>
           </nav>
-
           <SignInIndicator />
-        </header>
+        </Header>
 
         <div className="movie-card__poster movie-card__poster--small">
           <img src={posterImagePath} alt={name} width="218" height="327" />

@@ -11,10 +11,10 @@ import MovieList from "../movie-list/movie-list";
 import GenreList from "../genre-list/genre-list";
 import Loading from "../loading/loading";
 import ShowMore from "../show-more/show-more";
-import SignInIndicator from "../sign-in-indicator/sign-in-indicator";
 import { fetchMovies, postFavorite, fetchPromo } from "../../store/api-actions";
 import { changeCountToRender, resetMain } from "../../store/action";
 import AddFavorite from "../add-favorite/add-favorite";
+import Header from "../header/header";
 
 const Main = () => {
   let movies = useSelector((state) => getFilteredMovies(state));
@@ -80,18 +80,7 @@ const Main = () => {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <header className="page-header movie-card__head">
-          <div className="logo">
-            <a className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <SignInIndicator />
-        </header>
-
+        <Header className="movie-card__head" />
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">

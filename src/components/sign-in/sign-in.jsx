@@ -4,6 +4,8 @@ import { Link, Navigate } from "react-router-dom";
 import { AppRoute, AuthorizationStatus, StateStatus } from "../../util/const";
 import { login } from "../../store/api-actions";
 import AuthorizationProgress from "../authorization-progress/authorization-progress";
+import Header from "../header/header";
+import Logo from "../logo/logo";
 
 const SignIn = () => {
   const loginRef = useRef();
@@ -87,17 +89,10 @@ const SignIn = () => {
 
   return (
     <div className="user-page">
-      <header className="page-header user-page__head">
-        <div className="logo">
-          <Link to={AppRoute.ROOT} className="logo__link">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </Link>
-        </div>
-
+      <Header className="user-page__head">
+        <Logo href={AppRoute.ROOT} />
         <h1 className="page-title user-page__title">Sign in</h1>
-      </header>
+      </Header>
 
       <div className="sign-in user-page__content">
         <form action="#" className="sign-in__form" onSubmit={handleSubmit}>

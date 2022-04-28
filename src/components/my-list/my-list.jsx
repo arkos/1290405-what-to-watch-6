@@ -8,6 +8,8 @@ import { getFavoriteMovies } from "../../store/selectors/selectors";
 import { fetchFavorites } from "../../store/api-actions";
 import Loading from "../loading/loading";
 import AuthorizationProgress from "../authorization-progress/authorization-progress";
+import Header from "../header/header";
+import Logo from "../logo/logo";
 
 const MyList = () => {
   const favoriteMovies = useSelector((state) => getFavoriteMovies(state));
@@ -30,19 +32,11 @@ const MyList = () => {
 
   return (
     <div className="user-page">
-      <header className="page-header user-page__head">
-        <div className="logo">
-          <Link to={AppRoute.ROOT} className="logo__link">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </Link>
-        </div>
-
+      <Header className="user-page__head">
+        <Logo href={AppRoute.ROOT} />
         <h1 className="page-title user-page__title">My list</h1>
-
         <SignInIndicator />
-      </header>
+      </Header>
 
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
