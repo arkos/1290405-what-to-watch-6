@@ -1,6 +1,6 @@
 import React from "react";
 
-const Loading = () => {
+const Loading = ({ text }) => {
   return (
     <React.Fragment>
       <section className="movie-card">
@@ -13,7 +13,7 @@ const Loading = () => {
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header movie-card__head">
           <div className="movie-card__desc">
-            <h2 className="movie-card__title">Loading...</h2>
+            <h2 className="movie-card__title">{text ? text : `Loading ...`}</h2>
           </div>
         </header>
         <div className="movie-card__wrap">
