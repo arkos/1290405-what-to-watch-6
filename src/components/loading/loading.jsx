@@ -1,4 +1,5 @@
 import React from "react";
+import Spinner from "../spinner/spinner";
 
 const Loading = ({ text }) => {
   return (
@@ -12,6 +13,7 @@ const Loading = ({ text }) => {
         </div>
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header movie-card__head">
+          <Spinner />
           <div className="movie-card__desc">
             <h2 className="movie-card__title">{text ? text : `Loading ...`}</h2>
           </div>
