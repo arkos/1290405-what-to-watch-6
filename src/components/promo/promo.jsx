@@ -31,7 +31,7 @@ const Promo = () => {
   };
 
   if (statusPromo === StateStatus.WORKING) {
-    return <Loading />;
+    return <Loading text="Loading promo ..." />;
   }
 
   const { id, name, backgroundImagePath, posterImagePath, genre, released } =
