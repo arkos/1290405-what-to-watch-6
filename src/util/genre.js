@@ -2,7 +2,7 @@ import { FILTER_ALL_GENRES, MAX_GENRES_COUNT } from "./const";
 
 export const getUniqueGenres = (movies, count = MAX_GENRES_COUNT) => {
   if (!movies || movies.length === 0) {
-    return null;
+    return [];
   }
 
   const genres = movies.map((movie) => movie.genre);
