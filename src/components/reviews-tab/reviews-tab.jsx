@@ -5,6 +5,10 @@ import { getReviewsForMovie } from "../../store/selectors/selectors";
 import { StateStatus } from "../../util/const";
 import Validator from "../../util/validate";
 import ReviewItem from "../review-item/review-item";
+import Spinner from "../spinner/spinner";
+
+const SPINNER_COLOR = "#000000";
+const SPINNER_SIZE = 10;
 
 const ReviewsTab = ({ movie }) => {
   const reviews = useSelector((state) => getReviewsForMovie(state, movie.id));
@@ -32,7 +36,13 @@ const ReviewsTab = ({ movie }) => {
   const secondColumnIndex = Math.ceil(reviews.length / 2);
 
   if (reviewsStatus === StateStatus.WORKING) {
-    return <div className="review">Loading reviews...</div>;
+    return (
+      <>
+        <div className="review">
+          Loading reviews <Spinner color={SPINNER_COLOR} size={SPINNER_SIZE} />
+        </div>
+      </>
+    );
   } else if (reviewsStatus === StateStatus.SUCCEEDED) {
     content = (
       <>
