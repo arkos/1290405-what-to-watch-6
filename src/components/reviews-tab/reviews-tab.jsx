@@ -1,43 +1,60 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchReviews } from "../../store/api-actions";
 import { getReviewsForMovie } from "../../store/selectors/selectors";
+import { StateStatus } from "../../util/const";
 import Validator from "../../util/validate";
 import ReviewItem from "../review-item/review-item";
 
 const ReviewsTab = ({ movie }) => {
   const reviews = useSelector((state) => getReviewsForMovie(state, movie.id));
+  const [reviewsStatus, setReviewsStatus] = useState(StateStatus.IDLE);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!reviews) {
-      dispatch(fetchReviews(movie));
+    const getReviews = async () => {
+      try {
+        setReviewsStatus(StateStatus.WORKING);
+        await dispatch(fetchReviews(movie)).unwrap();
+        setReviewsStatus(StateStatus.SUCCEEDED);
+      } catch (err) {
+        setReviewsStatus(StateStatus.FAILED);
+      }
+    };
+
+    if (reviewsStatus === StateStatus.IDLE) {
+      getReviews();
     }
-  }, [dispatch, movie, reviews]);
+  }, [reviewsStatus, dispatch, movie]);
 
-  if (!reviews) {
-    return <div className="review">Loading reviews...</div>;
-  }
-
+  let content;
   const secondColumnIndex = Math.ceil(reviews.length / 2);
 
-  return (
-    <div className="movie-card__reviews movie-card__row">
-      <div className="movie-card__reviews-col">
-        {reviews.slice(0, secondColumnIndex).map((review) => (
-          <ReviewItem key={review.id} review={review} />
-        ))}
-      </div>
-      {secondColumnIndex > 0 && (
+  if (reviewsStatus === StateStatus.WORKING) {
+    return <div className="review">Loading reviews...</div>;
+  } else if (reviewsStatus === StateStatus.SUCCEEDED) {
+    content = (
+      <>
         <div className="movie-card__reviews-col">
-          {reviews.slice(secondColumnIndex).map((review) => (
+          {reviews.slice(0, secondColumnIndex).map((review) => (
             <ReviewItem key={review.id} review={review} />
           ))}
         </div>
-      )}
-    </div>
-  );
+        {secondColumnIndex > 0 && (
+          <div className="movie-card__reviews-col">
+            {reviews.slice(secondColumnIndex).map((review) => (
+              <ReviewItem key={review.id} review={review} />
+            ))}
+          </div>
+        )}
+      </>
+    );
+  } else if (reviewsStatus === StateStatus.FAILED) {
+    content = <div className="review">Failed to load reviews</div>;
+  }
+
+  return <div className="movie-card__reviews movie-card__row">{content}</div>;
 };
 
 ReviewsTab.propTypes = {

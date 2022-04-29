@@ -37,7 +37,7 @@ export const getReviewsForMovie = createSelector(
   (_state, movieId) => movieId,
   (data, movieId) => {
     const findItem = data.find((item) => item.movieId === movieId);
-    return findItem && findItem.reviews;
+    return (findItem && findItem.reviews) || [];
   }
 );
 

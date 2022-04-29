@@ -7,7 +7,7 @@ const reviewSlice = createSlice({
   name: SliceType.REVIEWS,
   initialState: {
     data: [],
-    status: StateStatus.WORKING,
+    status: StateStatus.IDLE,
   },
   extraReducers: (builder) => {
     builder
